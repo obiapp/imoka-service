@@ -1,0 +1,67 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29-oct.-2016, 8:56:01
+    Author     : r.hendrick
+*/
+
+.ui-btn-bottom{
+    margin-top: 5px!important;
+    margin-right: 5px!important;
+    
+}
+
+.ui-button-icon-left.ui-icon.ui-c.ui-btn-Connect{
+    background: url("#{resource['img/std/Connect.png']}") no-repeat;
+    background-size:contain;
+}
+
+
+/* =============================================================================
+ * GESTION D'AFFICHAGE DES FORMULAIRE
+ * ===========================================================================*/
+tr.ui-widget-content{
+}
+td.ui-panelgrid-cell.columnFieldClass{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+td.ui-panelgrid-cell.columnContentClass{
+    padding: 2px;
+}
+
+.columnFieldClass{
+    min-width: 150px;
+}
+.columnContentClass{
+    width: 100%;
+}
+.columnContentClass input,
+.columnContentClass select,
+.columnContentClass textarea,
+.columnContentClass .ui-selectonemenu,
+.columnContentClass .ui-selectcheckboxmenu
+{
+    width: 410px;
+}
+.columnContentClass textarea{
+    width: 410px!important;
+}
+
+.columnContentClass .ui-selectonemenu {
+    min-width: 382px;
+    max-width: 382px;
+}
+
+div .ui-accordion-content.ui-helper-reset.ui-widget-content{
+    margin:0px!important;
+    padding: 0px!important;
+}
+
+
+
+
+
