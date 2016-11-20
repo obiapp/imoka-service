@@ -12,10 +12,10 @@ import javax.persistence.CacheRetrieveMode;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import org.imoka.entities.Machines;
+import org.imoka.entities.MachinesTypes;
 
 /**
- * <h1>MachinesFacade</h1>
+ * <h1>MachinesTypesFacade</h1>
  * <p>
  * This class coverts 
  * </p>
@@ -24,26 +24,26 @@ import org.imoka.entities.Machines;
  * @author r.hendrick
  */
 @Stateless
-public class MachinesFacade extends AbstractFacade<Machines> {
-
+public class MachinesTypesFacade extends AbstractFacade<MachinesTypes> {
 
     @PersistenceContext(unitName = "IMOKA_PU")
     private EntityManager em;
-    private final String SELECTALLBYLASTCHANGED = "Machines.selectAllByLastChange";
-    private final String FIND_BY_CODE = "Machines.findByAdress";  
-    private final String FIND_BY_DESIGNATION = "Machines.findByMachine";
+    private final String SELECTALLBYLASTCHANGED = "MachinesTypes.selectAllByLastChange";
+    private final String FIND_BY_CODE = "MachinesTypes.findByType";  
+    private final String FIND_BY_DESIGNATION = "MachinesTypes.findByDesignation";
+
 
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
-    public MachinesFacade() {
-        super(Machines.class);
+    public MachinesTypesFacade() {
+        super(MachinesTypes.class);
     }
-    
+
       
-    public List<Machines> findAllByLastChanged() {
+    public List<MachinesTypes> findAllByLastChanged() {
         em.flush();
         Query q = em.createNamedQuery(SELECTALLBYLASTCHANGED);
         q.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
@@ -54,9 +54,9 @@ public class MachinesFacade extends AbstractFacade<Machines> {
         return null;
     }
 
-    public List<Machines> findByCode(String adress) {
+    public List<MachinesTypes> findByCode(String type) {
         em.flush();
-        Query q = em.createNamedQuery(FIND_BY_CODE).setParameter("adress", adress);
+        Query q = em.createNamedQuery(FIND_BY_CODE).setParameter("type", type);
         q.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
         int count = q.getResultList().size();
         if (count > 0) {
@@ -65,9 +65,9 @@ public class MachinesFacade extends AbstractFacade<Machines> {
         return null;
     }
 
-    public List<Machines> findByDesignation(String machine) {
+    public List<MachinesTypes> findByDesignation(String designation) {
         em.flush();
-        Query q = em.createNamedQuery(FIND_BY_DESIGNATION).setParameter("machine", machine);
+        Query q = em.createNamedQuery(FIND_BY_DESIGNATION).setParameter("designation", designation);
         q.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
         int count = q.getResultList().size();
         if (count > 0) {

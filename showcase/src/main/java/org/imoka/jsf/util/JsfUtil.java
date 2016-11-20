@@ -140,6 +140,7 @@ public class JsfUtil {
      * Logging message on server
      *
      * @param msg message to be display
+     * @param Group
      */
     public static void out(String msg, String Group) {
         if (!debug) {
@@ -154,8 +155,8 @@ public class JsfUtil {
     /**
      * Allow to retrive a component specify by an id
      *
-     * @param id
-     * @return
+     * @param id id  to found
+     * @return component research
      */
     public static UIComponent findComponent(final String id) {
         final UIComponent[] found = new UIComponent[1];

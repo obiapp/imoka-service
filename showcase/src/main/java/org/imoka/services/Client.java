@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.imoka.showcase;
+package org.imoka.services;
+
 
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.imoka.core.moka7.*;
-import org.imoka.jsf.util.JsfUtil;
 import java.text.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.imoka.util.BlockType;
+import java.util.Map;
 
 /**
  * <h1>Client</h1>
@@ -61,11 +61,10 @@ public class Client implements Serializable {
      */
     private String out = "";
 
-    /**
-     * Static definition of bloc Type
-     */
-    private List<BlockType> blockTypes = new ArrayList<>();
+    
+    
 
+    
     private Integer blockType = 0;
     private Integer blockNumber = 0;
 
@@ -102,44 +101,46 @@ public class Client implements Serializable {
      *
      */
     public void handleConnect() {
+/*
         elapseInit();
 
+        /*
         out += JsfUtil.cssH3("HandleConnect");
         out += JsfUtil.htmlTxtStart();
         out += JsfUtil.cssBold("Client - Connect To : ") + JsfUtil.htmlTxt("[IP : " + ipAddress + "] [RACK : " + rack + "] [SLOT : " + slot + "]");
-
-        
+        */
+/*        
         if (s7Client != null) {
             s7Client.Disconnect();
-            out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Disconnect : ") + JsfUtil.htmlSucced("S7 Client Disconnected");
-        }else{
-            out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Disconnect : ") + JsfUtil.htmlSucced("S7 Client not exist");
-        }
+            /*out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Disconnect : ") + JsfUtil.htmlSucced("S7 Client Disconnected");*/
+/*        }else{
+            /*out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Disconnect : ") + JsfUtil.htmlSucced("S7 Client not exist");*/
+/*        }
 
         ///
         s7Client = new S7Client();
         s7Client.SetConnectionType(S7.OP);
-        out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Setup Connection Type [" + S7.OP + "] : ") + JsfUtil.htmlSucced("execute setup connection type [" + S7.OP + " successfuly");
-
+        /*out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Setup Connection Type [" + S7.OP + "] : ") + JsfUtil.htmlSucced("execute setup connection type [" + S7.OP + " successfuly");
+            */
         ///
-        int Result = s7Client.ConnectTo(this.ipAddress, this.rack, this.slot);
-        out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execute connectTo : ");
-        if (Result == 0) {
-            out += JsfUtil.htmlSucced("done successfuly >> IP(" + this.ipAddress
+/*        int Result = s7Client.ConnectTo(this.ipAddress, this.rack, this.slot);
+        /*out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execute connectTo : ");*/
+/*        if (Result == 0) {
+            /*out += JsfUtil.htmlSucced("done successfuly >> IP(" + this.ipAddress
                     + ") Rack(" + this.rack
                     + ") Slot(" + this.slot
                     + ")");
-            out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("PDU negotiated : ") + JsfUtil.htmlTxt(s7Client.PDULength() + " bytes");
-        } else {
-            out += JsfUtil.htmlError("error while connectTo  IP(" + this.ipAddress
+            out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("PDU negotiated : ") + JsfUtil.htmlTxt(s7Client.PDULength() + " bytes");*/
+/*        } else {
+            /*out += JsfUtil.htmlError("error while connectTo  IP(" + this.ipAddress
                     + ") Rack(" + this.rack
                     + ") Slot(" + this.slot
-                    + ") !!! " + S7Client.ErrorText(Result)) + JsfUtil.htmlTxtEnd();
-            connect = false;
+                    + ") !!! " + S7Client.ErrorText(Result)) + JsfUtil.htmlTxtEnd();*/
+/*            connect = false;
         }
         connect = Result == 0;
-        out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execution time ") + JsfUtil.htmlTxt(elapseEnd() + " ms ");
-        out += JsfUtil.htmlTxtEnd();
+        /*out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execution time ") + JsfUtil.htmlTxt(elapseEnd() + " ms ");
+        out += JsfUtil.htmlTxtEnd();*/
     }
 
     /**
@@ -148,64 +149,65 @@ public class Client implements Serializable {
     public void handleSysInfo() {
         elapseInit();
         int Result;
-        out += JsfUtil.cssH3("GetOrderCode") + JsfUtil.htmlTxtStart();
+        /*out += JsfUtil.cssH3("GetOrderCode") + JsfUtil.htmlTxtStart();*/
 
         /// Check if connection was establish
         if (!connect) {
-            out += JsfUtil.htmlError("Connecton was no set !")
-                    + JsfUtil.htmlTxtEnd();
+            /*out += JsfUtil.htmlError("Connecton was no set !")
+                    + JsfUtil.htmlTxtEnd();*/
             return;
         }
 
         /// 
-        out += JsfUtil.cssBold("Init. S7 Order Code : create");
+        /*out += JsfUtil.cssBold("Init. S7 Order Code : create");*/
         S7OrderCode orderCode = new S7OrderCode();
         Result = s7Client.GetOrderCode(orderCode);
-        out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execute S7 Client GetOrderCode : ");
+        /*out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execute S7 Client GetOrderCode : ");*/
         if (Result == 0) {
-            out += JsfUtil.htmlSucced("done successfuly >> Order Code(" + orderCode.Code() + ")");
+            /*out += JsfUtil.htmlSucced("done successfuly >> Order Code(" + orderCode.Code() + ")");
             out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Firmware version : ");
-            out += JsfUtil.htmlTxt(orderCode.V1 + "." + orderCode.V2 + "." + orderCode.V3);
+            out += JsfUtil.htmlTxt(orderCode.V1 + "." + orderCode.V2 + "." + orderCode.V3);*/
         } else {
-            out += JsfUtil.htmlError("error while GetOrderCode  Code(" + orderCode.Code()
-                    + ") !!!" + S7Client.ErrorText(Result));
+            /*out += JsfUtil.htmlError("error while GetOrderCode  Code(" + orderCode.Code()
+                    + ") !!!" + S7Client.ErrorText(Result));*/
         }
-        out += JsfUtil.cssBold("Execution time ")
-                + JsfUtil.htmlTxt(elapseEnd() + " ms");
+        /*out += JsfUtil.cssBold("Execution time ")
+                + JsfUtil.htmlTxt(elapseEnd() + " ms");*/
 
         ///
         elapseInit();
-        out += JsfUtil.cssH3("GetCpuInfo");
+        /*out += JsfUtil.cssH3("GetCpuInfo");*/
         S7CpuInfo CpuInfo = new S7CpuInfo();
         Result = s7Client.GetCpuInfo(CpuInfo);
-        out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execute S7 Client GetCpuInfo : ");
+        /*out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execute S7 Client GetCpuInfo : ");*/
         if (Result == 0) {
-            out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Module Type Name : ") + JsfUtil.htmlTxt(CpuInfo.ModuleTypeName());
+            /*out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Module Type Name : ") + JsfUtil.htmlTxt(CpuInfo.ModuleTypeName());
             out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Serial Number    : ") + JsfUtil.htmlTxt(CpuInfo.SerialNumber());
             out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("AS Name          : ") + JsfUtil.htmlTxt(CpuInfo.ASName());
             out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("CopyRight        : ") + JsfUtil.htmlTxt(CpuInfo.Copyright());
-            out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Module Name      : ") + JsfUtil.htmlTxt(CpuInfo.ModuleName());
+            out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Module Name      : ") + JsfUtil.htmlTxt(CpuInfo.ModuleName());*/
         } else {
-            out += JsfUtil.htmlError("error while GetCpuInfo : " + S7Client.ErrorText(Result));
+            /*out += JsfUtil.htmlError("error while GetCpuInfo : " + S7Client.ErrorText(Result));*/
         }
-        out += JsfUtil.cssBold("Execution time ") + JsfUtil.htmlTxt(elapseEnd() + " ms");
+        /*out += JsfUtil.cssBold("Execution time ") + JsfUtil.htmlTxt(elapseEnd() + " ms");*/
 
         elapseInit();
-        out += JsfUtil.cssH3("GetCpInfo");
+        /*out += JsfUtil.cssH3("GetCpInfo");*/
         S7CpInfo CpInfo = new S7CpInfo();
         Result = s7Client.GetCpInfo(CpInfo);
-        out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execute S7 Client GetCpInfo : ");
+        /*out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execute S7 Client GetCpInfo : ");*/
         if (Result == 0) {
-            out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Max PDU Length    : ") + JsfUtil.htmlTxt(String.valueOf(CpInfo.MaxPduLength));
+            /*out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Max PDU Length    : ") + JsfUtil.htmlTxt(String.valueOf(CpInfo.MaxPduLength));
             out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Max connections   : ") + JsfUtil.htmlTxt(String.valueOf(CpInfo.MaxConnections));
             out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Max MPI rate (bps): ") + JsfUtil.htmlTxt(String.valueOf(CpInfo.MaxMpiRate));
             out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Max Bus rate (bps): ") + JsfUtil.htmlTxt(String.valueOf(CpInfo.MaxBusRate));
+            */
         } else {
-            out += JsfUtil.htmlError("error while GetCpInfo  " + S7Client.ErrorText(Result));
+           /* out += JsfUtil.htmlError("error while GetCpInfo  " + S7Client.ErrorText(Result));*/
             //return;
         }
-        out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execution time ")
-                + JsfUtil.htmlTxt(elapseEnd() + " ms") + JsfUtil.htmlTxtEnd();
+        /*out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execution time ")
+                + JsfUtil.htmlTxt(elapseEnd() + " ms") + JsfUtil.htmlTxtEnd();*/
     }
 
     /**
@@ -214,17 +216,17 @@ public class Client implements Serializable {
      */
     public void handleDateAndTime() {
         elapseInit();
-        out += JsfUtil.cssH3("GetPlCDateTime");
+        //out += JsfUtil.cssH3("GetPlCDateTime");
         Date PlcDateTime = new Date();
         int Result = s7Client.GetPlcDateTime(PlcDateTime);
-        out += JsfUtil.htmlTxtStart() + JsfUtil.cssBold("Execute S7 Client GetPlCDateTime : ");
+        //out += JsfUtil.htmlTxtStart() + JsfUtil.cssBold("Execute S7 Client GetPlCDateTime : ");
         if (Result == 0) {
-            out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("CPU Date/Time    : ") + JsfUtil.htmlTxt(PlcDateTime.toString());
+            //out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("CPU Date/Time    : ") + JsfUtil.htmlTxt(PlcDateTime.toString());
         } else {
-            out += JsfUtil.htmlError("error while GetPlCDateTime  " + S7Client.ErrorText(Result));
+            //out += JsfUtil.htmlError("error while GetPlCDateTime  " + S7Client.ErrorText(Result));
         }
-        out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execution time ")
-                + JsfUtil.htmlTxt(elapseEnd() + " ms") + JsfUtil.htmlTxtEnd();
+        /*out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execution time ")
+                + JsfUtil.htmlTxt(elapseEnd() + " ms") + JsfUtil.htmlTxtEnd();*/
     }
 
     /**
@@ -234,11 +236,12 @@ public class Client implements Serializable {
      */
     public void handleBlockInfo() {
         elapseInit();
-        out += JsfUtil.cssH3("GetAgBlockInfo");
+        //out += JsfUtil.cssH3("GetAgBlockInfo");
         S7BlockInfo Block = new S7BlockInfo();
-        out += JsfUtil.htmlTxtStart() + JsfUtil.cssBold("Execute S7 Client GetAgBlockInfo : ");
+        //out += JsfUtil.htmlTxtStart() + JsfUtil.cssBold("Execute S7 Client GetAgBlockInfo : ");
         int Result = s7Client.GetAgBlockInfo(blockType, blockNumber, Block);
         if (Result == 0) {
+            /*
             out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Block Flags     : ") + JsfUtil.htmlTxt(Integer.toBinaryString(Block.BlkFlags()));
             out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Block Number    : ") + JsfUtil.htmlTxt(String.valueOf(Block.BlkNumber()));
             out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Block Languege  : ") + JsfUtil.htmlTxt(String.valueOf(Block.BlkLang()));
@@ -251,14 +254,16 @@ public class Client implements Serializable {
             out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Header          : ") + JsfUtil.htmlTxt(String.valueOf(Block.Header()));
             out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Version         : ") + JsfUtil.htmlTxt(String.valueOf(Block.Version()));
             out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Checksum        : 0x") + JsfUtil.htmlTxt(Integer.toHexString(Block.Checksum()));
+            */
             SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy");
-            out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Code Date       : ") + JsfUtil.htmlTxt(ft.format(Block.CodeDate()));
+            /*out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Code Date       : ") + JsfUtil.htmlTxt(ft.format(Block.CodeDate()));
             out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Interface Date  : ") + JsfUtil.htmlTxt(ft.format(Block.IntfDate()));
+            */
         } else {
-            out += JsfUtil.htmlError(JsfUtil.cssBold("error while GetAgBlockInfo  ") + S7Client.ErrorText(Result));
+            //out += JsfUtil.htmlError(JsfUtil.cssBold("error while GetAgBlockInfo  ") + S7Client.ErrorText(Result));
         }
-        out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execution time ")
-                + JsfUtil.htmlTxt(elapseEnd() + " ms") + JsfUtil.htmlTxtEnd();
+        /*out += JsfUtil.htmlTxtBreak() + JsfUtil.cssBold("Execution time ")
+                + JsfUtil.htmlTxt(elapseEnd() + " ms") + JsfUtil.htmlTxtEnd();*/
     }
 
     
@@ -308,26 +313,19 @@ public class Client implements Serializable {
         this.out = out;
     }
 
-    public List<BlockType> getBlockTypes() {
-        if (blockTypes.isEmpty()) {
-            blockTypes.add(new BlockType("BLOCK DB", S7.Block_DB));
-            blockTypes.add(new BlockType("BLOCK FB", S7.Block_FB));
-            blockTypes.add(new BlockType("BLOCK FC", S7.Block_FC));
-            blockTypes.add(new BlockType("BLOCK OB", S7.Block_OB));
-            blockTypes.add(new BlockType("BLOCK SDB", S7.Block_SDB));
-            blockTypes.add(new BlockType("BLOCK SFB", S7.Block_SFB));
-            blockTypes.add(new BlockType("BLOCK SFC", S7.Block_SFC));
-        }
-        return blockTypes;
+    public List<BlockTypes> getBlockTypes(){
+        List<BlockTypes> lst = new ArrayList<>();
+        lst.add(new BlockTypes("BLOCK DB", S7.Block_DB));
+        lst.add(new BlockTypes("BLOCK FB", S7.Block_FB));
+        lst.add(new BlockTypes("BLOCK FC", S7.Block_FC));
+        lst.add(new BlockTypes("BLOCK OB", S7.Block_OB));
+        lst.add(new BlockTypes("BLOCK SDB", S7.Block_SDB));
+        lst.add(new BlockTypes("BLOCK SFB", S7.Block_SFB));
+        lst.add(new BlockTypes("BLOCK SFC", S7.Block_SFC));
+        return lst ;
     }
 
-    public Integer getBlockType() {
-        return blockType;
-    }
 
-    public void setBlockType(Integer blockType) {
-        this.blockType = blockType;
-    }
 
     public Integer getBlockNumber() {
         return blockNumber;

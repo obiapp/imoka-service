@@ -1,9 +1,9 @@
 package org.imoka.jsf;
 
-import org.imoka.entities.Machines;
+import org.imoka.entities.MachinesTypes;
 import org.imoka.jsf.util.JsfUtil;
 import org.imoka.jsf.util.JsfUtil.PersistAction;
-import org.imoka.sessions.MachinesFacade;
+import org.imoka.sessions.MachinesTypesFacade;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -32,21 +32,21 @@ import org.primefaces.model.Visibility;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ManagedBean;
 
-@ManagedBean(name = "machinesController")
+@ManagedBean(name = "machinesTypesController")
 @SessionScoped
-public class MachinesController implements Serializable {
+public class MachinesTypesController implements Serializable {
 
     @EJB
-    private org.imoka.sessions.MachinesFacade ejbFacade;
-    private List<Machines> items = null;
-    private Machines selected;
+    private org.imoka.sessions.MachinesTypesFacade ejbFacade;
+    private List<MachinesTypes> items = null;
+    private MachinesTypes selected;
     private Boolean isReleaseSelected;              //!< Spécifie si oui ou non l'élément selection doit rester en mémoire après création
     private Boolean isOnMultiCreation;              //!< Spécifie si le mode de création multiple est activé
 
     private Map<Integer, String> headerTextMap;     //!< map header in order to manage reodering
     private Map<String, Boolean> visibleColMap;     //!< Allow to keep 
 
-    public MachinesController() {
+    public MachinesTypesController() {
     }
 
     @PostConstruct
@@ -54,14 +54,12 @@ public class MachinesController implements Serializable {
         isReleaseSelected = true;   //!< by default, after a crud event select element is release (null)
         isOnMultiCreation = false;  //!< Par défaut, la création multiple n'est pas permise
         // STRING PARSE
-        String src_01 = "MachinesField_id";
-        String src_02 = "MachinesField_adress";
-        String src_03 = "MachinesField_machine";
-        String src_04 = "MachinesField_rack";
-        String src_05 = "MachinesField_slot";
-        String src_06 = "MachinesField_deleted";
-        String src_07 = "MachinesField_created";
-        String src_08 = "MachinesField_changed";
+        String src_01 = "MachinesTypesField_id";
+        String src_02 = "MachinesTypesField_type";
+        String src_03 = "MachinesTypesField_designation";
+        String src_04 = "MachinesTypesField_deleted";
+        String src_05 = "MachinesTypesField_created";
+        String src_06 = "MachinesTypesField_changed";
 
         // Setup initial visibility
         headerTextMap = new HashMap<>();
@@ -72,31 +70,29 @@ public class MachinesController implements Serializable {
         headerTextMap.put(4, ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_04));
         headerTextMap.put(5, ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_05));
         headerTextMap.put(6, ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_06));
-        headerTextMap.put(7, ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_07));
-        headerTextMap.put(8, ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_08));
-
+        
+        
         visibleColMap = new HashMap<>();
         visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString("CtrlShort"), true);
-        visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_01), true);
+        visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_01), false);
         visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_02), true);
         visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_03), true);
         visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_04), true);
         visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_05), true);
         visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_06), true);
-        visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_07), false);
-        visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_08), true);
+        
     }
 
-    private MachinesFacade getFacade() {
+    private MachinesTypesFacade getFacade() {
         return ejbFacade;
     }
 
-    /**
-     *
-     * @return prepared machine
-     */
-    public Machines prepareCreate() {
-        selected = new Machines();
+    ////////////////////////////////////////////////////////////////////////////
+    /// SPECIFIC FONCTION
+    ///
+    ////////////////////////////////////////////////////////////////////////////
+    public MachinesTypes prepareCreate() {
+        selected = new MachinesTypes();
         return selected;
     }
 
@@ -109,9 +105,9 @@ public class MachinesController implements Serializable {
         selected = null;
         JsfUtil.addSuccessMessage(
                 ResourceBundle.getBundle(JsfUtil.BUNDLE).
-                getString("MachinesReleaseSelectedSummary"),
+                getString("MachinesTypesReleaseSelectedSummary"),
                 ResourceBundle.getBundle(JsfUtil.BUNDLE).
-                getString("MachinesReleaseSelectedDetail"));
+                getString("MachinesTypesReleaseSelectedDetail"));
     }
 
     /**
@@ -121,9 +117,9 @@ public class MachinesController implements Serializable {
         isOnMultiCreation = !isOnMultiCreation;
         JsfUtil.addSuccessMessage(
                 ResourceBundle.getBundle(JsfUtil.BUNDLE).
-                getString("MachinesToggleMultiCreationSummary"),
+                getString("MachinesTypesToggleMultiCreationSummary"),
                 ResourceBundle.getBundle(JsfUtil.BUNDLE).
-                getString("MachinesToggleMultiCreationDetail") + isOnMultiCreation);
+                getString("MachinesTypesToggleMultiCreationDetail") + isOnMultiCreation);
     }
 
     /**
@@ -133,16 +129,20 @@ public class MachinesController implements Serializable {
         /*isOnMultiCreation = !isOnMultiCreation;*/
         JsfUtil.addSuccessMessage(
                 ResourceBundle.getBundle(JsfUtil.BUNDLE).
-                getString("MachinesToggleMultiCreationSummary"),
+                getString("MachinesTypesToggleMultiCreationSummary"),
                 ResourceBundle.getBundle(JsfUtil.BUNDLE).
-                getString("MachinesToggleMultiCreationDetail") + isOnMultiCreation);
+                getString("MachinesTypesToggleMultiCreationDetail") + isOnMultiCreation);
     }
 
+    /////////////////////////////////////////////////////////////////////////////
+    /// TABLE OPTIONS
+    ///
+    ////////////////////////////////////////////////////////////////////////////
     public void handleColumnToggle(ToggleEvent e) {
         visibleColMap.replace(headerTextMap.get((Integer) e.getData()),
                 e.getVisibility() == Visibility.VISIBLE);
 
-        JsfUtil.addSuccessMessage("Machines : Toggle Column",
+        JsfUtil.addSuccessMessage("MachinesTypes : Toggle Column",
                 "Column n° " + e.getData() + " is now " + e.getVisibility());
 
     }
@@ -160,17 +160,15 @@ public class MachinesController implements Serializable {
             columns += headerText + "(" + visible + ") <br >";
             i++;
         }
-        JsfUtil.addSuccessMessage("Machines : Reorder Column",
+        JsfUtil.addSuccessMessage("MachinesTypes : Reorder Column",
                 "Columns : <br>" + columns);
 
     }
 
-    /**
-     * ************************************************************************
-     * CRUD OPTIONS
-     *
-     * ************************************************************************
-     */
+    ////////////////////////////////////////////////////////////////////////////
+    /// CRUD OPTIONS
+    ///
+    ////////////////////////////////////////////////////////////////////////////
     public void create() {
         // Set time on creation action
         selected.setChanged(new Date());
@@ -178,10 +176,10 @@ public class MachinesController implements Serializable {
 
         persist(PersistAction.CREATE,
                 ResourceBundle.getBundle(JsfUtil.BUNDLE).
-                getString("MachinesPersistenceCreatedSummary"),
+                getString("MachinesTypesPersistenceCreatedSummary"),
                 ResourceBundle.getBundle(JsfUtil.BUNDLE).
-                getString("MachinesPersistenceCreatedDetail")
-                + selected.getMachine() + " <br > " + selected.getAdress());
+                getString("MachinesTypesPersistenceCreatedDetail")
+                + selected.getType() + " <br > " + selected.getDesignation());
 
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -189,12 +187,12 @@ public class MachinesController implements Serializable {
                 selected = null;
             }
             if (isOnMultiCreation) {
-                selected = new Machines();
+                selected = new MachinesTypes();
 
             } else {
                 JsfUtil.out("is not on multicreation");
-                List<Machines> v_Machines = getFacade().findAll();
-                selected = v_Machines.get(v_Machines.size() - 1);
+                List<MachinesTypes> v_MachinesTypes = getFacade().findAll();
+                selected = v_MachinesTypes.get(v_MachinesTypes.size() - 1);
             }
         }
     }
@@ -210,19 +208,19 @@ public class MachinesController implements Serializable {
 
         persist(PersistAction.UPDATE,
                 ResourceBundle.getBundle(JsfUtil.BUNDLE).
-                getString("MachinesPersistenceUpdatedSummary"),
+                getString("MachinesTypesPersistenceUpdatedSummary"),
                 ResourceBundle.getBundle(JsfUtil.BUNDLE).
-                getString("MachinesPersistenceUpdatedDetail")
-                + selected.getMachine() + " <br > " + selected.getAdress());
+                getString("MachinesTypesPersistenceUpdatedDetail")
+                + selected.getType() + " <br > " + selected.getDesignation());
     }
 
     public void destroy() {
         persist(PersistAction.DELETE,
                 ResourceBundle.getBundle(JsfUtil.BUNDLE).
-                getString("MachinesPersistenceDeletedSummary"),
+                getString("MachinesTypesPersistenceDeletedSummary"),
                 ResourceBundle.getBundle(JsfUtil.BUNDLE).
-                getString("MachinesPersistenceDeletedDetail")
-                + selected.getMachine() + " <br > " + selected.getAdress());
+                getString("MachinesTypesPersistenceDeletedDetail")
+                + selected.getType() + " <br > " + selected.getDesignation());
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
             selected = null;
@@ -261,34 +259,37 @@ public class MachinesController implements Serializable {
         persist(persistAction, detail, detail);
     }
 
-    //////////////////////////////////////////////////////////////////////////
-    public Machines getMachines(java.lang.Integer id) {
+    ////////////////////////////////////////////////////////////////////////////
+    /// JPA
+    ///
+    ////////////////////////////////////////////////////////////////////////////
+    public MachinesTypes getMachinesTypes(java.lang.Integer id) {
         return getFacade().find(id);
     }
 
-    public List<Machines> getItems() {
+    public List<MachinesTypes> getItems() {
         items = getFacade().findAll();
         return items;
     }
 
-    public List<Machines> getItemsByLastChanged() {
+    public List<MachinesTypes> getItemsByLastChanged() {
         items = getFacade().findAllByLastChanged();
         return items;
     }
 
-    public List<Machines> getItemsByMachines(String _Machines) {
-        return getFacade().findByCode(_Machines);
+    public List<MachinesTypes> getItemsByMachinesTypes(String _MachinesTypes) {
+        return getFacade().findByCode(_MachinesTypes);
     }
 
-    public List<Machines> getItemsByDesignation(String designation) {
+    public List<MachinesTypes> getItemsByDesignation(String designation) {
         return getFacade().findByDesignation(designation);
     }
 
-    public List<Machines> getItemsAvailableSelectMany() {
+    public List<MachinesTypes> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Machines> getItemsAvailableSelectOne() {
+    public List<MachinesTypes> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
@@ -296,14 +297,14 @@ public class MachinesController implements Serializable {
     /// GETTER / SETTER
     ///
     ////////////////////////////////////////////////////////////////////////////
-    public Machines getSelected() {
+    public MachinesTypes getSelected() {
         if (selected == null) {
-            selected = new Machines();
+            selected = new MachinesTypes();
         }
         return selected;
     }
 
-    public void setSelected(Machines selected) {
+    public void setSelected(MachinesTypes selected) {
         this.selected = selected;
     }
 
@@ -339,17 +340,17 @@ public class MachinesController implements Serializable {
     /// CONVERTER
     ///
     ////////////////////////////////////////////////////////////////////////////
-    @FacesConverter(forClass = Machines.class)
-    public static class MachinesControllerConverter implements Converter {
+    @FacesConverter(forClass = MachinesTypes.class)
+    public static class MachinesTypesControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MachinesController controller = (MachinesController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "machinesController");
-            return controller.getMachines(getKey(value));
+            MachinesTypesController controller = (MachinesTypesController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "machinesTypesController");
+            return controller.getMachinesTypes(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -369,11 +370,11 @@ public class MachinesController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Machines) {
-                Machines o = (Machines) object;
+            if (object instanceof MachinesTypes) {
+                MachinesTypes o = (MachinesTypes) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Machines.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MachinesTypes.class.getName()});
                 return null;
             }
         }
@@ -384,14 +385,14 @@ public class MachinesController implements Serializable {
     /// VALIDATOR
     ///
     ////////////////////////////////////////////////////////////////////////////
-    @FacesValidator(value = "Machines_MachinesValidator")
-    public static class Machines_MachinesValidator implements Validator {
+    @FacesValidator(value = "MachinesTypes_MachinesTypesValidator")
+    public static class MachinesTypes_MachinesTypesValidator implements Validator {
 
-        public static final String P_DUPLICATION_CODE_SUMMARY_ID = "MachinesDuplicationSummary_####";
-        public static final String P_DUPLICATION_CODE_DETAIL_ID = "MachinesDuplicationDetail_###";
+        public static final String P_DUPLICATION_CODE_SUMMARY_ID = "MachinesTypesDuplicationSummary_####";
+        public static final String P_DUPLICATION_CODE_DETAIL_ID = "MachinesTypesDuplicationDetail_###";
 
         @EJB
-        private org.imoka.sessions.MachinesFacade ejbFacade;
+        private org.imoka.sessions.MachinesTypesFacade ejbFacade;
 
         @Override
         public void validate(FacesContext fc, UIComponent uic, Object o) throws ValidatorException {
@@ -403,7 +404,7 @@ public class MachinesController implements Serializable {
                 return;
             }
             InputText input = (InputText) uic;
-            List<Machines> lst = ejbFacade.findByCode(value);
+            List<MachinesTypes> lst = ejbFacade.findByCode(value);
             if (lst != null) {
                 if (input.getValue() != null) {
                     if (value.matches((String) input.getValue())) {
@@ -421,14 +422,14 @@ public class MachinesController implements Serializable {
         }
     }
 
-    @FacesValidator(value = "Machines_DesignationValidator")
-    public static class MachinesDesignationValidator implements Validator {
+    @FacesValidator(value = "MachinesTypes_DesignationValidator")
+    public static class MachinesTypesDesignationValidator implements Validator {
 
-        public static final String P_DUPLICATION_DESIGNATION_SUMMARY_ID = "MachinesDuplicationSummary_#####";
-        public static final String P_DUPLICATION_DESIGNATION_DETAIL_ID = "MachinesDuplicationDetail_#####";
+        public static final String P_DUPLICATION_DESIGNATION_SUMMARY_ID = "MachinesTypesDuplicationSummary_#####";
+        public static final String P_DUPLICATION_DESIGNATION_DETAIL_ID = "MachinesTypesDuplicationDetail_#####";
 
         @EJB
-        private org.imoka.sessions.MachinesFacade ejbFacade;
+        private org.imoka.sessions.MachinesTypesFacade ejbFacade;
 
         @Override
         public void validate(FacesContext fc, UIComponent uic, Object o) throws ValidatorException {
@@ -440,7 +441,7 @@ public class MachinesController implements Serializable {
                 return;
             }
             InputText input = (InputText) uic;
-            List<Machines> lst = ejbFacade.findByDesignation(value);
+            List<MachinesTypes> lst = ejbFacade.findByDesignation(value);
             if (lst != null) {
                 if (input.getValue() != null) {
                     if (value.matches((String) input.getValue())) {

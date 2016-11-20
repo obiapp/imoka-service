@@ -5,7 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:i="http://www.ism.org/pi"
-          
+
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
@@ -13,6 +13,8 @@
 
         <ui:define name="body">
             <h1><h:outputText   value="IMOKA - SHOWCASE" /></h1>
+
+            
             <p:panelGrid columns="2" columnClasses="columnFieldClass,columnContentClass" >
                 <h:outputLabel value="IP" for="ipAddress" />
                 <h:panelGroup>
@@ -34,8 +36,8 @@
 
                 <h:outputLabel value="Block Type" for="blockType" />
                 <p:selectOneMenu id="blockType" 
-                                 value="#{client.blockType}"  >
-                    <f:selectItems value="#{client.blockTypes}" var="bt" itemLabel="#{bt.name}" itemValue="#{bt.type}"  />
+                                 value="#{client.blockTypes}"  >
+                    <f:selectItems value="#{client.blockTypes}"  var="bt" itemLabel="#{bt.name} [#{bt.code}] " itemValue="#{bt.code}" />
                 </p:selectOneMenu>
 
                 <h:outputLabel value="Block Number" for="blockNumber" />
@@ -44,6 +46,7 @@
                              />
 
             </p:panelGrid>
+
 
 
             <p:commandButton id="btnConnect" value="Connect"
@@ -81,12 +84,9 @@
                              />
 
 
-
             <hr />
             <p:editor id="console" value="#{client.output}" disabled="true" height="480"  style="width:100%;" />
             <hr />
-
-
 
 
 

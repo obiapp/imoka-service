@@ -10,54 +10,54 @@
     <ui:composition template="/tmpl/MainWindow.xhtml">
 
         <ui:define name="body">
-            <h1><h:outputText value="#{imoka.MachinesTitleList}"/></h1>
+            <h1><h:outputText value="#{ism.MachinesTypesTitleList}"/></h1>
 
             <h:form id="bodyForm">
                 <p:contextMenu id="contextMenu" for="datalist" >
                     <p:menuitem icon="ui-btn-Create"
                                 styleClass="options-btn"
-                                value="#{imoka.Create}"
-                                actionListener="#{machinesController.prepareCreate}"
+                                value="#{ism.Create}"
+                                actionListener="#{machinesTypesController.prepareCreate}"
                                 action="Create.xhtml?faces-redirect=true"
-                                title="Permet de créer un nouveau Machines"
+                                title="Permet de créer un nouveau MachinesTypes"
                                 />
                     <p:separator />
                     <p:menuitem icon="ui-btn-View" iconPos="left"
                                 styleClass="options-btn"
-                                value="#{imoka.View}"
+                                value="#{ism.View}"
                                 action="View.xhtml?faces-redirect=true"
-                                title="Permet de visualiser le Machines sélectionné."
-                                disabled="#{empty machinesController.selected}"
+                                title="Permet de visualiser le MachinesTypes sélectionné."
+                                disabled="#{empty machinesTypesController.selected}"
                                 />
                     <p:menuitem icon="ui-btn-Edit"
                                 styleClass="options-btn"
-                                value="#{imoka.Edit}"
+                                value="#{ism.Edit}"
                                 action="Edit.xhtml?faces-redirect=true"
-                                title="Permet d'editer le Machines sélectionné."
-                                disabled="#{empty machinesController.selected}"
+                                title="Permet d'editer le MachinesTypes sélectionné."
+                                disabled="#{empty machinesTypesController.selected}"
                                 />
                     <p:menuitem icon="ui-btn-Delete"
                                 styleClass="options-btn"
-                                value="#{imoka.Delete}"
-                                title="Permet de supprimer le Machines sélectionné !"
-                                actionListener="#{viewTabManager.handleDestroy('machines')}"
+                                value="#{ism.Delete}"
+                                title="Permet de supprimer le MachinesTypes sélectionné !"
+                                actionListener="#{viewTabManager.handleDestroy('machinestypes')}"
                                 update=":bodyForm:datalist, westGroup,:growl"
                                 onstart=";
-                                #{viewConfirmDialog.dlg.setHeader(imoka.MachinesDlgHeader)};
+                                #{viewConfirmDialog.dlg.setHeader(ism.MachinesTypesDlgHeader)};
                                 #{viewConfirmDialog.dlg.setSeverity('alert')};
-                                #{viewConfirmDialog.dlg.setMessage(imoka.MachinesDlgMessage)};
+                                #{viewConfirmDialog.dlg.setMessage(ism.MachinesTypesDlgMessage)};
                                 PF('mainConfirmDialog').show();"
-                                disabled="#{empty machinesController.selected}"
+                                disabled="#{empty machinesTypesController.selected}"
                                 >
                         <p:confirm  />
                     </p:menuitem>
                     <p:menuitem icon="ui-btn-Refresh"
                                 styleClass="options-btn"
-                                value="#{imoka.Refresh}"
-                                title="Permet de rafraichir la table des Machines "
-                                actionListener="#{machinesController.releaseSelected()}"
+                                value="#{ism.Refresh}"
+                                title="Permet de rafraichir la table des MachinesTypes "
+                                actionListener="#{machinesTypesController.releaseSelected()}"
                                 update=":bodyForm,:bodyForm:datalist,westGroup,:growl"
-                                disabled="#{empty machinesController.selected }"
+                                disabled="#{empty machinesTypesController.selected }"
                                 />
                 </p:contextMenu>
 
@@ -67,10 +67,10 @@
 
 
                 <p:dataTable id="datalist" widgetVar="datalist"
-                             value="#{viewTabManager.machines}" var="item"
-                             filteredValue="#{viewTabManager.machinesFiltered}"
+                             value="#{viewTabManager.machinestypes}" var="item"
+                             filteredValue="#{viewTabManager.machinestypesFiltered}"
 
-                             selectionMode="single" selection="#{machinesController.selected}"
+                             selectionMode="single" selection="#{machinesTypesController.selected}"
                              rowIndexVar="_rowIndex"
                              rowKey="#{item.id}"
                              paginator="#{tableView.paginator}"
@@ -83,7 +83,7 @@
                              reflow="#{tableView.reflow}"
                              draggableColumns="#{tableView.draggableColumns}"
                              sortMode="#{tableView.sortMode}"
-                             emptyMessage="#{imoka.EmptyList}"
+                             emptyMessage="#{ism.EmptyList}"
                              >
 
 
@@ -93,13 +93,13 @@
                     <f:facet name="{Exporters}">
                         <div style="float:right" >
                             <p:commandLink ajax="false" onclick="PrimeFaces.monitorDownload(showStatus, hideStatus)">
-                                <p:graphicImage library="img" name="imoka/std/ExtXLS.png" width="24" height="24"/>
-                                <p:dataExporter type="xls" target="datalist" fileName="#{imoka.MachinesTitleList}_#{viewUtil.maintenant}" 
+                                <p:graphicImage library="img" name="ism/std/ExtXLS.png" width="24" height="24"/>
+                                <p:dataExporter type="xls" target="datalist" fileName="#{ism.MachinesTypesTitleList}_#{viewUtil.maintenant}" 
                                                 postProcessor="#{tableView.handlePostProcessXLS}"/>
                             </p:commandLink>
                             <p:commandLink ajax="false" onclick="PrimeFaces.monitorDownload(showStatus, hideStatus)">
-                                <p:graphicImage library="img" name="imoka/std/ExtPDF.png" width="24" height="24"/>
-                                <p:dataExporter type="pdf" target="datalist" fileName="#{imoka.MachinesTitleList}_#{viewUtil.maintenant}"  />
+                                <p:graphicImage library="img" name="ism/std/ExtPDF.png" width="24" height="24"/>
+                                <p:dataExporter type="pdf" target="datalist" fileName="#{ism.MachinesTypesTitleList}_#{viewUtil.maintenant}"  />
                             </p:commandLink>
                         </div>
                     </f:facet>
@@ -115,13 +115,13 @@
 
                         <p:columnToggler id="tableColToggler" datasource="datalist" trigger="toggler" >
                             <p:ajax event="toggle" update=":growl"
-                                    listener="#{machinesController.handleColumnToggle}" />
+                                    listener="#{machinesTypesController.handleColumnToggle}" />
                         </p:columnToggler>
 
                         <p:outputPanel style="float:right;">
-                            <h:outputText value="#{imoka.Search}"  />
+                            <h:outputText value="#{ism.Search}"  />
                             <p:inputText id="globalFilter" onkeyup="PF('datalist').filter()" 
-                                         style="width:150px;" placeholder="#{imoka.EnterKeyWord}" />
+                                         style="width:150px;" placeholder="#{ism.EnterKeyWord}" />
                         </p:outputPanel>
 
                     </f:facet>
@@ -134,25 +134,25 @@
                     <p:ajax event="rowSelect" update="westGroup bodyForm"  />
                     <p:ajax event="rowUnselect" update="westGroup bodyForm" />
                     <p:ajax event="rowDblselect" listener="#{tableView.handleRowDoubleClick}" />
-                    <p:ajax event="colReorder" update="datalist,tableColToggler,:growl" listener="#{machinesController.handleColumnReorder}"  />
+                    <p:ajax event="colReorder" update="datalist,tableColToggler,:growl" listener="#{machinesTypesController.handleColumnReorder}"  />
 
 
 
 
 
 
-                    <p:column headerText="#{imoka.CtrlShort}" style="width:32px;text-align: center"
+                    <p:column headerText="#{ism.CtrlShort}" style="width:32px;text-align: center"
                               exportable="false"
-                              visible="#{machinesController.getIsVisibleColKey(imoka.CtrlShort)}" >
+                              visible="#{machinesTypesController.getIsVisibleColKey(ism.CtrlShort)}" >
                         <p:commandButton icon="ui-btn-View" style="width: 22px; height: 16px;"
-                                         title="#{imoka.View}" action="View.xhtml?faces-redirect=true">
-                            <f:setPropertyActionListener value="#{item}" target="#{machinesController.selected}" />
+                                         title="#{ism.View}" action="View.xhtml?faces-redirect=true">
+                            <f:setPropertyActionListener value="#{item}" target="#{machinesTypesController.selected}" />
                         </p:commandButton>
                     </p:column>
 
 
-                    <p:column headerText="#{imoka.MachinesField_id}" 
-                              visible="#{machinesController.getIsVisibleColKey(imoka.MachinesField_id)}"
+                    <p:column headerText="#{ism.MachinesTypesField_id}" 
+                              visible="#{machinesTypesController.getIsVisibleColKey(ism.MachinesTypesField_id)}"
                               sortBy="#{item.id}" filterBy="#{item.id}" 
                               filterMatchMode="contains" >
                         <h:outputText value="#{item.id}"/>
@@ -160,44 +160,26 @@
 
 
 
-                    <p:column headerText="#{imoka.MachinesField_adress}" 
-                              visible="#{machinesController.getIsVisibleColKey(imoka.MachinesField_adress)}"
-                              sortBy="#{item.adress}" filterBy="#{item.adress}" 
+                    <p:column headerText="#{ism.MachinesTypesField_type}" 
+                              visible="#{machinesTypesController.getIsVisibleColKey(ism.MachinesTypesField_type)}"
+                              sortBy="#{item.type}" filterBy="#{item.type}" 
                               filterMatchMode="contains" >
-                        <h:outputText value="#{item.adress}"/>
+                        <h:outputText value="#{item.type}"/>
                     </p:column>
 
 
 
-                    <p:column headerText="#{imoka.MachinesField_machine}" 
-                              visible="#{machinesController.getIsVisibleColKey(imoka.MachinesField_machine)}"
-                              sortBy="#{item.machine}" filterBy="#{item.machine}" 
+                    <p:column headerText="#{ism.MachinesTypesField_designation}" 
+                              visible="#{machinesTypesController.getIsVisibleColKey(ism.MachinesTypesField_designation)}"
+                              sortBy="#{item.designation}" filterBy="#{item.designation}" 
                               filterMatchMode="contains" >
-                        <h:outputText value="#{item.machine}"/>
+                        <h:outputText value="#{item.designation}"/>
                     </p:column>
 
 
 
-                    <p:column headerText="#{imoka.MachinesField_rack}" 
-                              visible="#{machinesController.getIsVisibleColKey(imoka.MachinesField_rack)}"
-                              sortBy="#{item.rack}" filterBy="#{item.rack}" 
-                              filterMatchMode="contains" >
-                        <h:outputText value="#{item.rack}"/>
-                    </p:column>
-
-
-
-                    <p:column headerText="#{imoka.MachinesField_slot}" 
-                              visible="#{machinesController.getIsVisibleColKey(imoka.MachinesField_slot)}"
-                              sortBy="#{item.slot}" filterBy="#{item.slot}" 
-                              filterMatchMode="contains" >
-                        <h:outputText value="#{item.slot}"/>
-                    </p:column>
-
-
-
-                    <p:column headerText="#{imoka.MachinesField_deleted}" 
-                              visible="#{machinesController.getIsVisibleColKey(imoka.MachinesField_deleted)}"
+                    <p:column headerText="#{ism.MachinesTypesField_deleted}" 
+                              visible="#{machinesTypesController.getIsVisibleColKey(ism.MachinesTypesField_deleted)}"
                               sortBy="#{item.deleted}" filterBy="#{item.deleted}" 
                               filterMatchMode="equals" >
                         <f:facet name="filter">
@@ -213,8 +195,8 @@
 
 
 
-                    <p:column headerText="#{imoka.MachinesField_created}" 
-                              visible="#{machinesController.getIsVisibleColKey(imoka.MachinesField_created)}"
+                    <p:column headerText="#{ism.MachinesTypesField_created}" 
+                              visible="#{machinesTypesController.getIsVisibleColKey(ism.MachinesTypesField_created)}"
                               sortBy="#{item.created}" filterBy="#{item.created}" 
                               filterFunction="#{viewTabManager.handleDateRangeFilters}" >
                         <h:outputText value="#{item.created}">
@@ -224,8 +206,8 @@
 
 
 
-                    <p:column headerText="#{imoka.MachinesField_changed}" 
-                              visible="#{machinesController.getIsVisibleColKey(imoka.MachinesField_changed)}"
+                    <p:column headerText="#{ism.MachinesTypesField_changed}" 
+                              visible="#{machinesTypesController.getIsVisibleColKey(ism.MachinesTypesField_changed)}"
                               sortBy="#{item.changed}" filterBy="#{item.changed}" 
                               filterFunction="#{viewTabManager.handleDateRangeFilters}" >
                         <h:outputText value="#{item.changed}">
@@ -252,57 +234,57 @@
                 <p:commandButton id="createButton" 
                                  icon="ui-btn-Create"
                                  styleClass="options-btn"
-                                 value="#{imoka.Create}" 
-                                 actionListener="#{machinesController.prepareCreate()}"
+                                 value="#{ism.Create}" 
+                                 actionListener="#{machinesTypesController.prepareCreate()}"
                                  action="Create.xhtml?faces-redirect=true"
-                                 title="Permet de créer un nouveau Machines"
+                                 title="Permet de créer un nouveau MachinesTypes"
                                  />
                 <br />
                 <p:commandButton id="viewButton"
                                  icon="ui-btn-View"
                                  styleClass="options-btn"
-                                 value="#{imoka.View}"
+                                 value="#{ism.View}"
                                  action="View.xhtml?faces-redirect=true"
-                                 title="Permet de visualiser le Machines sélectionné."
-                                 disabled="#{empty machinesController.selected 
-                                             or empty machinesController.selected.id}"
+                                 title="Permet de visualiser le MachinesTypes sélectionné."
+                                 disabled="#{empty machinesTypesController.selected 
+                                             or empty machinesTypesController.selected.id}"
                                  />
                 <br />
                 <p:commandButton id="editButton"
                                  icon="ui-btn-Edit"
                                  styleClass="options-btn"
-                                 value="#{imoka.Edit}"
+                                 value="#{ism.Edit}"
                                  action="Edit.xhtml?faces-redirect=true"
-                                 title="Permet d'editer le Machines sélectionné."
-                                 disabled="#{empty machinesController.selected 
-                                             or empty machinesController.selected.id}"
+                                 title="Permet d'editer le MachinesTypes sélectionné."
+                                 disabled="#{empty machinesTypesController.selected 
+                                             or empty machinesTypesController.selected.id}"
                                  />
                 <p:commandButton id="deleteButton"
                                  icon="ui-btn-Delete"
                                  styleClass="options-btn"
-                                 value="#{imoka.Delete}"
-                                 title="Permet de supprimer le Machines sélectionné !"
-                                 actionListener="#{viewTabManager.handleDestroy('machines')}"
+                                 value="#{ism.Delete}"
+                                 title="Permet de supprimer le MachinesTypes sélectionné !"
+                                 actionListener="#{viewTabManager.handleDestroy('machinestypes')}"
                                  update=":bodyForm:datalist,westGroup,:growl"
                                  onstart=";
-                                 #{viewConfirmDialog.dlg.setHeader(imoka.MachinesDlgHeader)};
+                                 #{viewConfirmDialog.dlg.setHeader(ism.MachinesTypesDlgHeader)};
                                  #{viewConfirmDialog.dlg.setSeverity('alert')};
-                                 #{viewConfirmDialog.dlg.setMessage(imoka.MachinesDlgMessage)};
+                                 #{viewConfirmDialog.dlg.setMessage(ism.MachinesTypesDlgMessage)};
                                  PF('mainConfirmDialog').show()"
-                                 disabled="#{empty machinesController.selected 
-                                             or empty machinesController.selected.id}"
+                                 disabled="#{empty machinesTypesController.selected 
+                                             or empty machinesTypesController.selected.id}"
                                  >
                     <p:confirm  />
                 </p:commandButton>
                 <p:commandButton id="refreshButton"
                                  icon="ui-btn-Refresh"
                                  styleClass="options-btn"
-                                 value="#{imoka.Refresh}"
-                                 title="Permet de rafraichir la table des Machines "
-                                 actionListener="#{machinesController.releaseSelected()}"
+                                 value="#{ism.Refresh}"
+                                 title="Permet de rafraichir la table des MachinesTypes "
+                                 actionListener="#{machinesTypesController.releaseSelected()}"
                                  update=":bodyForm,:bodyForm:datalist,westGroup,:growl"
-                                 disabled="#{empty machinesController.selected 
-                                             or empty machinesController.selected.id}"
+                                 disabled="#{empty machinesTypesController.selected 
+                                             or empty machinesTypesController.selected.id}"
                                  />
             </h:panelGroup>
 
@@ -310,7 +292,7 @@
 
         </ui:define>
         <p:blockUI block="body" trigger="createButton, viewButton, editButton, deleteButton" >
-            <p:graphicImage width="48px" height="48px" library="img" name="imoka/std/Onload.gif"/>
+            <p:graphicImage width="48px" height="48px" library="img" name="ism/std/Onload.gif"/>
         </p:blockUI>
 
     </ui:composition>

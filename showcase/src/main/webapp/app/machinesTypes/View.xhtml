@@ -10,60 +10,45 @@
     <ui:composition template="/tmpl/MainWindow.xhtml">
 
         <ui:define name="body">
-            <h1><h:outputText value="#{ism.MachinesTitleView}"/></h1>
+            <h1><h:outputText value="#{ism.MachinesTypesTitleView}"/></h1>
 
             <h:form id="bodyForm">
 
                 <p:panelGrid id="panelForm" columns="2" columnClasses="columnFieldClass, columnContentClass" styleClass="panelGridClass"
-                             rendered="#{machinesController.selected != null}">
+                             rendered="#{machinesTypesController.selected != null}">
 
-                    <h:outputText value="#{ism.MachinesField_id}"  />
-                    <h:outputText value="#{machinesController.selected.id}" 
-                                  title="#{ism.MachinesFieldInfo_id}" />
-
-
-                    <h:outputText value="#{ism.MachinesField_adress}"  />
-                    <h:outputText value="#{machinesController.selected.adress}" 
-                                  title="#{ism.MachinesFieldInfo_adress}" />
+                    <h:outputText value="#{ism.MachinesTypesField_id}"  />
+                    <h:outputText value="#{machinesTypesController.selected.id}" 
+                                  title="#{ism.MachinesTypesFieldInfo_id}" />
 
 
-                    <h:outputText value="#{ism.MachinesField_machine}"  />
-                    <h:outputText value="#{machinesController.selected.machine}" 
-                                  title="#{ism.MachinesFieldInfo_machine}" />
+                    <h:outputText value="#{ism.MachinesTypesField_type}"  />
+                    <h:outputText value="#{machinesTypesController.selected.type}" 
+                                  title="#{ism.MachinesTypesFieldInfo_type}" />
 
 
-                    <h:outputText value="#{ism.MachinesField_rack}"  />
-                    <h:outputText value="#{machinesController.selected.rack}" 
-                                  title="#{ism.MachinesFieldInfo_rack}" />
+                    <h:outputText value="#{ism.MachinesTypesField_designation}"  />
+                    <h:outputText value="#{machinesTypesController.selected.designation}" 
+                                  title="#{ism.MachinesTypesFieldInfo_designation}" />
 
 
-                    <h:outputText value="#{ism.MachinesField_slot}"  />
-                    <h:outputText value="#{machinesController.selected.slot}" 
-                                  title="#{ism.MachinesFieldInfo_slot}" />
-
-
-                    <h:outputText value="#{ism.MachinesField_deleted}"  />
-                    <p:selectBooleanCheckbox value="#{machinesController.selected.deleted}" 
+                    <h:outputText value="#{ism.MachinesTypesField_deleted}"  />
+                    <p:selectBooleanCheckbox value="#{machinesTypesController.selected.deleted}" 
                                              disabled="true"/>
 
 
-                    <h:outputText value="#{ism.MachinesField_created}"  />
-                    <h:outputText value="#{machinesController.selected.created}" 
-                                  title="#{ism.MachinesFieldInfo_created}" >
+                    <h:outputText value="#{ism.MachinesTypesField_created}"  />
+                    <h:outputText value="#{machinesTypesController.selected.created}" 
+                                  title="#{ism.MachinesTypesFieldInfo_created}" >
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
 
 
-                    <h:outputText value="#{ism.MachinesField_changed}"  />
-                    <h:outputText value="#{machinesController.selected.changed}" 
-                                  title="#{ism.MachinesFieldInfo_changed}" >
+                    <h:outputText value="#{ism.MachinesTypesField_changed}"  />
+                    <h:outputText value="#{machinesTypesController.selected.changed}" 
+                                  title="#{ism.MachinesTypesFieldInfo_changed}" >
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
-
-
-                    <h:outputText value="#{ism.MachinesField_type}"  />
-                    <h:outputText value="#{machinesController.selected.type}" 
-                                  title="#{ism.MachinesFieldInfo_type}" />
 
 
 
@@ -80,23 +65,23 @@
                                      value="#{ism.Edit}"
                                      action="Edit.xhtml?faces-redirect=true"
                                      title="Permet d'éditer le processus sélectionné."
-                                     disabled="#{empty machinesController.selected 
-                                                 or empty machinesController.selected.}"
+                                     disabled="#{empty machinesTypesController.selected 
+                                                 or empty machinesTypesController.selected.}"
                                      />
                     <p:commandButton icon="ui-btn-Delete"
                                      styleClass="ui-btn"
                                      value="#{ism.Delete}"
                                      action="./List.xhtml?faces-redirect=true"
-                                     title="Permet de supprimer le Machines sélectionné !"
-                                     actionListener="#{viewTabManager.handleDestroy('machines')}"
+                                     title="Permet de supprimer le MachinesTypes sélectionné !"
+                                     actionListener="#{viewTabManager.handleDestroy('machinestypes')}"
                                      update=":bodyForm,westGroup,:growl"
                                      onstart=";
-                                     #{viewConfirmDialog.dlg.setHeader(ism.MachinesDlgHeader)};
+                                     #{viewConfirmDialog.dlg.setHeader(ism.MachinesTypesDlgHeader)};
                                      #{viewConfirmDialog.dlg.setSeverity('alert')};
-                                     #{viewConfirmDialog.dlg.setMessage(ism.MachinesDlgMessage)};
+                                     #{viewConfirmDialog.dlg.setMessage(ism.MachinesTypesDlgMessage)};
                                      PF('mainConfirmDialog').show()"
-                                     disabled="#{empty machinesController.selected 
-                                                 or empty machinesController.selected.}"
+                                     disabled="#{empty machinesTypesController.selected 
+                                                 or empty machinesTypesController.selected.}"
                                      >
                         <p:confirm  />
                     </p:commandButton>
@@ -130,23 +115,23 @@
                                  value="#{ism.Edit}"
                                  action="Edit.xhtml?faces-redirect=true"
                                  title="Permet d'éditer le processus sélectionné."
-                                 disabled="#{empty machinesController.selected 
-                                             or empty machinesController.selected.}"
+                                 disabled="#{empty machinesTypesController.selected 
+                                             or empty machinesTypesController.selected.}"
                                  />
                 <p:commandButton icon="ui-btn-Delete"
                                  styleClass="options-btn"
                                  value="#{ism.Delete}"
                                  action="./List.xhtml?faces-redirect=true"
-                                 title="Permet de supprimer le Machines sélectionné !"
-                                 actionListener="#{viewTabManager.handleDestroy('machines')}"
+                                 title="Permet de supprimer le MachinesTypes sélectionné !"
+                                 actionListener="#{viewTabManager.handleDestroy('machinestypes')}"
                                  update=":bodyForm,westGroup,:growl"
                                  onstart=";
-                                 #{viewConfirmDialog.dlg.setHeader(ism.MachinesDlgHeader)};
+                                 #{viewConfirmDialog.dlg.setHeader(ism.MachinesTypesDlgHeader)};
                                  #{viewConfirmDialog.dlg.setSeverity('alert')};
-                                 #{viewConfirmDialog.dlg.setMessage(ism.MachinesDlgMessage)};
+                                 #{viewConfirmDialog.dlg.setMessage(ism.MachinesTypesDlgMessage)};
                                  PF('mainConfirmDialog').show()"
-                                 disabled="#{empty machinesController.selected 
-                                             or empty machinesController.selected.}"
+                                 disabled="#{empty machinesTypesController.selected 
+                                             or empty machinesTypesController.selected.}"
                                  >
                     <p:confirm  />
                 </p:commandButton>

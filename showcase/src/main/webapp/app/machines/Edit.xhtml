@@ -107,6 +107,24 @@
                     </h:panelGrid>
 
 
+                    <p:outputLabel value="#{ism.MachinesField_type}"  for="type" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:selectOneMenu id="type"  widgetVar="type"
+                                         filter="true" filterMatchMode="contains"
+                                         value="#{machinesController.selected.type}"
+                                         required="true" 
+                                         requiredMessage="#{ism.MachinesRequiredMsg_type}" 
+                                         >
+                            <f:selectItem itemLabel="#{ism.SelectList}" itemValue=""/>
+                            <f:selectItems value="#{machinesTypesController.itemsAvailableSelectOne}"
+                                           var="typeItem"
+                                           itemLabel="#{typeItem.Expected hash. entityDescriptor.id?replace(".","_") evaluated instead to freemarker.template.SimpleScalar on line 93, column 113 in unknown.} - #{typeItem.stgdDesignation}" 
+                                           itemValue="#{typeItem}"/>
+                        </p:selectOneMenu>
+                        <p:message for="type"  />
+                    </h:panelGrid>
+
+
                 </p:panelGrid>
 
 

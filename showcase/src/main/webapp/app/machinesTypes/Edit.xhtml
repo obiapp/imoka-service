@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+
+        <ui:define name="body">
+            <h1><h:outputText value="#{ism.MachinesTypesTitleEdit}"/></h1>
+
+            <h:form id="bodyForm">
+
+                <p:panelGrid id="panelForm" columns="2" columnClasses="columnFieldClass, columnContentClass" styleClass="panelGridClass"
+                             rendered="#{machinesTypesController.selected != null}">
+
+
+                    <p:outputLabel value="#{ism.MachinesTypesField_id}"  for="id" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:inputText id="id" 
+                                     value="#{machinesTypesController.selected.id}" 
+                                     title="#{ism.MachinesTypesFieldInfo_id}" 
+                                     required="true" requiredMessage="#{ism.MachinesTypesRequiredMsg_id}" 
+                                     />
+                        <p:message for="id"  />
+                    </h:panelGrid>
+
+
+                    <p:outputLabel value="#{ism.MachinesTypesField_type}"  for="type" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:inputText id="type" 
+                                     value="#{machinesTypesController.selected.type}" 
+                                     title="#{ism.MachinesTypesFieldInfo_type}" 
+                                     required="true" requiredMessage="#{ism.MachinesTypesRequiredMsg_type}" 
+                                     />
+                        <p:message for="type"  />
+                    </h:panelGrid>
+
+
+                    <p:outputLabel value="#{ism.MachinesTypesField_designation}"  for="designation" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:inputText id="designation" 
+                                     value="#{machinesTypesController.selected.designation}" 
+                                     title="#{ism.MachinesTypesFieldInfo_designation}" 
+                                     required="true" requiredMessage="#{ism.MachinesTypesRequiredMsg_designation}" 
+                                     />
+                        <p:message for="designation"  />
+                    </h:panelGrid>
+
+
+                    <p:outputLabel value="#{ism.MachinesTypesField_deleted}"  for="deleted" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:selectBooleanCheckbox id="deleted"
+                                                 value="#{machinesTypesController.selected.deleted}" 
+                                                 required="true" 
+                                                 requiredMessage="#{ism.MachinesTypesRequiredMsg_deleted}" 
+                                                 />
+                        <p:message for="deleted"  />
+                    </h:panelGrid>
+
+
+                    <p:outputLabel value="#{ism.MachinesTypesField_created}"  for="created" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:calendar id="created" pattern="dd/MM/yyyy" rendered="true"
+                                    value="#{machinesTypesController.selected.created}" 
+                                    title="#{ism.MachinesTypesFieldInfo_created}" 
+                                    required="true" 
+                                    requiredMessage="#{ism.MachinesTypesRequiredMsg_created}" 
+                                    showOn="button"/>
+                        <p:message for="created"  />
+                    </h:panelGrid>
+
+
+                    <p:outputLabel value="#{ism.MachinesTypesField_changed}"  for="changed" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:calendar id="changed" pattern="dd/MM/yyyy" rendered="true"
+                                    value="#{machinesTypesController.selected.changed}" 
+                                    title="#{ism.MachinesTypesFieldInfo_changed}" 
+                                    required="true" 
+                                    requiredMessage="#{ism.MachinesTypesRequiredMsg_changed}" 
+                                    showOn="button"/>
+                        <p:message for="changed"  />
+                    </h:panelGrid>
+
+
+                </p:panelGrid>
+
+
+
+
+
+
+
+
+                <h:panelGroup id="btn-crud-zone_id"  >
+                    <p:commandButton icon="ui-btn-Save"
+                                     styleClass="ui-btn"
+                                     value="#{ism.Change}" 
+                                     actionListener="#{machinesTypesController.update}" 
+                                     onstart="#{p:widgetVar('bodyForm:')}.enable();"
+                                     update=":bodyForm,:growl" 
+                                     action="List.xhtml?faces-redirect=true"
+                                     />
+                    <p:commandButton icon="ui-btn-Cancel"
+                                     styleClass="ui-btn"
+                                     value="#{ism.Cancel}" 
+                                     update=":bodyForm,:growl"
+                                     actionListener="#{machinesTypesController.prepareCreate()}"
+                                     action="./List.xhtml?faces-redirect=true"
+                                     immediate="true"
+                                     />
+
+                </h:panelGroup>
+
+                <p:messages showDetail="true" showSummary="false"
+                            escape="false"/>
+
+
+            </h:form>
+
+        </ui:define>
+
+
+
+
+
+        <ui:define name="west" id="west">
+            <h:panelGroup id="westGroup">
+                <p:commandButton icon="ui-btn-Save"
+                                 styleClass="options-btn"
+                                 value="#{ism.Change}" 
+                                 actionListener="#{machinesTypesController.update}" 
+                                 update=":bodyForm,:growl"
+                                 action="List.xhtml?faces-redirect=true"
+                                 form="bodyForm"
+                                 />
+                <p:commandButton icon="ui-btn-Cancel"
+                                 styleClass="options-btn"
+                                 value="#{ism.Cancel}" 
+                                 actionListener="#{machinesTypesController.prepareCreate()}"
+                                 action="./List.xhtml?faces-redirect=true"
+                                 update=":bodyForm,:growl"
+                                 immediate="true"
+                                 />
+
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+</html>

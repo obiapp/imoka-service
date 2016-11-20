@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.imoka.showcase.view;
+package org.imoka.views;
 
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
