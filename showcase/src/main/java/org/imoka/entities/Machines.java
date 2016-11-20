@@ -151,7 +151,7 @@ public class Machines implements Serializable {
         this.deleted = deleted;
     }
 
-    public Date getCreated() {
+    public Date getCreated() { 
         return created;
     }
 
