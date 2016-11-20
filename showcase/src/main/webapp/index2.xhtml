@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+
+        <h:outputStylesheet library="css" name="global.min.css" />
+    </h:head>
+    <h:body id="body">
+        <h:form id="bodyForm">
+            <p:panelGrid columns="2" columnClasses="columnFieldClass,columnContentClass" >
+                <h:outputLabel value="IP" for="ipAddress" />
+                <h:panelGroup>
+                    <h:inputText id="ipAddress"
+                                 value="#{client.ipAddress}"
+                                 />
+                    <p:message for="ipAddress"  />
+                </h:panelGroup>
+
+                <h:outputLabel value="Rack" for="rack" />
+                <p:inputText     id="rack"
+                                 value="#{client.rack}"
+                                 />
+
+                <h:outputLabel value="Slot" for="slot" />
+                <p:inputText id="slot"
+                             value="#{client.slot}"
+                             />
+
+                <h:outputLabel value="Block Type" for="blockType" />
+                <p:selectOneMenu id="blockType" 
+                                 value="#{client.blockType}"  >
+                    <f:selectItems value="#{client.blockTypes}" var="bt" itemLabel="#{bt.name}" itemValue="#{bt.type}"  />
+                </p:selectOneMenu>
+
+                <h:outputLabel value="Block Number" for="blockNumber" />
+                <p:inputText id="blockNumber"
+                             value="#{client.blockNumber}"
+                             />
+
+            </p:panelGrid>
+
+
+            <p:commandButton id="btnConnect" value="Connect"
+                             actionListener="#{client.handleConnect()}"
+                             update="console"
+                             icon="ui-btn-Connect" class="ui-btn-bottom"
+                             />
+
+            <p:commandButton id="btnSysInfos" value="CPU Infos"
+                             actionListener="#{client.handleSysInfo()}"
+                             update="console"
+                             icon="ui-btn-Connect" class="ui-btn-bottom"
+                             />
+
+            <p:commandButton id="btnDateTime" value="CPU Date Time"
+                             actionListener="#{client.handleDateAndTime()}"
+                             update="console"
+                             icon="ui-btn-Connect" class="ui-btn-bottom"
+                             />
+
+            <p:commandButton id="btnBlockInfo" 
+                             value="CPU Block Infos"
+                             actionListener="#{client.handleBlockInfo()}"
+                             update="console"
+                             icon="ui-btn-Connect"
+                             class="ui-btn-bottom"
+                             />
+
+            <p:commandButton id="btnClear" 
+                             value="Clear Output"
+                             actionListener="#{client.handleOutputClean()}"
+                             update="console"
+                             icon="ui-btn-Connect"
+                             class="ui-btn-bottom"
+                             />
+            
+
+
+        </h:form>
+        <hr />
+        <p:editor id="console" value="#{client.output}" disabled="true" height="480"  style="width:100%;" />
+        <hr />
+
+
+
+    </h:body>
+    <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false"
+              closable="false">
+        <p:graphicImage width="48px" height="48px" library="img" name="std/Onload.gif"/>
+    </p:dialog>
+
+    <p:ajaxStatus onstart="PF('statusDialog').show()" 
+                  oncomplete="PF('statusDialog').hide();"/>
+
+</html>
+

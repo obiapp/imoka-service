@@ -8,8 +8,6 @@
     <modules>
         <module>core</module>
         <module>showcase</module>
-    <module>base</module>
-    <module>Test01</module>
   </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

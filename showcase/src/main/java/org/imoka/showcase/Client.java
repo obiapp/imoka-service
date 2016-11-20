@@ -9,7 +9,7 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.imoka.core.moka7.*;
-import org.imoka.util.JsfUtil;
+import org.imoka.jsf.util.JsfUtil;
 import java.text.*;
 import java.util.ArrayList;
 import java.util.Date;

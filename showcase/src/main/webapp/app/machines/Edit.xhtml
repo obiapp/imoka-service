@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+
+        <ui:define name="body">
+            <h1><h:outputText value="#{ism.MachinesTitleEdit}"/></h1>
+
+            <h:form id="bodyForm">
+
+                <p:panelGrid id="panelForm" columns="2" columnClasses="columnFieldClass, columnContentClass" styleClass="panelGridClass"
+                             rendered="#{machinesController.selected != null}">
+
+
+                    <p:outputLabel value="#{ism.MachinesField_id}"  for="id" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:inputText id="id" 
+                                     value="#{machinesController.selected.id}" 
+                                     title="#{ism.MachinesFieldInfo_id}" 
+                                     required="true" requiredMessage="#{ism.MachinesRequiredMsg_id}" 
+                                     />
+                        <p:message for="id"  />
+                    </h:panelGrid>
+
+
+                    <p:outputLabel value="#{ism.MachinesField_adress}"  for="adress" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:inputText id="adress" 
+                                     value="#{machinesController.selected.adress}" 
+                                     title="#{ism.MachinesFieldInfo_adress}" 
+                                     required="true" requiredMessage="#{ism.MachinesRequiredMsg_adress}" 
+                                     />
+                        <p:message for="adress"  />
+                    </h:panelGrid>
+
+
+                    <p:outputLabel value="#{ism.MachinesField_machine}"  for="machine" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:inputText id="machine" 
+                                     value="#{machinesController.selected.machine}" 
+                                     title="#{ism.MachinesFieldInfo_machine}" 
+                                     required="true" requiredMessage="#{ism.MachinesRequiredMsg_machine}" 
+                                     />
+                        <p:message for="machine"  />
+                    </h:panelGrid>
+
+
+                    <p:outputLabel value="#{ism.MachinesField_rack}"  for="rack" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:inputText id="rack" 
+                                     value="#{machinesController.selected.rack}" 
+                                     title="#{ism.MachinesFieldInfo_rack}" 
+                                     required="true" requiredMessage="#{ism.MachinesRequiredMsg_rack}" 
+                                     />
+                        <p:message for="rack"  />
+                    </h:panelGrid>
+
+
+                    <p:outputLabel value="#{ism.MachinesField_slot}"  for="slot" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:inputText id="slot" 
+                                     value="#{machinesController.selected.slot}" 
+                                     title="#{ism.MachinesFieldInfo_slot}" 
+                                     required="true" requiredMessage="#{ism.MachinesRequiredMsg_slot}" 
+                                     />
+                        <p:message for="slot"  />
+                    </h:panelGrid>
+
+
+                    <p:outputLabel value="#{ism.MachinesField_deleted}"  for="deleted" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:selectBooleanCheckbox id="deleted"
+                                                 value="#{machinesController.selected.deleted}" 
+                                                 required="true" 
+                                                 requiredMessage="#{ism.MachinesRequiredMsg_deleted}" 
+                                                 />
+                        <p:message for="deleted"  />
+                    </h:panelGrid>
+
+
+                    <p:outputLabel value="#{ism.MachinesField_created}"  for="created" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:calendar id="created" pattern="dd/MM/yyyy" rendered="true"
+                                    value="#{machinesController.selected.created}" 
+                                    title="#{ism.MachinesFieldInfo_created}" 
+                                    required="true" 
+                                    requiredMessage="#{ism.MachinesRequiredMsg_created}" 
+                                    showOn="button"/>
+                        <p:message for="created"  />
+                    </h:panelGrid>
+
+
+                    <p:outputLabel value="#{ism.MachinesField_changed}"  for="changed" />
+                    <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
+                        <p:calendar id="changed" pattern="dd/MM/yyyy" rendered="true"
+                                    value="#{machinesController.selected.changed}" 
+                                    title="#{ism.MachinesFieldInfo_changed}" 
+                                    required="true" 
+                                    requiredMessage="#{ism.MachinesRequiredMsg_changed}" 
+                                    showOn="button"/>
+                        <p:message for="changed"  />
+                    </h:panelGrid>
+
+
+                </p:panelGrid>
+
+
+
+
+
+
+
+
+                <h:panelGroup id="btn-crud-zone_id"  >
+                    <p:commandButton icon="ui-btn-Save"
+                                     styleClass="ui-btn"
+                                     value="#{ism.Change}" 
+                                     actionListener="#{machinesController.update}" 
+                                     onstart="#{p:widgetVar('bodyForm:')}.enable();"
+                                     update=":bodyForm,:growl" 
+                                     action="List.xhtml?faces-redirect=true"
+                                     />
+                    <p:commandButton icon="ui-btn-Cancel"
+                                     styleClass="ui-btn"
+                                     value="#{ism.Cancel}" 
+                                     update=":bodyForm,:growl"
+                                     actionListener="#{machinesController.prepareCreate()}"
+                                     action="./List.xhtml?faces-redirect=true"
+                                     immediate="true"
+                                     />
+
+                </h:panelGroup>
+
+                <p:messages showDetail="true" showSummary="false"
+                            escape="false"/>
+
+
+            </h:form>
+
+        </ui:define>
+
+
+
+
+
+        <ui:define name="west" id="west">
+            <h:panelGroup id="westGroup">
+                <p:commandButton icon="ui-btn-Save"
+                                 styleClass="options-btn"
+                                 value="#{ism.Change}" 
+                                 actionListener="#{machinesController.update}" 
+                                 update=":bodyForm,:growl"
+                                 action="List.xhtml?faces-redirect=true"
+                                 form="bodyForm"
+                                 />
+                <p:commandButton icon="ui-btn-Cancel"
+                                 styleClass="options-btn"
+                                 value="#{ism.Cancel}" 
+                                 actionListener="#{machinesController.prepareCreate()}"
+                                 action="./List.xhtml?faces-redirect=true"
+                                 update=":bodyForm,:growl"
+                                 immediate="true"
+                                 />
+
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+</html>

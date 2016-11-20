@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:i="http://www.ism.org/pi"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      id="html">
+    <h:head>
+        <title><ui:insert name="title">#{ism.AppName}</ui:insert></title>
+        <link rel="shortcut icon" href="#{resource['img/ism/favico.png']}" type="image/x-png" /> 
+
+
+
+
+        <f:facet name="last">
+                    <h:outputStylesheet library="css" name="ribbon/ism-ribbon.min.css" />
+        <h:outputStylesheet library="css" name="ribbon/ism-MainMenu.min.css" />
+        <h:outputStylesheet library="css" name="ism-layout.min.css" />
+        <h:outputStylesheet library="css" name="ism-global.min.css" />
+        <h:outputStylesheet library="css" name="ism.min.css" />
+            
+            <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+            <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
+            <h:outputScript library="jquery" name="jquery-2.2.3.min.js" target="head" />
+            <h:outputScript library="jquery" name="jquery-ui.min.js" target="head" />
+        </f:facet>
+    </h:head>
+
+    <h:body id="body" >
+        <!--    Reste affiché pendant 5s
+                Montre un résumer et affiche les détails
+                Seul les messages sans id sont affiché
+        -->
+        <p:growl id="growl" life="5000" 
+                 showDetail="true" showSummary="true" escape="false"/>  
+
+
+
+
+        <p:layout id="fullPage" fullPage="true"
+                  resizeTitle="Réduire ou Double click pour réduire"
+                  collapseTitle="Réduire la taille"
+                  expandTitle="Etirer ou Double click pour restaurer"
+                  closeTitle="Fermer"
+                  stateful="true" 
+                  widgetVar="fpLayoutWidget"
+                  > 
+
+
+            <p:layoutUnit id="unitNorth" position="north" 
+                          size="#{viewLayout.northUnit.size}"
+                          resizable="#{viewLayout.northUnit.resizable}" 
+                          closable="#{viewLayout.northUnit.closable}"
+                          collapsible="#{viewLayout.northUnit.collapsible}"
+                          minSize="#{viewLayout.northUnit.minSize}"
+                          maxSize="#{viewLayout.northUnit.maxSize}"
+                          gutter="#{viewLayout.northUnit.gutter}"
+                          visible="#{viewLayout.northUnit.visible}"
+                          collapsed="#{viewLayout.northUnit.collapsed}"
+                          collapseSize="#{viewLayout.northUnit.collapseSize}"
+                          effect="#{viewLayout.northUnit.effect}"
+                          effectSpeed="#{viewLayout.northUnit.effectSpeed}"
+                          >
+
+
+
+                <h:form id="mainForm">
+                    <i:ribbon id="Menu">
+                        <i:ribManager >
+                            
+                        </i:ribManager>
+                        
+                        <i:tab name="Home" title="Setups">
+                            <i:ribGroup id="homeGroup" label="Home">
+                                <i:ribSet set="big">
+                                    <h:commandButton value="HOME"
+                                                     action="/index.xhtml?faces-redirect=true"
+                                                     />
+                                </i:ribSet>
+                            </i:ribGroup>
+                        </i:tab>
+                        <i:tab name="Machines" title="Specify the machines" >
+                            <i:ribGroup id="ribSetup" label="Configurations">
+                                <i:ribSet set="big">
+                                    <h:commandButton value="ADD PLC"
+                                                     action="/app/machines/List.xhtml?faces-redirect=true"
+                                                     />
+                                    <h:commandButton value="Connexion PLC"
+                                                     action="/app/setups?faces-redirect=true"
+                                                     />
+                                    
+                                    <p:commandButton id="btnHomeHome"
+                                                     title="Visualiser la page d'acceuil"
+                                                     action="/app/app/setups.xhtml?faces-redirect=true"
+                                                     icon="ui-ribbonicon-home" 
+                                                     value="Ajouter PLC"
+                                                     />
+                                </i:ribSet>
+                            </i:ribGroup>
+                        </i:tab>
+                        <i:tab name="Data" title="Managing data" >
+
+                        </i:tab>
+                    </i:ribbon>
+                </h:form>
+            </p:layoutUnit>
+
+
+
+            <p:layoutUnit   id="unitWest" position="west" 
+                            size="#{viewLayout.westUnit.size}"
+                            resizable="#{viewLayout.westUnit.resizable}" 
+                            closable="#{viewLayout.westUnit.closable}"
+                            collapsible="#{viewLayout.westUnit.collapsible}"
+                            minSize="#{viewLayout.westUnit.minSize}"
+                            gutter="#{viewLayout.westUnit.gutter}"
+                            visible="#{viewLayout.westUnit.visible}"
+                            collapsed="#{viewLayout.westUnit.collapsed}"
+                            collapseSize="#{viewLayout.westUnit.collapseSize}"
+                            effect="#{viewLayout.westUnit.effect}"
+                            effectSpeed="#{viewLayout.westUnit.effectSpeed}"
+                            >
+                <f:facet name="header"><h:outputText value="Menu"/></f:facet> 
+                <ui:insert id="west" name="west" />
+            </p:layoutUnit>  
+
+
+            <p:layoutUnit id="unitEast" position="east" 
+                          size="#{viewLayout.eastUnit.size}"
+                          resizable="#{viewLayout.eastUnit.resizable}" 
+                          closable="#{viewLayout.eastUnit.closable}"
+                          collapsible="#{viewLayout.eastUnit.collapsible}"
+                          minSize="#{viewLayout.eastUnit.minSize}"
+                          maxSize="#{viewLayout.eastUnit.maxSize}"
+                          gutter="#{viewLayout.eastUnit.gutter}"
+                          visible="#{viewLayout.eastUnit.visible}"
+                          collapsed="#{viewLayout.eastUnit.collapsed}"
+                          collapseSize="#{viewLayout.eastUnit.collapseSize}"
+                          effect="#{viewLayout.eastUnit.effect}"
+                          effectSpeed="#{viewLayout.eastUnit.effectSpeed}"
+                          >
+                <f:facet name="header">
+                    <h:graphicImage library="img" name="ism/std/Options.png" width="22px" height="22px" style="float:left;" /> 
+                    <h:outputText value="Options"/> </f:facet>  
+                <ui:insert id="east" name="east" />
+            </p:layoutUnit>
+
+
+            <p:layoutUnit id="unitSouth" position="south" 
+                          size="#{viewLayout.southUnit.size}"
+                          resizable="#{viewLayout.southUnit.resizable}" 
+                          closable="#{viewLayout.southUnit.closable}"
+                          collapsible="#{viewLayout.southUnit.collapsible}"
+                          minSize="#{viewLayout.southUnit.minSize}"
+                          maxSize="#{viewLayout.southUnit.maxSize}"
+                          gutter="#{viewLayout.southUnit.gutter}"
+                          visible="#{viewLayout.southUnit.visible}"
+                          collapsed="#{viewLayout.southUnit.collapsed}"
+                          collapseSize="#{viewLayout.southUnit.collapseSize}"
+                          effect="#{viewLayout.southUnit.effect}"
+                          effectSpeed="#{viewLayout.southUnit.effectSpeed}"
+                          >
+                <p:messages />
+                <p:outputLabel value="#{ism.EmptyList} : #{request.pathInfo}"
+                               rendered="#{request.pathInfo!='/company/smq/nc/Request/View.xhtml'?true:false}" />
+                <p:outputLabel value="Theme : #{staffSetupController.selected.stsTheme}" />
+            </p:layoutUnit>  
+
+
+
+
+            <p:layoutUnit id="unitCenter" position="center" collapseSize="4" gutter="4" style="margin:0px;margin-left: -15px;">
+                <ui:insert id="body" name="body" />
+            </p:layoutUnit>
+
+
+
+
+
+        </p:layout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <h:form id="MainFormDialog">
+            <p:dialog header="Déconnexion imminante" 
+                      widgetVar="dlgReminingTimeSessionWakeUp" 
+                      modal="true" height="50" width="400" 
+                      closable="false" resizable="false" >
+                <h:outputText value="Continuer avec ISM ... " /> <br />
+                <h:outputText value="#{viewRibbon.currentPath}" />
+                <br /><br />
+
+
+                <f:facet name="footer" >
+                    <p:commandButton id="dlgReminingTimeSessionWakeUpYes" 
+                                     value="#{ism.Accept}"
+                                     onclick="PF('dlgReminingTimeSessionWakeUp').hide();
+                                             location.reload(true);"
+                                     action="#{viewRibbon.reloadCurrentPath()}"
+                                     />
+                    <p:commandButton id="dlgReminingTimeSessionWakeUpNo" 
+                                     value="#{ism.Refused}"
+                                     onclick="PF('dlgReminingTimeSessionWakeUp').hide();"
+                                     action="#{staffAuthController.logout()}"
+                                     />
+                </f:facet>
+            </p:dialog> 
+
+            <p:confirmDialog id="mainConfirmDialog" 
+                             global="#{viewConfirmDialog.dlg.global}"
+                             header="#{viewConfirmDialog.header}"
+                             severity="#{viewConfirmDialog.severity}"
+                             width="#{viewConfirmDialog.dlg.width}"
+                             height="#{viewConfirmDialog.dlg.height}"
+                             closable="#{viewConfirmDialog.dlg.closable}"
+                             showEffect="#{viewConfirmDialog.dlg.showEffect}"
+                             hideEffect="#{viewConfirmDialog.dlg.hideEffect}"
+                             closeOnEscape="#{viewConfirmDialog.dlg.closeOnEscape}"
+                             widgetVar="mainConfirmDialog"
+                             >
+                <f:facet name="message">
+                    <p:graphicImage library="img" 
+                                    name="#{viewConfirmDialog.severity=='alert'?'ism/std/DlgWarning.png':'ism/std/DlgInfos.png'}"
+                                    width="48" height="48" style="float: left;" />
+                    <h:outputFormat value="#{viewConfirmDialog.message}" escape="false"/>
+                </f:facet>
+
+                <p:commandButton type="button" value="#{ism.ConfirmYes}" 
+                                 styleClass="ui-confirmdialog-yes"
+                                 icon="ui-btn-Accept"
+                                 update="#{viewConfirmDialog.update}"
+                                 oncomplete="PF('mainConfirmDialog').hide()"
+                                 />
+                <p:commandButton type="button" value="#{ism.ConfirmNo}" 
+                                 styleClass="ui-confirmdialog-no"
+                                 icon="ui-btn-Cancel"
+                                 oncomplete="PF('mainConfirmDialog').hide()"
+                                 />
+            </p:confirmDialog>
+
+
+
+            <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false"
+                      closable="false">
+                <p:graphicImage width="48px" height="48px" library="img" name="ism/std/Onload.gif"/>
+            </p:dialog>
+
+            <p:ajaxStatus onstart="PF('statusDialog').show()" 
+                          oncomplete="PF('statusDialog').hide();"/>
+
+
+        </h:form>
+
+
+
+    </h:body>
+
+</html>
+
