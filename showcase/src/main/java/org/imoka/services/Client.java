@@ -62,7 +62,7 @@ public class Client implements Serializable {
     private String out = "";
 
     
-    
+    private List<BlockType> blockTypes = new ArrayList<>();
 
     
     private Integer blockType = 0;
@@ -313,17 +313,28 @@ public class Client implements Serializable {
         this.out = out;
     }
 
-    public List<BlockTypes> getBlockTypes(){
-        List<BlockTypes> lst = new ArrayList<>();
-        lst.add(new BlockTypes("BLOCK DB", S7.Block_DB));
-        lst.add(new BlockTypes("BLOCK FB", S7.Block_FB));
-        lst.add(new BlockTypes("BLOCK FC", S7.Block_FC));
-        lst.add(new BlockTypes("BLOCK OB", S7.Block_OB));
-        lst.add(new BlockTypes("BLOCK SDB", S7.Block_SDB));
-        lst.add(new BlockTypes("BLOCK SFB", S7.Block_SFB));
-        lst.add(new BlockTypes("BLOCK SFC", S7.Block_SFC));
-        return lst ;
+    public List<BlockType> getBlockTypes() {
+        if (blockTypes.isEmpty()) {
+            blockTypes.add(new BlockType("BLOCK DB", S7.Block_DB));
+            blockTypes.add(new BlockType("BLOCK FB", S7.Block_FB));
+            blockTypes.add(new BlockType("BLOCK FC", S7.Block_FC));
+            blockTypes.add(new BlockType("BLOCK OB", S7.Block_OB));
+            blockTypes.add(new BlockType("BLOCK SDB", S7.Block_SDB));
+            blockTypes.add(new BlockType("BLOCK SFB", S7.Block_SFB));
+            blockTypes.add(new BlockType("BLOCK SFC", S7.Block_SFC));
+        }
+        return blockTypes;
     }
+
+    public Integer getBlockType() {
+        return blockType;
+    }
+
+    public void setBlockType(Integer blockType) {
+        this.blockType = blockType;
+    }
+    
+    
 
 
 

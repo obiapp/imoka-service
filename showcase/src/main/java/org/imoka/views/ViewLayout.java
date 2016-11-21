@@ -105,7 +105,7 @@ public class ViewLayout {
         // SouthUnit
         {
             southUnit = new LayoutUnit();
-            southUnit.setSize(String.valueOf(50));
+            southUnit.setSize(String.valueOf(200));
             southUnit.setResizable(true);
             southUnit.setClosable(true);
             southUnit.setCollapsible(true);
@@ -113,7 +113,7 @@ public class ViewLayout {
             southUnit.setMaxSize(200);
             southUnit.setGutter(gutter);
             //>>> default
-            southUnit.setVisible(false);
+            southUnit.setVisible(true);
             southUnit.setCollapsed(true);
             southUnit.setCollapseSize(collapseSize);
             southUnit.setEffect(effect);

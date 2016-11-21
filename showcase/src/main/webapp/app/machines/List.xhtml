@@ -8,8 +8,10 @@
 
 
     <ui:composition template="/tmpl/MainWindow.xhtml">
-
         <ui:define name="body">
+            <h:outputStylesheet library="css" name="scada.min.css" />
+
+
             <h1><h:outputText value="#{imoka.MachinesTitleList}"/></h1>
 
             <h:form id="bodyForm">
@@ -58,6 +60,23 @@
                                 actionListener="#{machinesController.releaseSelected()}"
                                 update=":bodyForm,:bodyForm:datalist,westGroup,:growl"
                                 disabled="#{empty machinesController.selected }"
+                                />
+                    <p:separator />
+                    <p:menuitem icon="ui-btn-Connect"
+                                styleClass="options-btn"
+                                value="#{imoka.Connect}"
+                                actionListener="#{machinesController.handlePLCConnection()}"
+                                title="Permet de connecter l'appareil."
+                                disabled="#{empty machinesController.selected}"
+                                update=":bodyForm:datalist,:output"
+                                />
+                    <p:menuitem icon="ui-btn-Connect"
+                                styleClass="options-btn"
+                                value="#{imoka.Disconnect}"
+                                actionListener="#{machinesController.handlePLCDisconnect()}"
+                                title="Permet de connecter l'appareil."
+                                disabled="#{empty machinesController.selected}"
+                                update=":bodyForm:datalist,:output"
                                 />
                 </p:contextMenu>
 
@@ -158,6 +177,20 @@
                         <h:outputText value="#{item.id}"/>
                     </p:column>
 
+                    <p:column headerText="#{imoka.State}" 
+                              visible="#{machinesController.getIsVisibleColKey(imoka.State)}"
+                              sortBy="#{machinesController.isPLCConnected(item.id)}" filterBy="#{machinesController.isPLCConnected(item.id)}" 
+                              filterMatchMode="equals" >
+                        <f:facet name="filter">
+                            <p:selectOneButton onchange="PF('datalist').filter()" styleClass="ui-btn-filters" >
+                                <f:converter converterId="javax.faces.Boolean" />
+                                <f:selectItem itemLabel="" itemValue="" />
+                                <f:selectItem itemLabel="" itemValue="true" />
+                                <f:selectItem itemLabel="" itemValue="false" />
+                            </p:selectOneButton>
+                        </f:facet>
+                        <p:selectBooleanCheckbox value="#{machinesController.isPLCConnected(item.id)}" disabled="true"/>
+                    </p:column>
 
 
                     <p:column headerText="#{imoka.MachinesField_adress}" 

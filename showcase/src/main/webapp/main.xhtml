@@ -8,6 +8,9 @@
         <title>Facelet Title</title>
 
         <h:outputStylesheet library="css" name="global.min.css" />
+        <h:outputStylesheet library="css" name="scada.min.css" />
+        
+        
     </h:head>
     <h:body id="body">
         <h:form id="bodyForm">
@@ -30,11 +33,13 @@
                              value="#{client.slot}"
                              />
 
+                <!--
                 <h:outputLabel value="Block Type" for="blockType" />
                 <p:selectOneMenu id="blockType" 
                                  value="#{client.blockType}"  >
-                    <f:selectItems value="#{client.blockTypes}" var="bt"  itemLabel="#{bt.name}" itemValue="#{bt.type}"  />
+                    <f:selectItems value="#{client.blockTypes}" var="bt"  itemLabel="#{bt.name}" itemValue="#{bt.code}"  />
                 </p:selectOneMenu>
+                -->
 
                 <h:outputLabel value="Block Number" for="blockNumber" />
                 <p:inputText id="blockNumber"

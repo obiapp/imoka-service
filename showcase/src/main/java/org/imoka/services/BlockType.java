@@ -10,7 +10,7 @@ import java.util.Map;
 import org.imoka.core.moka7.S7;
 
 /**
- * <h1>BlockTypes</h1>
+ * <h1>BlockType</h1>
  * <p>
  * This class coverts type properties
  * </p>
@@ -18,7 +18,7 @@ import org.imoka.core.moka7.S7;
  *
  * @author r.hendrick
  */
-class BlockTypes {
+class BlockType {
     
     private String name;
     private Integer code;
@@ -41,10 +41,10 @@ class BlockTypes {
 
     public Map<String, Integer> map = new HashMap<>();
 
-    BlockTypes() {
+    BlockType() {
     }
     
-    BlockTypes(String name, Integer code) {
+    BlockType(String name, Integer code) {
         this.name = name;
         this.code = code;
     }

@@ -6,10 +6,12 @@ import org.imoka.jsf.util.JsfUtil.PersistAction;
 import org.imoka.sessions.MachinesFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +33,11 @@ import org.primefaces.event.ToggleEvent;
 import org.primefaces.model.Visibility;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ManagedBean;
+import javax.inject.Inject;
+import org.imoka.core.moka7.S7;
+import org.imoka.core.moka7.S7Client;
+import org.imoka.services.ConnectionState;
+import org.imoka.views.Console;
 
 @ManagedBean(name = "machinesController")
 @SessionScoped
@@ -46,6 +53,13 @@ public class MachinesController implements Serializable {
     private Map<Integer, String> headerTextMap;     //!< map header in order to manage reodering
     private Map<String, Boolean> visibleColMap;     //!< Allow to keep 
 
+    @Inject
+    Console console;
+    private List<ConnectionState> statesMachines = new ArrayList<>();
+
+    /*
+    List<S7Client> S7PLC = new ArrayList<>();
+     */
     public MachinesController() {
     }
 
@@ -55,13 +69,15 @@ public class MachinesController implements Serializable {
         isOnMultiCreation = false;  //!< Par défaut, la création multiple n'est pas permise
         // STRING PARSE
         String src_01 = "MachinesField_id";
-        String src_02 = "MachinesField_adress";
-        String src_03 = "MachinesField_machine";
-        String src_04 = "MachinesField_rack";
-        String src_05 = "MachinesField_slot";
-        String src_06 = "MachinesField_deleted";
-        String src_07 = "MachinesField_created";
-        String src_08 = "MachinesField_changed";
+        String src_02 = "MachinesField_type";
+        String src_03 = "MachinesField_adress";
+        String src_04 = "MachinesField_machine";
+        String src_05 = "MachinesField_rack";
+        String src_06 = "MachinesField_slot";
+        String src_07 = "MachinesField_deleted";
+        String src_08 = "MachinesField_created";
+        String src_09 = "MachinesField_changed";
+        String src_10 = "State";
 
         // Setup initial visibility
         headerTextMap = new HashMap<>();
@@ -74,6 +90,8 @@ public class MachinesController implements Serializable {
         headerTextMap.put(6, ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_06));
         headerTextMap.put(7, ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_07));
         headerTextMap.put(8, ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_08));
+        headerTextMap.put(8, ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_09));
+        headerTextMap.put(8, ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_10));
 
         visibleColMap = new HashMap<>();
         visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString("CtrlShort"), true);
@@ -85,6 +103,8 @@ public class MachinesController implements Serializable {
         visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_06), true);
         visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_07), false);
         visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_08), true);
+        visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_09), true);
+        visibleColMap.put(ResourceBundle.getBundle(JsfUtil.BUNDLE).getString(src_10), true);
     }
 
     private MachinesFacade getFacade() {
@@ -166,11 +186,100 @@ public class MachinesController implements Serializable {
     }
 
     /**
-     * ************************************************************************
-     * CRUD OPTIONS
-     *
-     * ************************************************************************
+     * <p>
+     * Convenient method to setup a connection to a PLC from information defines
+     * on current selected. Each setup successed are saved in
+     * <code>stateMachines</code>.
+     * </p>
+     * @see <code>handlePLCDisconnect</code> allow to disconnect
      */
+    public void handlePLCConnection() {
+        // Start execution timer
+        console.elapseInit();
+
+        // Init messages
+        console.h3("Traitement de la connexion :");
+        console.p(""
+                + console.bold("Machine =") + selected.getMachine() + "<br />"
+                + console.bold("Addresse =") + selected.getAdress() + "<br />"
+                + console.bold("(Rack, Slot) =")
+                + " (" + selected.getRack() + ", " + selected.getSlot() + ") <br />"
+        );
+
+        // Check If adress is already connected
+        console.append(console.bold("Request release connection :"));
+        for (int i = 0; i < statesMachines.size(); i++) {
+            if (statesMachines.get(i).isMachineConnected(selected.getAdress())) {
+                console.p(console.red("... S7PLC is already connected ! "
+                        + "Nothing to do.... <br />"));
+                console.writeElapsed();
+                return;
+            }
+        }
+
+        // Create a new Connection
+        S7Client s7PLC = new S7Client();
+        s7PLC.SetConnectionType(S7.OP);
+        int Result = s7PLC.ConnectTo(selected.getAdress(),
+                selected.getRack(),
+                selected.getSlot());
+        console.append(console.bold("Request connection type [" + S7.OP + "] : ")
+                + selected.getMachine()
+        );
+        if (Result == 0) {
+            console.p(console.green("... Done successfuly >> IP(" + selected.getAdress()
+                    + ") Rack(" + selected.getRack()
+                    + ") Slot(" + selected.getSlot()
+                    + ")" + "<br />"));
+            console.p(console.bold("PDU negotiated : ") + s7PLC.PDULength() + " bytes" + "<br />");
+            // Append S7 Client in connection state
+            statesMachines.add(new ConnectionState(selected, s7PLC));
+        } else {
+            console.p(console.red("... Error >>  IP(" + selected.getAdress()
+                    + ") Rack(" + selected.getRack()
+                    + ") Slot(" + selected.getSlot()
+                    + ")" + S7Client.ErrorText(Result) + "<br />"));
+        }
+        console.writeElapsed();
+    }
+
+    /**
+     * <p>
+     * Method apply to a selected machine for disconnected it
+     * </p>
+     */
+    public void handlePLCDisconnect() {
+        console.h3("Handle PLC Disconnection :");
+        for (int i = 0; i < statesMachines.size(); i++) {
+            if (Objects.equals(statesMachines.get(i).getMachine().getId(), selected.getId())) {
+                statesMachines.get(i).getS7PLC().Disconnect();
+                statesMachines.remove(i);
+                console.p(console.green("... S7PLC connection released on "
+                        + selected.getMachine() + ".<br />"));
+                return;
+            }
+        }
+        console.p(console.red("... Error while releasing connection on "
+                + selected.getMachine() + ".<br />"));
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public Boolean isPLCConnected(Integer id) {
+        for (int i = 0; i < statesMachines.size(); i++) {
+            if (Objects.equals(statesMachines.get(i).getMachine().getId(), id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    /// CRUD OPTIONS
+    ////////////////////////////////////////////////////////////////////////////
     public void create() {
         // Set time on creation action
         selected.setChanged(new Date());

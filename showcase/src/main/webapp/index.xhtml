@@ -34,11 +34,7 @@
                              value="#{client.slot}"
                              />
 
-                <h:outputLabel value="Block Type" for="blockType" />
-                <p:selectOneMenu id="blockType" 
-                                 value="#{client.blockTypes}"  >
-                    <f:selectItems value="#{client.blockTypes}"  var="bt" itemLabel="#{bt.name} [#{bt.code}] " itemValue="#{bt.code}" />
-                </p:selectOneMenu>
+
 
                 <h:outputLabel value="Block Number" for="blockNumber" />
                 <p:inputText id="blockNumber"
@@ -48,40 +44,6 @@
             </p:panelGrid>
 
 
-
-            <p:commandButton id="btnConnect" value="Connect"
-                             actionListener="#{client.handleConnect()}"
-                             update="console"
-                             icon="ui-btn-Connect" class="ui-btn-bottom"
-                             />
-
-            <p:commandButton id="btnSysInfos" value="CPU Infos"
-                             actionListener="#{client.handleSysInfo()}"
-                             update="console"
-                             icon="ui-btn-Connect" class="ui-btn-bottom"
-                             />
-
-            <p:commandButton id="btnDateTime" value="CPU Date Time"
-                             actionListener="#{client.handleDateAndTime()}"
-                             update="console"
-                             icon="ui-btn-Connect" class="ui-btn-bottom"
-                             />
-
-            <p:commandButton id="btnBlockInfo" 
-                             value="CPU Block Infos"
-                             actionListener="#{client.handleBlockInfo()}"
-                             update="console"
-                             icon="ui-btn-Connect"
-                             class="ui-btn-bottom"
-                             />
-
-            <p:commandButton id="btnClear" 
-                             value="Clear Output"
-                             actionListener="#{client.handleOutputClean()}"
-                             update="console"
-                             icon="ui-btn-Connect"
-                             class="ui-btn-bottom"
-                             />
 
 
             <hr />

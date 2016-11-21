@@ -9,7 +9,7 @@
     <ui:composition template="/tmpl/MainWindow.xhtml">
 
         <ui:define name="body">
-            <h1><h:outputText value="#{ism.MachinesTitleEdit}"/></h1>
+            <h1><h:outputText value="#{imoka.MachinesTitleEdit}"/></h1>
 
             <h:form id="bodyForm">
 
@@ -17,108 +17,108 @@
                              rendered="#{machinesController.selected != null}">
 
 
-                    <p:outputLabel value="#{ism.MachinesField_id}"  for="id" />
+                    <p:outputLabel value="#{imoka.MachinesField_id}"  for="id" />
                     <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
                         <p:inputText id="id" 
                                      value="#{machinesController.selected.id}" 
-                                     title="#{ism.MachinesFieldInfo_id}" 
-                                     required="true" requiredMessage="#{ism.MachinesRequiredMsg_id}" 
+                                     title="#{imoka.MachinesFieldInfo_id}" 
+                                     required="true" requiredMessage="#{imoka.MachinesRequiredMsg_id}" 
                                      />
                         <p:message for="id"  />
                     </h:panelGrid>
 
 
-                    <p:outputLabel value="#{ism.MachinesField_adress}"  for="adress" />
+                    <p:outputLabel value="#{imoka.MachinesField_adress}"  for="adress" />
                     <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
                         <p:inputText id="adress" 
                                      value="#{machinesController.selected.adress}" 
-                                     title="#{ism.MachinesFieldInfo_adress}" 
-                                     required="true" requiredMessage="#{ism.MachinesRequiredMsg_adress}" 
+                                     title="#{imoka.MachinesFieldInfo_adress}" 
+                                     required="true" requiredMessage="#{imoka.MachinesRequiredMsg_adress}" 
                                      />
                         <p:message for="adress"  />
                     </h:panelGrid>
 
 
-                    <p:outputLabel value="#{ism.MachinesField_machine}"  for="machine" />
+                    <p:outputLabel value="#{imoka.MachinesField_machine}"  for="machine" />
                     <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
                         <p:inputText id="machine" 
                                      value="#{machinesController.selected.machine}" 
-                                     title="#{ism.MachinesFieldInfo_machine}" 
-                                     required="true" requiredMessage="#{ism.MachinesRequiredMsg_machine}" 
+                                     title="#{imoka.MachinesFieldInfo_machine}" 
+                                     required="true" requiredMessage="#{imoka.MachinesRequiredMsg_machine}" 
                                      />
                         <p:message for="machine"  />
                     </h:panelGrid>
 
 
-                    <p:outputLabel value="#{ism.MachinesField_rack}"  for="rack" />
+                    <p:outputLabel value="#{imoka.MachinesField_rack}"  for="rack" />
                     <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
                         <p:inputText id="rack" 
                                      value="#{machinesController.selected.rack}" 
-                                     title="#{ism.MachinesFieldInfo_rack}" 
-                                     required="true" requiredMessage="#{ism.MachinesRequiredMsg_rack}" 
+                                     title="#{imoka.MachinesFieldInfo_rack}" 
+                                     required="true" requiredMessage="#{imoka.MachinesRequiredMsg_rack}" 
                                      />
                         <p:message for="rack"  />
                     </h:panelGrid>
 
 
-                    <p:outputLabel value="#{ism.MachinesField_slot}"  for="slot" />
+                    <p:outputLabel value="#{imoka.MachinesField_slot}"  for="slot" />
                     <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
                         <p:inputText id="slot" 
                                      value="#{machinesController.selected.slot}" 
-                                     title="#{ism.MachinesFieldInfo_slot}" 
-                                     required="true" requiredMessage="#{ism.MachinesRequiredMsg_slot}" 
+                                     title="#{imoka.MachinesFieldInfo_slot}" 
+                                     required="true" requiredMessage="#{imoka.MachinesRequiredMsg_slot}" 
                                      />
                         <p:message for="slot"  />
                     </h:panelGrid>
 
 
-                    <p:outputLabel value="#{ism.MachinesField_deleted}"  for="deleted" />
+                    <p:outputLabel value="#{imoka.MachinesField_deleted}"  for="deleted" />
                     <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
                         <p:selectBooleanCheckbox id="deleted"
                                                  value="#{machinesController.selected.deleted}" 
                                                  required="true" 
-                                                 requiredMessage="#{ism.MachinesRequiredMsg_deleted}" 
+                                                 requiredMessage="#{imoka.MachinesRequiredMsg_deleted}" 
                                                  />
                         <p:message for="deleted"  />
                     </h:panelGrid>
 
 
-                    <p:outputLabel value="#{ism.MachinesField_created}"  for="created" />
+                    <p:outputLabel value="#{imoka.MachinesField_created}"  for="created" />
                     <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
                         <p:calendar id="created" pattern="dd/MM/yyyy" rendered="true"
                                     value="#{machinesController.selected.created}" 
-                                    title="#{ism.MachinesFieldInfo_created}" 
+                                    title="#{imoka.MachinesFieldInfo_created}" 
                                     required="true" 
-                                    requiredMessage="#{ism.MachinesRequiredMsg_created}" 
+                                    requiredMessage="#{imoka.MachinesRequiredMsg_created}" 
                                     showOn="button"/>
                         <p:message for="created"  />
                     </h:panelGrid>
 
 
-                    <p:outputLabel value="#{ism.MachinesField_changed}"  for="changed" />
+                    <p:outputLabel value="#{imoka.MachinesField_changed}"  for="changed" />
                     <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
                         <p:calendar id="changed" pattern="dd/MM/yyyy" rendered="true"
                                     value="#{machinesController.selected.changed}" 
-                                    title="#{ism.MachinesFieldInfo_changed}" 
+                                    title="#{imoka.MachinesFieldInfo_changed}" 
                                     required="true" 
-                                    requiredMessage="#{ism.MachinesRequiredMsg_changed}" 
+                                    requiredMessage="#{imoka.MachinesRequiredMsg_changed}" 
                                     showOn="button"/>
                         <p:message for="changed"  />
                     </h:panelGrid>
 
 
-                    <p:outputLabel value="#{ism.MachinesField_type}"  for="type" />
+                    <p:outputLabel value="#{imoka.MachinesField_type}"  for="type" />
                     <h:panelGrid columns="2" cellpadding="0px" cellspacing="0px" style="margin:0px; padding:0px;" >                
                         <p:selectOneMenu id="type"  widgetVar="type"
                                          filter="true" filterMatchMode="contains"
                                          value="#{machinesController.selected.type}"
                                          required="true" 
-                                         requiredMessage="#{ism.MachinesRequiredMsg_type}" 
+                                         requiredMessage="#{imoka.MachinesRequiredMsg_type}" 
                                          >
-                            <f:selectItem itemLabel="#{ism.SelectList}" itemValue=""/>
+                            <f:selectItem itemLabel="#{imoka.SelectList}" itemValue=""/>
                             <f:selectItems value="#{machinesTypesController.itemsAvailableSelectOne}"
                                            var="typeItem"
-                                           itemLabel="#{typeItem.Expected hash. entityDescriptor.id?replace(".","_") evaluated instead to freemarker.template.SimpleScalar on line 93, column 113 in unknown.} - #{typeItem.stgdDesignation}" 
+                                           itemLabel="#{typeItem.type} - #{typeItem.designation}" 
                                            itemValue="#{typeItem}"/>
                         </p:selectOneMenu>
                         <p:message for="type"  />
@@ -137,15 +137,14 @@
                 <h:panelGroup id="btn-crud-zone_id"  >
                     <p:commandButton icon="ui-btn-Save"
                                      styleClass="ui-btn"
-                                     value="#{ism.Change}" 
+                                     value="#{imoka.Change}" 
                                      actionListener="#{machinesController.update}" 
-                                     onstart="#{p:widgetVar('bodyForm:')}.enable();"
                                      update=":bodyForm,:growl" 
                                      action="List.xhtml?faces-redirect=true"
                                      />
                     <p:commandButton icon="ui-btn-Cancel"
                                      styleClass="ui-btn"
-                                     value="#{ism.Cancel}" 
+                                     value="#{imoka.Cancel}" 
                                      update=":bodyForm,:growl"
                                      actionListener="#{machinesController.prepareCreate()}"
                                      action="./List.xhtml?faces-redirect=true"
@@ -170,7 +169,7 @@
             <h:panelGroup id="westGroup">
                 <p:commandButton icon="ui-btn-Save"
                                  styleClass="options-btn"
-                                 value="#{ism.Change}" 
+                                 value="#{imoka.Change}" 
                                  actionListener="#{machinesController.update}" 
                                  update=":bodyForm,:growl"
                                  action="List.xhtml?faces-redirect=true"
@@ -178,7 +177,7 @@
                                  />
                 <p:commandButton icon="ui-btn-Cancel"
                                  styleClass="options-btn"
-                                 value="#{ism.Cancel}" 
+                                 value="#{imoka.Cancel}" 
                                  actionListener="#{machinesController.prepareCreate()}"
                                  action="./List.xhtml?faces-redirect=true"
                                  update=":bodyForm,:growl"
