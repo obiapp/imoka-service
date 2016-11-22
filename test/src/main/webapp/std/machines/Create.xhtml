@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+        <ui:define name="body">
+            <h3><h:outputText value="#{bundle.CreateMachinesTitle}"></h:outputText></h3>
+            
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateMachinesLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{machinesController.selected.id}" title="#{bundle.CreateMachinesTitle_id}" required="true" requiredMessage="#{bundle.CreateMachinesRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.CreateMachinesLabel_adress}" for="adress" />
+                    <h:inputText id="adress" value="#{machinesController.selected.adress}" title="#{bundle.CreateMachinesTitle_adress}" required="true" requiredMessage="#{bundle.CreateMachinesRequiredMessage_adress}"/>
+                    <h:outputLabel value="#{bundle.CreateMachinesLabel_machine}" for="machine" />
+                    <h:inputText id="machine" value="#{machinesController.selected.machine}" title="#{bundle.CreateMachinesTitle_machine}" required="true" requiredMessage="#{bundle.CreateMachinesRequiredMessage_machine}"/>
+                    <h:outputLabel value="#{bundle.CreateMachinesLabel_rack}" for="rack" />
+                    <h:inputText id="rack" value="#{machinesController.selected.rack}" title="#{bundle.CreateMachinesTitle_rack}" required="true" requiredMessage="#{bundle.CreateMachinesRequiredMessage_rack}"/>
+                    <h:outputLabel value="#{bundle.CreateMachinesLabel_slot}" for="slot" />
+                    <h:inputText id="slot" value="#{machinesController.selected.slot}" title="#{bundle.CreateMachinesTitle_slot}" required="true" requiredMessage="#{bundle.CreateMachinesRequiredMessage_slot}"/>
+                    <h:outputLabel value="#{bundle.CreateMachinesLabel_deleted}" for="deleted" />
+                    <h:inputText id="deleted" value="#{machinesController.selected.deleted}" title="#{bundle.CreateMachinesTitle_deleted}" required="true" requiredMessage="#{bundle.CreateMachinesRequiredMessage_deleted}"/>
+                    <h:outputLabel value="#{bundle.CreateMachinesLabel_created}" for="created" />
+                    <h:inputText id="created" value="#{machinesController.selected.created}" title="#{bundle.CreateMachinesTitle_created}" required="true" requiredMessage="#{bundle.CreateMachinesRequiredMessage_created}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateMachinesLabel_changed}" for="changed" />
+                    <h:inputText id="changed" value="#{machinesController.selected.changed}" title="#{bundle.CreateMachinesTitle_changed}" required="true" requiredMessage="#{bundle.CreateMachinesRequiredMessage_changed}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateMachinesLabel_type}" for="type" />
+                    <h:selectOneMenu id="type" value="#{machinesController.selected.type}" title="#{bundle.CreateMachinesTitle_type}" required="true" requiredMessage="#{bundle.CreateMachinesRequiredMessage_type}">
+                        <f:selectItems value="#{machinesTypesController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{machinesController.create}" value="#{bundle.CreateMachinesSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{machinesController.prepareList}" value="#{bundle.CreateMachinesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateMachinesIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

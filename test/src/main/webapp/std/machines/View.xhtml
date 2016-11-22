@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+        
+        <ui:define name="body">
+            <h1><h:outputText value="#{bundle.ViewMachinesTitle}"></h:outputText></h1>
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewMachinesLabel_id}"/>
+                    <h:outputText value="#{machinesController.selected.id}" title="#{bundle.ViewMachinesTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewMachinesLabel_adress}"/>
+                    <h:outputText value="#{machinesController.selected.adress}" title="#{bundle.ViewMachinesTitle_adress}"/>
+                    <h:outputText value="#{bundle.ViewMachinesLabel_machine}"/>
+                    <h:outputText value="#{machinesController.selected.machine}" title="#{bundle.ViewMachinesTitle_machine}"/>
+                    <h:outputText value="#{bundle.ViewMachinesLabel_rack}"/>
+                    <h:outputText value="#{machinesController.selected.rack}" title="#{bundle.ViewMachinesTitle_rack}"/>
+                    <h:outputText value="#{bundle.ViewMachinesLabel_slot}"/>
+                    <h:outputText value="#{machinesController.selected.slot}" title="#{bundle.ViewMachinesTitle_slot}"/>
+                    <h:outputText value="#{bundle.ViewMachinesLabel_deleted}"/>
+                    <h:outputText value="#{machinesController.selected.deleted}" title="#{bundle.ViewMachinesTitle_deleted}"/>
+                    <h:outputText value="#{bundle.ViewMachinesLabel_created}"/>
+                    <h:outputText value="#{machinesController.selected.created}" title="#{bundle.ViewMachinesTitle_created}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewMachinesLabel_changed}"/>
+                    <h:outputText value="#{machinesController.selected.changed}" title="#{bundle.ViewMachinesTitle_changed}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewMachinesLabel_type}"/>
+                    <h:outputText value="#{machinesController.selected.type}" title="#{bundle.ViewMachinesTitle_type}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{machinesController.destroyAndView}" value="#{bundle.ViewMachinesDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewMachinesEditLink}"/>
+                <br />
+                <h:commandLink action="#{machinesController.prepareCreate}" value="#{bundle.ViewMachinesCreateLink}" />
+                <br />
+                <h:commandLink action="#{machinesController.prepareList}" value="#{bundle.ViewMachinesShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewMachinesIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

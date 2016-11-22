@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+
+        <ui:define name="body">
+            <h3><h:outputText value="#{bundle.ListMachinesTitle}"></h:outputText></h3>
+            <br />
+
+
+            <h:form styleClass="jsfcrud_list_form">
+
+
+
+                <h:outputText escape="false" value="#{bundle.ListMachinesEmpty}" rendered="#{machinesController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{machinesController.items.rowCount > 0}">
+                    <h:outputText value="#{machinesController.pagination.pageFirstItem + 1}..#{machinesController.pagination.pageLastItem + 1}/#{machinesController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{machinesController.previous}" value="#{bundle.Previous} #{machinesController.pagination.pageSize}" rendered="#{machinesController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{machinesController.next}" value="#{bundle.Next} #{machinesController.pagination.pageSize}" rendered="#{machinesController.pagination.hasNextPage}"/>&nbsp;
+                    
+                    <h:dataTable id="datatable"
+                                 value="#{machinesController.items}" 
+                                 var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMachinesTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMachinesTitle_adress}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.adress}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.state}"/>
+                            </f:facet>
+                            <h:outputText value="#{machinesController.isPLCConnected(item.id)}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMachinesTitle_machine}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.machine}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMachinesTitle_rack}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rack}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMachinesTitle_slot}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.slot}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMachinesTitle_deleted}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.deleted}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMachinesTitle_created}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.created}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMachinesTitle_changed}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.changed}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMachinesTitle_type}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.type.type}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{machinesController.prepareView}" value="#{bundle.ListMachinesViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{machinesController.preparePLCConnect()}" 
+                                           actionListener="#{machinesController.handlePLCConnection()}"
+                                           value="Connect" >
+                            </h:commandLink>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{machinesController.prepareEdit}" value="#{bundle.ListMachinesEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{machinesController.destroy}" value="#{bundle.ListMachinesDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{machinesController.prepareCreate}" value="#{bundle.ListMachinesCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListMachinesIndexLink}"/>
+
+                <hr/>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+            </h:form>
+            
+        </ui:define>
+    </ui:composition>
+
+</html>

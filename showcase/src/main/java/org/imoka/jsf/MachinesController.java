@@ -191,6 +191,7 @@ public class MachinesController implements Serializable {
      * on current selected. Each setup successed are saved in
      * <code>stateMachines</code>.
      * </p>
+     *
      * @see <code>handlePLCDisconnect</code> allow to disconnect
      */
     public void handlePLCConnection() {
@@ -264,13 +265,33 @@ public class MachinesController implements Serializable {
     }
 
     /**
+     * <p>
+     * Convenient method which analyse if given id of machine is connected
+     * </p>
      *
-     * @param id
-     * @return
+     * @param id corresponding id of the machine
+     * @return true if machine defined by id is connected
      */
     public Boolean isPLCConnected(Integer id) {
         for (int i = 0; i < statesMachines.size(); i++) {
             if (Objects.equals(statesMachines.get(i).getMachine().getId(), id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * <p>
+     * Convenient method which analyse if given ip adress of machine is connected
+     * </p>
+     *
+     * @param adress corresponding id of the machine
+     * @return true if machine defined by adress is connected
+     */
+    public Boolean isPLCConnected(String adress) {
+        for (int i = 0; i < statesMachines.size(); i++) {
+            if (statesMachines.get(i).getMachine().getMachine().matches(adress)) {
                 return true;
             }
         }

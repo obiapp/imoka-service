@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:i="http://www.ism.org/pi"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      id="html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title><ui:insert name="title">Default Title</ui:insert></title>
+
+
+        <h:outputStylesheet library="css" name="jsfcrud.min.css"/>
+        <h:outputStylesheet library="css" name="w3/w3.min.css"/>
+        <h:outputStylesheet library="css" name="w3/w3-theme-blue-grey.css"/>
+        <h:outputStylesheet library="css" name="w3/font-awesome.min.css"/>
+        
+        <h:outputStylesheet library="jquery" name="jquery.dataTables.min.css"/>
+
+        <h:outputScript library="jquery" name="jquery-2.2.3.min.js" target="head" />
+        <h:outputScript library="jquery" name="jquery-ui.min.js" target="head" />
+        <h:outputScript library="jquery" name="jquery.dataTables.min.js" target="head" />
+
+        <script>
+            $(document).ready(function () {
+                $('#datatable').DataTable();
+            });
+        </script>
+    </h:head>
+
+    <h:body class="w3-theme-l5">
+        <div class="w3-top">
+            <ul class="w3-navbar w3-left-align w3-large" style="height: 140px;">
+
+                <h:form id="mainForm">
+                    <i:ribbon id="Menu">
+                        <i:ribManager >
+
+                        </i:ribManager>
+
+                        <i:tab name="Home" title="Setups">
+                            <i:ribGroup id="homeGroup" label="Home">
+                                <i:ribSet set="big">
+                                    <h:commandButton id="BtnRibHome"
+                                                     title="Accéder à la page d'acceuil."
+                                                     action="/faces/index.xhtml"
+                                                     styleClass="ui-ribbonicon-home" 
+                                                     value="Acceuil"
+
+                                                     />
+                                </i:ribSet>
+                            </i:ribGroup>
+                        </i:tab>
+                        <i:tab name="Machines" title="Specify the machines" >
+                            <i:ribGroup id="ribSetup" label="Configurations">
+                                <i:ribSet set="big">
+                                    <h:commandButton id="BtnRibManagePLC"
+                                                     title="Gestion des machines (PLC, HMI)"
+                                                     action="/faces/std/machines/List.xhtml"
+                                                     styleClass="ui-ribbonicon-machines" 
+                                                     value="Machines"
+                                                     />
+                                    <h:commandButton id="BtnRibConnectPLC"
+                                                     title="Connection des machine (PLC, HMI)"
+                                                     action="/faces/std/machines/List.xhtml"
+                                                     styleClass="ui-ribbonicon-machines" 
+                                                     value="Connect PLC"
+                                                     />
+
+                                </i:ribSet>
+                            </i:ribGroup>
+                        </i:tab>
+                        <i:tab name="Affichage" title="Gestionnaire de l'affichage" >
+                            <i:ribGroup id="managedLayoutGroup" label="Fenêtre">
+                                <i:ribSet id="manageLayoutAuto" set="big">
+                                    <h:commandButton id="btnLayoutAuto"
+                                                     styleClass="ui-icon-layoutInit"
+                                                     value="Réinitialiser"
+                                                     actionListener="#{viewLayout.handleInitLayout()}"
+                                                     />
+                                </i:ribSet>
+                                <i:ribSet id="manageLayoutOC" set="small" >
+                                    <h:commandButton value="Menu" type="button"  
+                                                     styleClass="ui-icon-layoutWest"
+                                                     onclick="PF('fpLayoutWidget').toggle('west')"/>  
+                                    <h:commandButton value="Options" type="button"  
+                                                     styleClass="ui-icon-layoutEast"
+                                                     onclick="PF('fpLayoutWidget').toggle('east')"/>  
+                                    <h:commandButton value="Log" type="button"  
+                                                     styleClass="ui-icon-layoutSouth"
+                                                     onclick="PF('fpLayoutWidget').toggle('south')"/>  
+                                </i:ribSet>
+
+                            </i:ribGroup>
+                        </i:tab>
+                    </i:ribbon>
+                </h:form>
+            </ul>
+        </div>
+
+
+
+
+
+        <!-- Page Container -->
+        <div class="w3-container w3-content" style="max-width:100%;margin-top:150px">    
+            <!-- The Grid -->
+            <div class="w3-row w3-padding-0" >
+                <!-- Left Column -->
+                <div class="w3-col m2 w3-margin-0">
+                    <!-- Accordion -->
+                    <div class="w3-card-2 w3-round">
+                        <div class="w3-accordion w3-white">
+                            <button onclick="myFunction('Demo1')" 
+                                    class="w3-btn-block w3-theme-l1 w3-left-align">
+                                <i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i>
+                                Gestion des machines
+                            </button>
+                            <div id="Demo1" class="w3-accordion-content w3-container">
+                                <h:link outcome="/std/machines/List.xhtml" value="Liste machine" />
+                                <h:link outcome="/index" value="Acceuil"/>
+                            </div>
+                            <button onclick="myFunction('Demo2')" class="w3-btn-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Events</button>
+                            <div id="Demo2" class="w3-accordion-content w3-container">
+                                <p>Some other text..</p>
+                            </div>
+                            <button onclick="myFunction('Demo3')" class="w3-btn-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> My Photos</button>
+                            <div id="Demo3" class="w3-accordion-content w3-container">
+                                <div class="w3-row-padding">
+                                    <br/>
+                                    <div class="w3-half">
+                                        <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom"/>
+                                    </div>
+                                    <div class="w3-half">
+                                        <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom"/>
+                                    </div>
+                                    <div class="w3-half">
+                                        <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom"/>
+                                    </div>
+                                    <div class="w3-half">
+                                        <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom"/>
+                                    </div>
+                                    <div class="w3-half">
+                                        <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom"/>
+                                    </div>
+                                    <div class="w3-half">
+                                        <img src="/w3images/fjords.jpg" style="width:100%" class="w3-margin-bottom"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>      
+                    </div>
+                    <br/>
+
+                </div>
+
+                <!-- Middle Column -->
+                <div class="w3-col m10" >
+
+                    <div class="w3-container w3-card-2 w3-white w3-round w3-margin-left" style="min-height: 480px;"><br/>
+                        <p>
+                            <ui:insert id="body" name="body" />
+                        </p>
+                    </div>
+                    <!-- End Middle Column -->
+                </div>
+                <!-- End Grid -->
+            </div>
+            <!-- End Page Container -->
+        </div>
+        <br/>
+
+        <!-- Footer -->
+        <footer class="w3-container w3-theme-d3 w3-padding-16">
+            <h5>Output</h5>
+            <iframe width="100%" height="200px" title="title" src="#{console.HTML}">
+
+            </iframe>
+            <h:outputText id="output" value="#{console.HTML}"  escape="false"/>
+        </footer>
+
+        <footer class="w3-container w3-theme-d5">
+            <p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+        </footer>
+
+        <script>
+            // Accordion
+            function myFunction(id) {
+                var x = document.getElementById(id);
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className += " w3-show";
+                    x.previousElementSibling.className += " w3-theme-d1";
+                } else {
+                    x.className = x.className.replace("w3-show", "");
+                    x.previousElementSibling.className =
+                            x.previousElementSibling.className.replace(" w3-theme-d1", "");
+                }
+            }
+
+            // Used to toggle the menu on smaller screens when clicking on the menu button
+            function openNav() {
+                var x = document.getElementById("navDemo");
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className += " w3-show";
+                } else {
+                    x.className = x.className.replace(" w3-show", "");
+                }
+            }
+        </script>
+
+
+    </h:body>
+
+</html>

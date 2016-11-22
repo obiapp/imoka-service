@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundled.EditMachinesTypesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundled.EditMachinesTypesLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{machinesTypesController.selected.id}" title="#{bundled.EditMachinesTypesTitle_id}" required="true" requiredMessage="#{bundled.EditMachinesTypesRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundled.EditMachinesTypesLabel_type}" for="type" />
+                    <h:inputText id="type" value="#{machinesTypesController.selected.type}" title="#{bundled.EditMachinesTypesTitle_type}" required="true" requiredMessage="#{bundled.EditMachinesTypesRequiredMessage_type}"/>
+                    <h:outputLabel value="#{bundled.EditMachinesTypesLabel_designation}" for="designation" />
+                    <h:inputText id="designation" value="#{machinesTypesController.selected.designation}" title="#{bundled.EditMachinesTypesTitle_designation}" required="true" requiredMessage="#{bundled.EditMachinesTypesRequiredMessage_designation}"/>
+                    <h:outputLabel value="#{bundled.EditMachinesTypesLabel_deleted}" for="deleted" />
+                    <h:inputText id="deleted" value="#{machinesTypesController.selected.deleted}" title="#{bundled.EditMachinesTypesTitle_deleted}" required="true" requiredMessage="#{bundled.EditMachinesTypesRequiredMessage_deleted}"/>
+                    <h:outputLabel value="#{bundled.EditMachinesTypesLabel_created}" for="created" />
+                    <h:inputText id="created" value="#{machinesTypesController.selected.created}" title="#{bundled.EditMachinesTypesTitle_created}" required="true" requiredMessage="#{bundled.EditMachinesTypesRequiredMessage_created}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundled.EditMachinesTypesLabel_changed}" for="changed" />
+                    <h:inputText id="changed" value="#{machinesTypesController.selected.changed}" title="#{bundled.EditMachinesTypesTitle_changed}" required="true" requiredMessage="#{bundled.EditMachinesTypesRequiredMessage_changed}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <h:commandLink action="#{machinesTypesController.update}" value="#{bundled.EditMachinesTypesSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundled.EditMachinesTypesViewLink}"/>
+                <br />
+                <h:commandLink action="#{machinesTypesController.prepareList}" value="#{bundled.EditMachinesTypesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundled.EditMachinesTypesIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

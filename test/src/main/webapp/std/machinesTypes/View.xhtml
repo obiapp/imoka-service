@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundled.ViewMachinesTypesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundled.ViewMachinesTypesLabel_id}"/>
+                    <h:outputText value="#{machinesTypesController.selected.id}" title="#{bundled.ViewMachinesTypesTitle_id}"/>
+                    <h:outputText value="#{bundled.ViewMachinesTypesLabel_type}"/>
+                    <h:outputText value="#{machinesTypesController.selected.type}" title="#{bundled.ViewMachinesTypesTitle_type}"/>
+                    <h:outputText value="#{bundled.ViewMachinesTypesLabel_designation}"/>
+                    <h:outputText value="#{machinesTypesController.selected.designation}" title="#{bundled.ViewMachinesTypesTitle_designation}"/>
+                    <h:outputText value="#{bundled.ViewMachinesTypesLabel_deleted}"/>
+                    <h:outputText value="#{machinesTypesController.selected.deleted}" title="#{bundled.ViewMachinesTypesTitle_deleted}"/>
+                    <h:outputText value="#{bundled.ViewMachinesTypesLabel_created}"/>
+                    <h:outputText value="#{machinesTypesController.selected.created}" title="#{bundled.ViewMachinesTypesTitle_created}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundled.ViewMachinesTypesLabel_changed}"/>
+                    <h:outputText value="#{machinesTypesController.selected.changed}" title="#{bundled.ViewMachinesTypesTitle_changed}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{machinesTypesController.destroyAndView}" value="#{bundled.ViewMachinesTypesDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundled.ViewMachinesTypesEditLink}"/>
+                <br />
+                <h:commandLink action="#{machinesTypesController.prepareCreate}" value="#{bundled.ViewMachinesTypesCreateLink}" />
+                <br />
+                <h:commandLink action="#{machinesTypesController.prepareList}" value="#{bundled.ViewMachinesTypesShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundled.ViewMachinesTypesIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

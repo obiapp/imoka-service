@@ -4,27 +4,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ism="http://www.ism.org/pi"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:i="http://www.ism.org/pi"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
       id="html">
+    
     <h:head>
-        <title><ui:insert name="title">#{ism.AppName}</ui:insert></title>
-        <link rel="shortcut icon" href="#{resource['img/ism/favico.png']}" type="image/x-png" /> 
-
-
-
+        <title><ui:insert name="title">#{imoka.AppName}</ui:insert></title>
+        <link rel="shortcut icon" href="#{resource['img/favico.png']}" type="image/x-png" /> 
 
         <f:facet name="last">
-            <h:outputStylesheet library="css" name="ism-ribbon.min.css" />
-            <h:outputStylesheet library="css" name="ism-layout.min.css" />
-            <h:outputStylesheet library="css" name="ism-global.min.css" />
+            <h:outputStylesheet library="css" name="layout.min.css" />
+            <h:outputStylesheet library="css" name="global.min.css" />
+            <h:outputStylesheet library="css" name="ribbon.min.css" />
             <h:outputStylesheet library="css" name="scada.min.css" />
 
-
+            
             <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
-            <!--<h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />-->
-            <h:outputStylesheet library="css" name="scada.min.css" />
+            <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
+            
             <h:outputScript library="jquery" name="jquery-2.2.3.min.js" target="head" />
             <h:outputScript library="jquery" name="jquery-ui.min.js" target="head" />
 
@@ -71,6 +69,7 @@
 
 
                 <h:form id="mainForm">
+                    <!--
                     <style>
                         .ui-ribbon .ui-button-icon-left.ui-icon.ui-c{
                             margin: 0px!important;
@@ -132,27 +131,29 @@
                         #output #document{
                             
                         }
+                    
                     </style>
-                    <i:ribbon id="Menu">
-                        <i:ribManager >
+                    -->
+                    <ism:ribbon id="Menu">
+                        <ism:ribManager >
 
-                        </i:ribManager>
+                        </ism:ribManager>
 
-                        <i:tab name="Home" title="Setups">
-                            <i:ribGroup id="homeGroup" label="Home">
-                                <i:ribSet set="big">
+                        <ism:tab name="Home" title="Setups">
+                            <ism:ribGroup id="homeGroup" label="Home">
+                                <ism:ribSet set="big">
                                     <p:commandButton id="BtnRibHome"
                                                      title="Accéder à la page d'acceuil."
                                                      action="/index.xhtml?faces-redirect=true"
                                                      icon="ui-ribbonicon-home" 
                                                      value="Acceuil"
                                                      />
-                                </i:ribSet>
-                            </i:ribGroup>
-                        </i:tab>
-                        <i:tab name="Machines" title="Specify the machines" >
-                            <i:ribGroup id="ribSetup" label="Configurations">
-                                <i:ribSet set="big">
+                                </ism:ribSet>
+                            </ism:ribGroup>
+                        </ism:tab>
+                        <ism:tab name="Machines" title="Specify the machines" >
+                            <ism:ribGroup id="ribSetup" label="Configurations">
+                                <ism:ribSet set="big">
                                     <p:commandButton id="BtnRibManagePLC"
                                                      title="Gestion des machines (PLC, HMI)"
                                                      action="/app/machines/List.xhtml?faces-redirect=true"
@@ -166,19 +167,19 @@
                                                      value="Machines"
                                                      />
 
-                                </i:ribSet>
-                            </i:ribGroup>
-                        </i:tab>
-                        <i:tab name="Affichage" title="Gestionnaire de l'affichage" >
-                            <i:ribGroup id="managedLayoutGroup" label="Fenêtre">
-                                <i:ribSet id="manageLayoutAuto" set="big">
+                                </ism:ribSet>
+                            </ism:ribGroup>
+                        </ism:tab>
+                        <ism:tab name="Affichage" title="Gestionnaire de l'affichage" >
+                            <ism:ribGroup id="managedLayoutGroup" label="Fenêtre">
+                                <ism:ribSet id="manageLayoutAuto" set="big">
                                     <p:commandButton id="btnLayoutAuto"
                                                      icon="ui-icon-layoutInit"
                                                      value="Réinitialiser"
                                                      actionListener="#{viewLayout.handleInitLayout()}"
                                                      update="fullPage"/>
-                                </i:ribSet>
-                                <i:ribSet id="manageLayoutOC" set="small" >
+                                </ism:ribSet>
+                                <ism:ribSet id="manageLayoutOC" set="small" >
                                     <p:commandButton value="Menu" type="button"  
                                                      icon="ui-icon-layoutWest"
                                                      onclick="PF('fpLayoutWidget').toggle('west')"/>  
@@ -188,11 +189,11 @@
                                     <p:commandButton value="Log" type="button"  
                                                      icon="ui-icon-layoutSouth"
                                                      onclick="PF('fpLayoutWidget').toggle('south')"/>  
-                                </i:ribSet>
+                                </ism:ribSet>
 
-                            </i:ribGroup>
-                        </i:tab>
-                    </i:ribbon>
+                            </ism:ribGroup>
+                        </ism:tab>
+                    </ism:ribbon>
                 </h:form>
             </p:layoutUnit>
 
@@ -346,7 +347,9 @@
 
             <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false"
                       closable="false">
-                <p:graphicImage width="48px" height="48px" library="img" name="ism/std/Onload.gif"/>
+                <p:graphicImage width="48px" 
+                                height="48px" library="img" 
+                                name="std/Onload.gif"/>
             </p:dialog>
 
             <p:ajaxStatus onstart="PF('statusDialog').show()" 
