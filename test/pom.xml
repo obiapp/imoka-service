@@ -33,19 +33,14 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.ism</groupId>
-            <artifactId>pi</artifactId>
-            <version>1611.11</version>
-        </dependency>
-        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>5.0</version>
+            <groupId>org.ism</groupId>
+            <artifactId>ism</artifactId>
+            <version>1611.11</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -104,18 +99,4 @@
             </plugin>
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
-            <id>RichFaces-maven-lib</id>
-            <layout>default</layout>
-            <name>Repository for library RichFaces-maven-lib</name>
-        </repository>
-        <repository>
-            <url>http://repository.primefaces.org/</url>
-            <id>PrimeFaces-maven-lib</id>
-            <layout>default</layout>
-            <name>Repository for library PrimeFaces-maven-lib</name>
-        </repository>
-    </repositories>
 </project>

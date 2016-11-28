@@ -54,5 +54,9 @@ public abstract class PaginationHelper {
     public int getPageSize() {
         return pageSize;
     }
+    
+    public void setPageSize(int size){
+        pageSize = size;
+    }
 
 }

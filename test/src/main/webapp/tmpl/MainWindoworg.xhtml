@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:i="http://www.ism.org/pi"
+      xmlns:i="http://www.ism.org/ism"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
       id="html">
 
@@ -191,7 +191,7 @@
             // Accordion
             function myFunction(id) {
                 var x = document.getElementById(id);
-                if (x.className.indexOf("w3-show") == -1) {
+                if (x.className.indexOf("w3-show") === -1) {
                     x.className += " w3-show";
                     x.previousElementSibling.className += " w3-theme-d1";
                 } else {
@@ -204,7 +204,7 @@
             // Used to toggle the menu on smaller screens when clicking on the menu button
             function openNav() {
                 var x = document.getElementById("navDemo");
-                if (x.className.indexOf("w3-show") == -1) {
+                if (x.className.indexOf("w3-show") === -1) {
                     x.className += " w3-show";
                 } else {
                     x.className = x.className.replace(" w3-show", "");

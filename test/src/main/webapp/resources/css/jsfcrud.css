@@ -1,15 +1,17 @@
 root { 
-    display: block;
+    /*display: block;*/
 }
 
 
-html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
+html,body,h1,h2,h3,h4,h5 {
+    /*font-family: "Open Sans", sans-serif*/
+}
 
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    /*font-family: Arial, Helvetica, sans-serif;*/
     color: #3a4f54;
-    background-color: #dfecf1;
+    /*background-color: #dfecf1;*/
     font-size: small;
 }
 
@@ -18,10 +20,12 @@ a {
 }
 
 table {
-    empty-cells: show;
+    /*empty-cells: show;*/
+    width: 100%;
 }
 
 form.jsfcrud_list_form th, td th {
+    /*
     font-size: x-small;
     color: #4e6a71;
     border-top-style: solid;
@@ -42,16 +46,20 @@ form.jsfcrud_list_form th, td th {
     padding-bottom: 6px;
     padding-left: 6px;
     padding-right: 6px;
-    /*background-color: #b2d5d6;*/
+    background-color: #b2d5d6;
+    */
 }
 
 td {
+    /*
     vertical-align: top;
     padding-bottom: 8px;
     font-size: small;
+    */
 }
 
 form.jsfcrud_list_form td, td td {
+    /*
     border-top-style: solid;
     border-bottom-style: solid;
     border-left-style: solid;
@@ -66,33 +74,45 @@ form.jsfcrud_list_form td, td td {
     border-right-color: #b2d5d6;
     vertical-align: baseline;
     padding-bottom: 0px;
+    */
 }
 
 tr.jsfcrud_odd_row {
+    /*background-color: #fefeff;
     background-color: #fefeff;
-    color: #4e6a71;
+    color: #4e6a71;*/
 }
 
 tr.jsfcrud_even_row {
+    /*
     background-color: #eff5fa;
     color: #4e6a71;
+    */
 }
 
 tr.jsfcrud_odd_row:hover {
+    background-color: #becbd2!important;
+    /*
     background-color: #becbd2;
-    color: black;
+    color: black;*/
     cursor: pointer;
+    
 }
 tr.jsfcrud_even_row:hover {
+    background-color: #becbd2!important;
+    /*
     background-color: #becbd2;
-    color: black;
+    color: black;*/
     cursor: pointer;
+    
 }
 
 
 
 #busyImage {
+    /*
     position: absolute;
     left: 50%;
     top: 50%;
+    */
 }

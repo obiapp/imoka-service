@@ -1,135 +1,261 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ism="http://www.ism.org/pi"
+      xmlns:ism="http://www.ism.org/ism"
+      lang="en"
       >
 
     <f:view contentType="text/html">
         <h:head>
-            <f:facet name="first">
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>IMOKA JSF</title>
-                <link href="../resources/css/layout.css" rel="stylesheet" type="text/css"/>
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <!--[if IE]>
+            <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' />
+            <![endif]-->
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta name="description" content="IMOKA JSF" />
+            <meta name="author" content="r.hendrick" />
 
-            </f:facet>
+            <title>IMOKA JSF</title>
+
+
+            <h:outputStylesheet library="vendor" name="bootstrap/3.3.7/css/bootstrap.min.css" />
+            <!--
+            <h:outputStylesheet library="vendor" name="bootstrap/2.3.2/css/bootstrap-responsive.css" />
+            -->
+
             <f:facet name="last">
-                <h:outputStylesheet library="css" name="layout.min.css" />
-
-
-                <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
-                <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
-
-                <h:outputScript library="jquery" name="jquery-2.2.3.min.js" target="head" />
-                <h:outputScript library="jquery" name="jquery-ui.min.js" target="head" />
+                <h:outputScript library="vendor" name="jquery/js/3.1.1/jquery.min.js" target="head"/>
+                <h:outputScript library="vendor" name="bootstrap/3.3.7/js/bootstrap.min.js" target="head"/>
 
 
             </f:facet>
+
+            <style>
+                .ui-ribbon-manager{
+                    float: left;
+                    position: absolute;
+                    width: 38px;
+                    height: 38px;
+                    margin-top: 0px;
+                    margin-right: 1px;
+                    border: 1px solid #353535;
+                    cursor: pointer;
+                    position: absolute;
+                    z-index: 5!important;
+                    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b5bdc8+0,828c95+36,28343b+100 */
+                    background: #b5bdc8; /* Old browsers */
+                    background: -moz-linear-gradient(top,  #b5bdc8 0%, #828c95 36%, #28343b 100%); /* FF3.6-15 */
+                    background: -webkit-linear-gradient(top,  #b5bdc8 0%,#828c95 36%,#28343b 100%); /* Chrome10-25,Safari5.1-6 */
+                    background: linear-gradient(to bottom,  #b5bdc8 0%,#828c95 36%,#28343b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc8', endColorstr='#28343b',GradientType=0 ); /* IE6-9 */
+
+                    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+47,ededed+100;White+3D+%231 */
+                    background: #ffffff; /* Old browsers */
+                    background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 47%, #ededed 100%); /* FF3.6-15 */
+                    background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Chrome10-25,Safari5.1-6 */
+                    background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+
+                }
+                .ui-ribbon-manager a.dropdown-toggle{
+                    width: 38px;
+                    height: 38px;
+                    width: 100%;
+                    height: 100%;
+                    margin-left: 1px;
+                }
+
+                .ui-ribbon-nav-spacer{
+                    float:left!important;
+                    width: 41px!important;
+                }
+
+
+
+                .container-fluid{
+                    padding: 0px!important;
+                }
+                .shortcut-bar{
+                    margin:0px!important;
+                    padding: 0px!important;
+                    padding-left: 43px!important;
+                    height: 22px!important;
+                    background-color: #303e45!important;
+                }
+                .nav-header{
+                    position: fixed!important;
+                    border-bottom: 1px solid #ADABAB!important;
+                    padding: 0px!important;
+                    margin: 0px!important;
+                    background-color: white!important;
+                    z-index: 3000!important;
+                }
+                .tab-content{
+                }
+                .tab-pane{
+                }
+
+                .nav.nav-tabs{
+                    padding: 0px!important;
+                    margin: 0px!important;
+                    background-color: #fafafa!important; /* #b5bdc8!important;*/
+                }
+
+                .nav.nav-tabs a{
+                    border-radius: 1px!important;
+                    margin-top: 1px!important;
+                    padding-top: 0px!important;
+                    height: 18px!important;
+                }
+                .row{
+                    margin-top: 143px!important;
+                }
+
+                .rib-group{
+                    height: 96px!important;
+                    float: left;
+                    margin-left: 1px!important;
+                    margin-top: 1px!important;
+                    margin-bottom: 1px!important;
+                    border: 1px solid #cecece!important;
+                    background-color: #fefefe!important;
+                }
+                .rib-group-content{
+                    min-height: 76px!important;
+                }
+                .rib-group-nav{
+                    height: 18px!important;
+                    border-top: 1px solid #cecece!important;
+                    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+0,eeeeee+100;Grey+Flat */
+                    background: #eeeeee; /* Old browsers */
+                    background: -moz-linear-gradient(top,  #eeeeee 0%, #eeeeee 100%); /* FF3.6-15 */
+                    background: -webkit-linear-gradient(top,  #eeeeee 0%,#eeeeee 100%); /* Chrome10-25,Safari5.1-6 */
+                    background: linear-gradient(to bottom,  #eeeeee 0%,#eeeeee 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
+
+
+                }
+                .rib-group-nav-label{
+                    
+                    font-family: arial;
+                    font-weight: normal;
+                    font-size: 10pt!important;
+                    font-size: 0.9em!important;
+                    text-align: center;
+                    padding-top: 2px;
+                }
+                .rib-group-nav-options{
+                    float: right;
+                    width: 12px!important;
+                    height: 12px!important;
+                    margin-top: -15px;
+                    background-image: url("#{resource['img/std/RibOptions.png']}");
+                    background: url("#{resource['img/std/RibOptions.png']}") no-repeat;
+                    background-size:contain;
+                }
+                .rib-group-nav-options:hover{
+                    background-color: #cecece;
+                }
+
+
+
+            </style>
+
         </h:head>
 
-        <h:body>
+        <h:body >
 
-            <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" 
-                              size="143" resizable="false" 
-                              closable="true" collapsible="true"
-                              gutter="1"
-                              >
-                    <ism:ribbon id="Menu">
-                        <ism:ribManager >
+            <div class="container-fluid" >
+                <h:form>
+                    <div class="nav-header col-sm-12">
+                        <div class="ui-ribbon-manager">
+                            <div class="btn-group">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- dropdown menu links -->
+                                    <li><h:link value="Home" outcome="/index" /></li>
+                                </ul>
+                            </div>
+                        </div> 
+                        <div class="shortcut-bar col-sm-12">
 
-                        </ism:ribManager>
+                        </div>
 
-                        <ism:tab name="Home" title="Setups">
-                            <ism:ribGroup id="homeGroup" label="Home">
-                                <ism:ribSet set="big">
-                                    <h:commandButton id="BtnRibHome"
-                                                     title="Accéder à la page d'acceuil."
-                                                     action="/faces/index.xhtml"
-                                                     styleClass="ui-ribbonicon-home" 
-                                                     value="Acceuil"
+                        <ul class="nav nav-tabs">
+                            <li class="ui-ribbon-nav-spacer" ><a data-toggle="tab" href="#home"></a></li>
+                            <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+                            <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+                            <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+                        </ul>
 
-                                                     />
-                                </ism:ribSet>
-                            </ism:ribGroup>
-                        </ism:tab>
-                        <ism:tab name="Machines" title="Specify the machines" >
-                            <ism:ribGroup id="ribSetup" label="Configurations">
-                                <ism:ribSet set="big">
-                                    <h:commandButton id="BtnRibManagePLC"
-                                                     title="Gestion des machines (PLC, HMI)"
-                                                     action="/faces/std/machines/List.xhtml"
-                                                     styleClass="ui-ribbonicon-machines" 
-                                                     value="Machines"
-                                                     />
-                                    <h:commandButton id="BtnRibConnectPLC"
-                                                     title="Connection des machine (PLC, HMI)"
-                                                     action="/faces/std/machines/List.xhtml"
-                                                     styleClass="ui-ribbonicon-machines" 
-                                                     value="Connect PLC"
-                                                     />
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane fade in active">
+                                <div class="rib-group">
+                                    <div class="rib-group-content" >
 
-                                </ism:ribSet>
-                            </ism:ribGroup>
-                        </ism:tab>
-                        <ism:tab name="Affichage" title="Gestionnaire de l'affichage" >
-                            <ism:ribGroup id="managedLayoutGroup" label="Fenêtre">
-                                <ism:ribSet id="manageLayoutAuto" set="big">
-                                    <h:commandButton id="btnLayoutAuto"
-                                                     styleClass="ui-icon-layoutInit"
-                                                     value="Réinitialiser"
-                                                     actionListener="#{viewLayout.handleInitLayout()}"
-                                                     />
-                                </ism:ribSet>
-                                <ism:ribSet id="manageLayoutOC" set="small" >
-                                    <h:commandButton value="Menu" type="button"  
-                                                     styleClass="ui-icon-layoutWest"
-                                                     onclick="PF('fpLayoutWidget').toggle('west')"/>  
-                                    <h:commandButton value="Options" type="button"  
-                                                     styleClass="ui-icon-layoutEast"
-                                                     onclick="PF('fpLayoutWidget').toggle('east')"/>  
-                                    <h:commandButton value="Log" type="button"  
-                                                     styleClass="ui-icon-layoutSouth"
-                                                     onclick="PF('fpLayoutWidget').toggle('south')"/>  
-                                </ism:ribSet>
+                                        <ism:commandButton value="Acceuil"
+                                                           icon="#{resource['img/ribbon/home.png']}"
+                                                           outcome="index.xhtml"
+                                                           requiredLib="false"
+                                                           />
 
-                            </ism:ribGroup>
-                        </ism:tab>
-                    </ism:ribbon>
-                </p:layoutUnit>
+                                        <ism:commandButton value="Machines"
+                                                           icon="#{resource['img/std/Tree.png']}"
+                                                           outcome="std/machines/List.xhtml"
+                                                           requiredLib="false"
+                                                           />
 
-                <p:layoutUnit position="south" size="100" 
-                              closable="true" collapsible="true"
-                              gutter="4"
-                              >
-                    Footer
-                </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true"
-                              gutter="4">
-                    <p:menu>
-                        <p:submenu label="Resources">
-                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
+                                    </div>
+                                    <div class="rib-group-nav">
+                                        <div class="rib-group-nav-label">
+                                            <h:outputText value="Standard" />
+                                        </div>
+                                        <div class="rib-group-nav-options">
 
-                        </p:submenu>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="menu1" class="tab-pane fade">
+                                <h3>Menu 1</h3>
+                                <p>Some content in menu 1.</p>
+                            </div>
+                            <div id="menu2" class="tab-pane fade">
+                                <h3>Menu 2</h3>
+                                <p>Some content in menu 2.</p>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+                <div class="row col-sm-12">
+                    <div class="nav-sidebar col-sm-2" >
+                        <p>
+                            side navigation
+                        </p>
+                        <h:form id="westForm">
+                            <ui:insert name="west" />
+                        </h:form>
+                    </div>
+                    <div class="center-block col-sm-10">
+                        <p>
+                            <ui:insert name="body" />
+                        </p>
+                    </div>
+                </div>
 
-                    </p:menu>
-                </p:layoutUnit>
+            </div>
 
-                <p:layoutUnit position="center">
-                    Welcome to PrimeFaces
-                </p:layoutUnit>
 
-            </p:layout>
 
         </h:body>
-
     </f:view>
 </html>
 

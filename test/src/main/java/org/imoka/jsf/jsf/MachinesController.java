@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -26,7 +26,7 @@ import org.imoka.jsf.services.ConnectionState;
 import org.imoka.jsf.sessions.MachinesFacade;
 import org.imoka.jsf.views.Console;
 
-@Named("machinesController")
+@ManagedBean(name="machinesController")
 @SessionScoped
 public class MachinesController implements Serializable {
 
@@ -188,7 +188,7 @@ public class MachinesController implements Serializable {
     public void handlePLCConnection() {
         // Start execution timer
         console.elapseInit();
-
+        
         // Init messages
         console.h3("Traitement de la connexion :");
         console.p(""
@@ -205,6 +205,7 @@ public class MachinesController implements Serializable {
                 console.p(console.red("... S7PLC is already connected ! "
                         + "Nothing to do.... <br />"));
                 console.writeElapsed();
+                JsfUtil.addMessage(console.getOut());
                 return;
             }
         }
@@ -233,6 +234,7 @@ public class MachinesController implements Serializable {
                     + console.bold(S7Client.ErrorText(Result)) + "<br />"));
         }
         console.writeElapsed();
+        JsfUtil.addMessage(console.getOut());
     }
 
     /**
@@ -248,11 +250,13 @@ public class MachinesController implements Serializable {
                 statesMachines.remove(i);
                 console.p(console.green("... S7PLC connection released on "
                         + current.getMachine() + ".<br />"));
+                JsfUtil.addMessage(console.getOut());
                 return;
             }
         }
         console.p(console.red("... Error while releasing connection on "
                 + current.getMachine() + ".<br />"));
+        JsfUtil.addMessage(console.getOut());
     }
 
     /**
@@ -265,7 +269,7 @@ public class MachinesController implements Serializable {
      */
     public Boolean isPLCConnected(Integer id) {
         for (int i = 0; i < statesMachines.size(); i++) {
-            if (Objects.equals(statesMachines.get(i).getMachine().getId(), id)) {
+            if (statesMachines.get(i).getMachine().getId() == id) {
                 return true;
             }
         }
