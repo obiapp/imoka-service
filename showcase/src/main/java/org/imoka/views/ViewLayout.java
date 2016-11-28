@@ -38,7 +38,7 @@ public class ViewLayout {
         Integer collapseSize = 6;      //!< 20px
         String effect = "fade";         //!< effect : blind, bounce, clip, drop, explode, fold, highlight, puff, pulsate, scale, shake, size and slide.
         String effectSpeed = "1500";    //!< ms effect
-
+        int northSize = 142;
         // Layout
         layout = new Layout();
         layout.setFullPage(true);
@@ -47,13 +47,14 @@ public class ViewLayout {
 
         // NorthUnit
         {
+            
             northUnit = new LayoutUnit();
-            northUnit.setSize(String.valueOf(142));
+            northUnit.setSize(String.valueOf(northSize));
             northUnit.setResizable(true);
             northUnit.setClosable(false);
             northUnit.setCollapsible(true);
-            northUnit.setMinSize(142);
-            northUnit.setMaxSize(142);
+            northUnit.setMinSize(northSize);
+            northUnit.setMaxSize(northSize);
             northUnit.setGutter(gutter);
             //>>> default
             northUnit.setVisible(true);

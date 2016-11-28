@@ -78,7 +78,7 @@ public class Console implements Serializable {
      */
     public void writeElapsed() {
         this.elapseEnd();
-        p(bold("Execution time ") + getElapsed() + "<br />");
+        p(bold("Execution time ") + getElapsed() + " ms<br />");
     }
 
     public void h1(String out) {

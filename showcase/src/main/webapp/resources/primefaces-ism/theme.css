@@ -473,16 +473,16 @@ th .ui-btn-filters span {
     background-position: left center;
 }
 th .ui-btn-filters div:first-child span {
-    background: url("#{resource['img/ism/std/CheckedAll.png']}") no-repeat!important;
+    background: url("#{resource['img/std/CheckedAll.png']}") no-repeat!important;
     background-size:contain!important;
 }
 th .ui-btn-filters div:nth-child(2) span {
-    background: url("#{resource['img/ism/std/CheckedYes.png']}") no-repeat!important;
+    background: url("#{resource['img/std/CheckedYes.png']}") no-repeat!important;
     background-size:contain!important;
     
 }
 th .ui-btn-filters div:nth-child(3) span {
-    background: url("#{resource['img/ism/std/CheckedNo.png']}") no-repeat!important;
+    background: url("#{resource['img/std/CheckedNo.png']}") no-repeat!important;
     background-size:contain!important;
 }
 

@@ -60,7 +60,7 @@ body {
     font-size: 8pt;
 }
 
-/*
+
 
 
 
@@ -72,33 +72,34 @@ body {
 *  + shortcut-center
 *  + shortcut-right
 *******************************************************************************/
-/*#layout-shortcut{
+#layout-shortcut{
     width: 100%;
     max-height: 24px;
     position: absolute; 
+    /*z-index: 2;*/
     float:left;
 }
 #layout-shortcut .ui-button{
     margin: 1px;
-    padding:0px;   
-    border: none;  
+    padding:0px;    /*Supprime le padding de tous les boutons */
+    border: none;   /*Supprime les bordure de tous les button */
     min-height: 22px;
     max-height: 22px;
     min-width:  24px;
     max-width: 24px;
 }
 #layout-shortcut .ui-button-icon-left.ui-icon.ui-c.ui-icon-triangle-1-s{
-    display: none!important; 
+    display: none!important; /* Supprime l'affichage d'icône dans les bouttons de la barre shortcut */
     margin-left: -5px!important;
 }
 #layout-shortcut .ui-button-text.ui-c{
-    display: none!important; 
+    display: none!important; /* Supprime l'affichage de texte des buttons dans shortcut*/
 }
 
 /* ====================== */
-/*
 #shortcutForm\3a shortcut-selector .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left{
-    background: url("#{resource['img/ism/ribbon/shortcut.png']}") no-repeat;
+    /* Bordure et padding déjà supprimé avec layout=shortcut .ui-button */
+    background: url("#{resource['img/ribbon/shortcut.png']}") no-repeat;
     background-size:contain;
 }
 
@@ -143,9 +144,12 @@ body {
 * ism-ribbon
 * 
 *******************************************************************************/
-/*#ribbon-layout {
+#ribbon-layout {
+    /*min-height: 149px;
+    background-color: #f4f3f3;*/
 }
 #ribbon-layout ul.ui-tabs-nav{
+    /*padding-top: 26px!important;*/
     padding-bottom: 2px;
     line-height: 15px;
     text-align: center;
@@ -193,6 +197,7 @@ body {
     background-color: #009933;
 }
 #ribbon-layout .ui-tabs-panels{
+    /*margin-top: 20px;*/
 }
 
 
@@ -202,64 +207,63 @@ body {
 *
 *
 *******************************************************************************/
-/*
+
 .ui-button-icon-left.ui-icon.ui-c.ui-btn-sign-up{
     margin-left: -4px!important;
     margin-top: -12px!important;
-    background: url("#{resource['img/ism/window/up_symbol.png']}") no-repeat;
+    background: url("#{resource['img/window/up_symbol.png']}") no-repeat;
     background-size:contain;
 }
 .ui-button-icon-left.ui-icon.ui-c.ui-btn-exit{
     margin-left: -4px!important;
     margin-top: -12px!important;
-    background: url("#{resource['img/ism/ribbon/exit.png']}") no-repeat;
+    background: url("#{resource['img/ribbon/exit.png']}") no-repeat;
     background-size:contain;
 }
-*/
+
 /*******************************************************************************
 * ACCEUIL / STAFF
 *******************************************************************************/
-/*#btnHomeHome .ui-ribbonicon-home{
-    background: url("#{resource['img/ism/ribbon/home.png']}") no-repeat;
+#btnHomeHome .ui-ribbonicon-home{
+    background: url("#{resource['img/ribbon/home.png']}") no-repeat;
     background-size:contain;
 }
 
 #btnHomeLogOut .ui-ribbonicon-exit{
-    background: url("#{resource['img/ism/ribbon/exit.png']}") no-repeat;
+    background: url("#{resource['img/ribbon/exit.png']}") no-repeat;
     background-size:contain;
 }
 
 #btnHomeStaffProfil .ui-ribbonicon-person{
-    background: url("#{resource['img/ism/hr/staff.png']}") no-repeat;
+    background: url("#{resource['img/hr/staff.png']}") no-repeat;
     background-size:contain;
 }
 
 #btnHomeStaffConfig  .ui-ribbonicon-config{
-    background: url("#{resource['img/ism/hr/u_setup.png']}") no-repeat;
+    background: url("#{resource['img/hr/u_setup.png']}") no-repeat;
     background-size:contain;
 }
-*/
+
 
 
 /*******************************************************************************
 * ADMINISTRATION / SMQ
 *******************************************************************************/
-/*
 #btnSMQProcessus .ui-ribbonicon-new{
-    background: url("#{resource['img/ism/admin/smq_processus.png']}") no-repeat;
+    background: url("#{resource['img/admin/smq_processus.png']}") no-repeat;
     background-size:contain;
 }
 #btnSMQDocType .ui-icon{
-    background: url("#{resource['img/ism/admin/smq_doc_type.png']}") no-repeat;
+    background: url("#{resource['img/admin/smq_doc_type.png']}") no-repeat;
     background-size:contain;
 }
 #btnSMQDocument .ui-icon{
-    background: url("#{resource['img/ism/admin/smq_documents.png']}") no-repeat;
+    background: url("#{resource['img/admin/smq_documents.png']}") no-repeat;
     background-size:contain;
 }
 
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-smqnc {
-    background: url("#{resource['img/ism/admin/smq_nc.png']}") no-repeat;
+    background: url("#{resource['img/admin/smq_nc.png']}") no-repeat;
     background-size:contain;
 }
 
@@ -276,65 +280,63 @@ span.ui-menuitem-text{
     font-weight: normal!important;
 }
 span.ui-menuitem-icon.ui-icon.ui-icon-smqnc-unit {
-    background: url("#{resource['img/ism/admin/smq_nc_unite.png']}") no-repeat;
+    background: url("#{resource['img/admin/smq_nc_unite.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-menuitem-icon.ui-icon.ui-icon-smqnc-nature {
-    background: url("#{resource['img/ism/admin/smq_nc_nature.png']}") no-repeat;
+    background: url("#{resource['img/admin/smq_nc_nature.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-menuitem-icon.ui-icon.ui-icon-smqnc-gravite {
-    background: url("#{resource['img/ism/admin/smq_nc_gravite.png']}") no-repeat;
+    background: url("#{resource['img/admin/smq_nc_gravite.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-menuitem-icon.ui-icon.ui-icon-smqnc-frequence {
-    background: url("#{resource['img/ism/admin/smq_nc_frequence.png']}") no-repeat;
+    background: url("#{resource['img/admin/smq_nc_frequence.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-menuitem-icon.ui-icon.ui-icon-smqnc-request {
-    background: url("#{resource['img/ism/admin/smq_nc.png']}") no-repeat;
+    background: url("#{resource['img/admin/smq_nc.png']}") no-repeat;
     background-size:contain;
 }
-*/
 /*******************************************************************************
 * RESOURCES / CONFIGURATION
 *******************************************************************************/
-/*
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-hrstaffgroups{
-    background: url("#{resource['img/ism/hr/groupes.png']}") no-repeat;
+    background: url("#{resource['img/hr/groupes.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-hrstaffroles{
-    background: url("#{resource['img/ism/hr/roles.png']}") no-repeat;
+    background: url("#{resource['img/hr/roles.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-hrstaffcompany{
-    background: url("#{resource['img/ism/hr/company.png']}") no-repeat;
+    background: url("#{resource['img/hr/company.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-hrstaffacces{
-    background: url("#{resource['img/ism/hr/acces.png']}") no-repeat;
+    background: url("#{resource['img/hr/acces.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-hrstaffcreate{
-    background: url("#{resource['img/ism/hr/u_profil.png']}") no-repeat;
+    background: url("#{resource['img/hr/u_profil.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-hrstafflist{
-    background: url("#{resource['img/ism/hr/u_setup.png']}") no-repeat;
+    background: url("#{resource['img/hr/u_setup.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-hrstaffusers{
-    background: url("#{resource['img/ism/hr/st_users.png']}") no-repeat;
+    background: url("#{resource['img/hr/st_users.png']}") no-repeat;
     background-size:contain;
 }
 
 /* ============================================================================
     SPECIAL CASE FOR RESOURCES
 ==============================================================================*/
-/*ul.ui-ribbon-groups #RibbonGroupResources  {
+ul.ui-ribbon-groups #RibbonGroupResources  {
     width: 450px;
-}*/
+}
 
 
 
@@ -343,7 +345,6 @@ span.ui-button-icon-left.ui-icon.ui-c.ui-icon-hrstaffusers{
 /* ============================================================================
     SMQ NC DropDown Button
 ==============================================================================*/
-/*
 .ui-menubutton-smqnc {
     margin: 0px;
     padding:0px;
@@ -381,7 +382,7 @@ span.ui-button-icon-left.ui-icon.ui-c.ui-icon-hrstaffusers{
     padding: 0px;
     margin-top: -32px;
     margin-left: 16px;
-    background: url("#{resource['img/ism/admin/smq_nc_setup.png']}") no-repeat;
+    background: url("#{resource['img/admin/smq_nc_setup.png']}") no-repeat;
     background-size:contain;
 }
 
@@ -391,58 +392,58 @@ span.ui-button-icon-left.ui-icon.ui-c.ui-icon-hrstaffusers{
 /*******************************************************************************
 * PROCESS / 
 *******************************************************************************/
-/*span.ui-button-icon-left.ui-icon.ui-c.ui-icon-equipement{
-    background: url("#{resource['img/ism/process/equipement.png']}") no-repeat;
+span.ui-button-icon-left.ui-icon.ui-c.ui-icon-equipement{
+    background: url("#{resource['img/process/equipement.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-unite{
-    background: url("#{resource['img/ism/process/unite.png']}") no-repeat;
+    background: url("#{resource['img/process/unite.png']}") no-repeat;
     background-size:contain;
 }
 
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-analysepoint{
-    background: url("#{resource['img/ism/process/analysepoint.png']}") no-repeat;
+    background: url("#{resource['img/process/analysepoint.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-analysedata{
-    background: url("#{resource['img/ism/process/analysedata.png']}") no-repeat;
+    background: url("#{resource['img/process/analysedata.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-analysedatastatis{
-    background: url("#{resource['img/ism/process/statis.png']}") no-repeat;
+    background: url("#{resource['img/process/statis.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-menuitem-icon.ui-icon.ui-icon-analysecategory{
-    background: url("#{resource['img/ism/process/analysecategory.png']}") no-repeat;
+    background: url("#{resource['img/process/analysecategory.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-menuitem-icon.ui-icon.ui-icon-analysemethod{
-    background: url("#{resource['img/ism/process/analysemethod.png']}") no-repeat;
+    background: url("#{resource['img/process/analysemethod.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-menuitem-icon.ui-icon.ui-icon-analysetype{
-    background: url("#{resource['img/ism/process/analysetype.png']}") no-repeat;
+    background: url("#{resource['img/process/analysetype.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-menuitem-icon.ui-icon.ui-icon-analysepoint{
-    background: url("#{resource['img/ism/process/analysepoint.png']}") no-repeat;
+    background: url("#{resource['img/process/analysepoint.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-menuitem-icon.ui-icon.ui-icon-analyseallowed{
-    background: url("#{resource['img/ism/process/analyseallowed.png']}") no-repeat;
+    background: url("#{resource['img/process/analyseallowed.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-menuitem-icon.ui-icon.ui-icon-analysenotify{
-    background: url("#{resource['img/ism/process/analysenotify.png']}") no-repeat;
+    background: url("#{resource['img/process/analysenotify.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-menuitem-icon.ui-icon.ui-icon-analysedata{
-    background: url("#{resource['img/ism/process/analysedata.png']}") no-repeat;
+    background: url("#{resource['img/process/analysedata.png']}") no-repeat;
     background-size:contain;
 }
 
 #menubutton-specification span.ui-button-icon-left.ui-icon.ui-c.ui-icon-triangle-1-s{
-    background: url("#{resource['img/ism/process/specification.png']}") no-repeat;
+    background: url("#{resource['img/process/specification.png']}") no-repeat;
     background-size:contain;
 }
 
@@ -451,23 +452,22 @@ span.ui-menuitem-icon.ui-icon.ui-icon-analysedata{
 /*******************************************************************************
 * AFFICHAGE / CONFIGURATION
 *******************************************************************************/
-/*
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-layoutInit{
-    background: url("#{resource['img/ism/window/layoutInit.png']}") no-repeat;
+    background: url("#{resource['img/window/layoutInit.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-layoutWest{
-    background: url("#{resource['img/ism/window/layoutWest.png']}") no-repeat;
+    background: url("#{resource['img/window/layoutWest.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-layoutEast{
-    background: url("#{resource['img/ism/window/layoutEast.png']}") no-repeat;
+    background: url("#{resource['img/window/layoutEast.png']}") no-repeat;
     background-size:contain;
 }
 span.ui-button-icon-left.ui-icon.ui-c.ui-icon-layoutSouth{
-    background: url("#{resource['img/ism/window/layoutSouth.png']}") no-repeat;
+    background: url("#{resource['img/window/layoutSouth.png']}") no-repeat;
     background-size:contain;
 }
-*/
+
 
 

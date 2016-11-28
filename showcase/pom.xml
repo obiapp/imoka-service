@@ -37,11 +37,6 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.ism</groupId>
-            <artifactId>pi</artifactId>
-            <version>1611.11</version>
-        </dependency>
-        <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
             <version>2.5.2</version>
@@ -58,6 +53,11 @@
             <artifactId>poi</artifactId>
             <version>3.14</version>
             <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.ism</groupId>
+            <artifactId>pi</artifactId>
+            <version>1611.11</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>

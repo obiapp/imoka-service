@@ -8,26 +8,30 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
       id="html">
-    
+
     <h:head>
         <title><ui:insert name="title">#{imoka.AppName}</ui:insert></title>
         <link rel="shortcut icon" href="#{resource['img/favico.png']}" type="image/x-png" /> 
 
+        <f:facet name="first">
+            <h:outputStylesheet library="css" name="tables.css" />
+            <h:outputStylesheet library="css" name="ribbon.css" />
+            <h:outputStylesheet library="css" name="scada.css" />
+            <h:outputStylesheet library="css" name="layout.css" />
+            <h:outputStylesheet library="css" name="global.css" />
+        </f:facet>
         <f:facet name="last">
-            <h:outputStylesheet library="css" name="layout.min.css" />
-            <h:outputStylesheet library="css" name="global.min.css" />
-            <h:outputStylesheet library="css" name="ribbon.min.css" />
-            <h:outputStylesheet library="css" name="scada.min.css" />
-
-            
             <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
             <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
-            
+
             <h:outputScript library="jquery" name="jquery-2.2.3.min.js" target="head" />
             <h:outputScript library="jquery" name="jquery-ui.min.js" target="head" />
 
 
         </f:facet>
+        <style>
+
+        </style>
     </h:head>
 
     <h:body id="body" >
@@ -134,7 +138,8 @@
                     
                     </style>
                     -->
-                    <ism:ribbon id="Menu">
+
+                    <ism:ribbon id="Menu" addJQLib="false">
                         <ism:ribManager >
 
                         </ism:ribManager>
@@ -245,6 +250,7 @@
                           collapsible="#{viewLayout.southUnit.collapsible}"
                           minSize="#{viewLayout.southUnit.minSize}"
                           
+                          styleClass="ui-layout-south"
                           gutter="#{viewLayout.southUnit.gutter}"
                           visible="true"
                           collapsed="false"
@@ -264,7 +270,9 @@
 
 
 
-            <p:layoutUnit id="unitCenter" position="center" collapseSize="4" gutter="4" style="margin:0px;margin-left: -15px;">
+            <p:layoutUnit id="unitCenter" position="center" 
+                          collapseSize="4" gutter="4" 
+                          style="margin:0px;margin-left: -15px;">
                 <ui:insert id="body" name="body" />
             </p:layoutUnit>
 

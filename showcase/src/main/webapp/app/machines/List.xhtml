@@ -78,6 +78,15 @@
                                 disabled="#{empty machinesController.selected}"
                                 update=":bodyForm:datalist,:output"
                                 />
+                    <p:menuitem icon="ui-btn-PLCInfos"
+                                styleClass="options-btn"
+                                value="#{imoka.PLCInfos}"
+                                actionListener="#{machinesController.handlePLCInfos()}"
+                                title="Permet d'obtenir les informations de l'appareil."
+                                disabled="#{empty machinesController.selected}"
+                                update=":bodyForm:datalist,:output"
+                                />
+                    
                 </p:contextMenu>
 
 
@@ -112,12 +121,12 @@
                     <f:facet name="{Exporters}">
                         <div style="float:right" >
                             <p:commandLink ajax="false" onclick="PrimeFaces.monitorDownload(showStatus, hideStatus)">
-                                <p:graphicImage library="img" name="imoka/std/ExtXLS.png" width="24" height="24"/>
+                                <p:graphicImage library="img" name="std/ExtXLS.png" width="24" height="24"/>
                                 <p:dataExporter type="xls" target="datalist" fileName="#{imoka.MachinesTitleList}_#{viewUtil.maintenant}" 
                                                 postProcessor="#{tableView.handlePostProcessXLS}"/>
                             </p:commandLink>
                             <p:commandLink ajax="false" onclick="PrimeFaces.monitorDownload(showStatus, hideStatus)">
-                                <p:graphicImage library="img" name="imoka/std/ExtPDF.png" width="24" height="24"/>
+                                <p:graphicImage library="img" name="std/ExtPDF.png" width="24" height="24"/>
                                 <p:dataExporter type="pdf" target="datalist" fileName="#{imoka.MachinesTitleList}_#{viewUtil.maintenant}"  />
                             </p:commandLink>
                         </div>
@@ -343,7 +352,7 @@
 
         </ui:define>
         <p:blockUI block="body" trigger="createButton, viewButton, editButton, deleteButton" >
-            <p:graphicImage width="48px" height="48px" library="img" name="imoka/std/Onload.gif"/>
+            <p:graphicImage width="48px" height="48px" library="img" name="std/Onload.gif"/>
         </p:blockUI>
 
     </ui:composition>

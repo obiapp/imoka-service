@@ -66,6 +66,22 @@ public class ConnectionState {
         this.connected = true;
         this.S7PLC = PLC;
     }
+    
+    /**
+     * <p>
+     * Constructor which enable on defining machine to directly setup connection
+     * to true and allow. Defa
+     * </p>
+     *
+     * @param machine The default plc machine
+     * @param PLC machine 
+     * @param state 
+     */
+    public ConnectionState(Machines machine, S7Client PLC, Boolean state) {
+        this.machine = machine;
+        this.connected = state;
+        this.S7PLC = PLC;
+    }
 
     public ConnectionState(Machines machine, Boolean state) {
         this.machine = machine;

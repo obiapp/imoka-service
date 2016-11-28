@@ -36,6 +36,9 @@ import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 import org.imoka.core.moka7.S7;
 import org.imoka.core.moka7.S7Client;
+import org.imoka.core.moka7.S7CpInfo;
+import org.imoka.core.moka7.S7CpuInfo;
+import org.imoka.core.moka7.S7OrderCode;
 import org.imoka.services.ConnectionState;
 import org.imoka.views.Console;
 
@@ -234,7 +237,9 @@ public class MachinesController implements Serializable {
                     + ")" + "<br />"));
             console.p(console.bold("PDU negotiated : ") + s7PLC.PDULength() + " bytes" + "<br />");
             // Append S7 Client in connection state
-            statesMachines.add(new ConnectionState(selected, s7PLC));
+            if(statesMachines==null)    statesMachines = new ArrayList<>();
+            statesMachines.add(new ConnectionState(selected, s7PLC, true));
+
         } else {
             console.p(console.red("... Error >>  IP(" + selected.getAdress()
                     + ") Rack(" + selected.getRack()
@@ -273,8 +278,14 @@ public class MachinesController implements Serializable {
      * @return true if machine defined by id is connected
      */
     public Boolean isPLCConnected(Integer id) {
+        if (statesMachines == null) {
+            return false;
+        }
+        if (statesMachines.isEmpty()) {
+            return false;
+        }
         for (int i = 0; i < statesMachines.size(); i++) {
-            if (Objects.equals(statesMachines.get(i).getMachine().getId(), id)) {
+            if (statesMachines.get(i).getMachine().getId() == id) {
                 return true;
             }
         }
@@ -283,19 +294,111 @@ public class MachinesController implements Serializable {
 
     /**
      * <p>
-     * Convenient method which analyse if given ip adress of machine is connected
+     * Convenient method which analyse if given ip adress of machine is
+     * connected
      * </p>
      *
      * @param adress corresponding id of the machine
      * @return true if machine defined by adress is connected
      */
     public Boolean isPLCConnected(String adress) {
+        if (statesMachines == null) {
+            return false;
+        }
+        if (statesMachines.isEmpty()) {
+            return false;
+        }
         for (int i = 0; i < statesMachines.size(); i++) {
             if (statesMachines.get(i).getMachine().getMachine().matches(adress)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public void handleStateMachine() {
+
+    }
+
+    /**
+     * <p>
+     * This method allow to display system information based on selected PLC.
+     * This PLC should be connected and this be insure buy the end user of this
+     * method
+     * </p>
+     */
+    public void handlePLCInfos() {
+        console.h3("Handle PLC System Informations :");
+
+        // Get System Version
+        S7OrderCode orderCode = new S7OrderCode();
+        S7Client s7Client = findS7StateMachine(selected);
+        Integer result = s7Client.GetOrderCode(orderCode);
+        console.h4("CPU VERSION <br />");
+        if (result == 0) {
+            console.p(console.bold("Order Code >>> ") + orderCode.Code() + "<br />"
+                    + "Firmware version >>> " + orderCode.V1 + "." + orderCode.V2 + "." + orderCode.V3);
+        } else {
+            console.p(console.red("... Error while Getting order code :"
+                    + S7Client.ErrorText(result)) + "<br />");
+        }
+
+        // Get CPU System Infos
+        S7CpuInfo CpuInfo = new S7CpuInfo();
+        result = s7Client.GetCpuInfo(CpuInfo);
+        console.h4("CPU INFOS <br />");
+        if (result == 0) {
+            console.p(
+                    console.bold("Module Type Name >>> ") + CpuInfo.ModuleTypeName() + "<br />"
+                    + console.bold("Serial Number >>> ") + CpuInfo.SerialNumber() + "<br />"
+                    + console.bold("AS Name >>> ") + CpuInfo.ASName() + "<br />"
+                    + console.bold("CopyRight >>> ") + CpuInfo.Copyright() + "<br />"
+                    + console.bold("Module Name >>> ") + CpuInfo.ModuleName() + "<br />"
+            );
+        } else {
+            console.p(console.red("... Error while Getting CPU System Infos :"
+                    + S7Client.ErrorText(result)) + "<br />");
+        }
+
+        // Get CP System Infos
+        S7CpInfo CpInfo = new S7CpInfo();
+        result = s7Client.GetCpInfo(CpInfo);
+        console.h4("CP INFOS <br />");
+        if (result == 0) {
+            console.p(
+                    console.bold("Max PDU Length >>> ") + CpInfo.MaxPduLength + "<br />"
+                    + console.bold("Max Connections >>> ") + CpInfo.MaxConnections + "<br />"
+                    + console.bold("Max MPI rate (bps) >>> ") + CpInfo.MaxMpiRate + "<br />"
+                    + console.bold("Max Bus rate (bps) >>> ") + CpInfo.MaxBusRate + "<br />"
+            );
+        } else {
+            console.p(console.red("... Error while Getting CPU System Infos :"
+                    + S7Client.ErrorText(result)) + "<br />");
+        }
+
+        console.p(selected.getMachine() + ".<br />");
+    }
+
+    /**
+     * <p>
+     * This method search for the corresponding machine saved in state machine
+     * if found
+     * </p>
+     *
+     * @param machine corresponding to S7Client needed
+     * @return S7Client corresponding to machine
+     */
+    private S7Client findS7StateMachine(Machines machine) {
+        if (machine == null) {
+            return null;
+        }
+        // Find machine by adress
+        for (int i = 0; i < statesMachines.size(); i++) {
+            if (statesMachines.get(i).getMachine()==machine) {
+                return statesMachines.get(i).getS7PLC();
+            }
+        }
+        return null;
     }
 
     ////////////////////////////////////////////////////////////////////////////

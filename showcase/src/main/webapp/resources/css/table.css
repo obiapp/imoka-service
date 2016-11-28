@@ -1,0 +1,56 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 22-nov.-2016, 21:12:45
+    Author     : r.hendrick
+*/
+
+ 
+/* =============================================================================
+ * PANEL GESTION NC
+ *
+ * ===========================================================================*/
+
+.panelGridClass{
+    /*width: 100%;*/
+}
+
+#InFormMode .ui-widget input,
+#InFormMode .ui-widget select,
+#InFormMode .ui-widget .ui-selectonemenu{
+    width: 400px;
+}
+#InFormMode .ui-selectonemenu {
+    min-width: 395px;
+    max-width: 395px;
+}
+.ui-selectonemenu label{
+    min-height: 16px;
+}
+
+.hideToolbar .ui-editor.ui-widget-content {
+    max-height: 120px;
+}
+.hideToolbar .ui-editor-toolbar {
+    display: none;
+}
+iframe {
+    /*min-height: 120px;*/
+    /*max-height: 120px;*/
+    height: 100%;
+    width: 100%;
+}
+
+.panel{
+    margin: 5px;
+}
+
+
+
+
+
+
+

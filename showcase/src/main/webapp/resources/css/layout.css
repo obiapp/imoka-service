@@ -1,133 +1,12 @@
-/* 
- *  Created on : 26-mai-2016, 23:33:10
- *   Author     : r.hendrick
-*/
-
-.ui-ribbon .ui-button-icon-left.ui-icon.ui-c{
-    margin: 0px!important;
-    padding: 0px!important;
-    float: left;
-    width: 48px!important;
-    height: 48px!important;
-    margin-left: 8px!important;
-    margin-top: -34px!important;
-}
-.ui-ribbon  span.ui-button-text.ui-c{
-    margin: 0px!important;
-    margin:auto!important;
-    padding: 0px!important;
-    width:  42px!important;
-    max-height: 16px!important;
-    margin-top: 48px!important;
-}
-.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left{
-}
-
-.ui-ribbonicon-home{
-    background: url("#{resource['img/ribbon/home.png']}") no-repeat!important;
-    background-size:contain!important;
-}
-.ui-ribbonicon-machines{
-    background: url("#{resource['img/ribbon/machine.png']}") no-repeat!important;
-    background-size:contain!important;
-}
-
-
-.ui-datatable.ui-widget{
-    font-family: arial!important;
-    font-size: 0.85em!important;
-}
-div.ui-datatable-header.ui-widget-header.ui-corner-top{
-    padding: 0px!important;
-    min-height: 24px!important;
-}
-div.ui-datatable-header.ui-widget-header.ui-corner-top button, input{
-    padding: 0px!important;
-    height: 16px!important;
-    min-height: 22px!important;
-}
-
-
-#output .ui-editor.ui-widget-content{
-    height: 100vh!important;
-}
-#output .ui-editor-toolbar{
-    display: none;
-}
-#output_input{
-    font-size: 0.85em!important;
-}
-#output iframe{
-    height: 100%!important;
-}
-#output #document{
-
-}
-/* =============================================================================
- * MANAGING LAYOUT
- * ===========================================================================*/
-.ui-layout-container{ /* Viewport */
-
-}
-
-.ui-layout-unit.ui-widget.ui-widget-content.ui-corner-all.ui-layout-north.ui-layout-pane.ui-layout-pane-north{
-    padding: 0px;
-    margin: 0px;
-    padding-top: 10px!important;
-}
-.ui-layout-unit.ui-widget.ui-widget-content.ui-corner-all.ui-layout-west.ui-layout-pane.ui-layout-pane-west{
-
-}
-.ui-layout-unit.ui-widget.ui-widget-content.ui-corner-all.ui-layout-center.ui-layout-pane.ui-layout-pane-center{
-
-}
-.ui-layout-unit.ui-widget.ui-widget-content.ui-corner-all.ui-layout-east.ui-layout-pane.ui-layout-pane-east{
-
-}
-.ui-layout-unit.ui-widget.ui-widget-content.ui-corner-all.ui-layout-south.ui-layout-pane.ui-layout-pane-south{
-
-}
-
-.ui-layout-unit-header.ui-widget-header.ui-corner-all{ /* 1. Main Header Container div. ... */
-
-}
-.ui-layout-unit-header-title{ /* 1.1. Main Header Title  span. ...*/
-
-}
-.ui-layout-unit-header-icon.ui-state-default.ui-corner-all{ /* 1.2. icon link  a. ... */
-
-}
-.ui-icon.ui-icon-close{ /* 1.2.1. close icon link  span. ... */
-
-}
-
-.ui-icon.ui-icon-triangle-1-n{ /* 1.2.1. Collapse north icon link  span. ... */
-
-}
-.ui-icon.ui-icon-triangle-1-w{ /* 1.2.1. Collapse west icon link  span. ... */
-
-}
-.ui-icon.ui-icon-triangle-1-c{ /* 1.2.1. Collapse center icon link  span. ... */
-
-}
-.ui-icon.ui-icon-triangle-1-e{ /* 1.2.1. Collapse east icon link  span. ... */
-
-}
-.ui-icon.ui-icon-triangle-1-s{ /* 1.2.1. Collapse south icon link  span. ... */
-
-}
-
-.ui-layout-unit-content.ui-widget-content{ /* 2. Content  div. ... */
-
-}
-
-
-
-
-
-
 /*
-
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26-mai-2016, 23:33:10
+    Author     : r.hendrick
+*/
 
 
 #unitNorth .ui-layout-unit-header.ui-widget-header.ui-corner-all{
@@ -149,7 +28,6 @@ div.ui-datatable-header.ui-widget-header.ui-corner-top button, input{
 
 
 /* ==============================================*/
-/*
 .unitNorthHeader{
     max-height: 10px; 
 }
@@ -178,7 +56,6 @@ div.ui-datatable-header.ui-widget-header.ui-corner-top button, input{
 }
 
 /* ==============================================*/
-/*
 #unitWest-resizer{
     background-color: lightgrey;
     margin:0px!important;
@@ -201,9 +78,7 @@ div.ui-datatable-header.ui-widget-header.ui-corner-top button, input{
     background-color: lightyellow;
     background-position: -32px -16px;
 }
-
 /* ==============================================*/
-/*
 #unitEast-resizer{
     background-color: lightgrey;
     margin:0px!important;
@@ -231,29 +106,6 @@ div.ui-datatable-header.ui-widget-header.ui-corner-top button, input{
 
 
 
-/** NORTH   *************************************/
-/*
-.ui-layout-north {
-    border: none;
-    padding: 0px!important;
-    margin: 0px!important;
-}
-
-.ui-layout-north .ui-layout-unit-content {
-    overflow:visible !important;
-}
-/** WEST   *************************************/
-/*
-.ui-layout-west {
-    /*
-    padding: 0px!important;
-    margin: 0px!important;
-    max-width: 200px; 
-    width: 200px;
-}
-.ui-layout-west .ui-layout-unit-content {
-}
-*/
 
 
 

@@ -16,13 +16,65 @@ body, html {
     padding: 0px;
     height: 100%;
 }
+ 
 
+/* =============================================================================
+ * MANAGING LAYOUT
+ * ===========================================================================*/
+/** NORTH   *************************************/
+.ui-layout-north {
+    border: none;
+    padding: 0px!important;
+    margin: 0px!important;
+    /*min-height: 152px;  
+    z-index:40 !important;
+    overflow:visible !important;
+    */
+}
+.ui-layout-north .ui-layout-unit-content {
+    overflow:visible !important;
+}
 
-
-
+/** WEST   *************************************/
+.ui-layout-west {
+    /*
+    padding: 0px!important;
+    margin: 0px!important;
+    max-width: 200px; 
+    width: 200px;
+    /*z-index:40 !important;*/
+    /*overflow:visible !important;
+    background-color: #333;
+    color: white;*/
+}
+.ui-layout-west .ui-layout-unit-content {
+    /*overflow:visible !important;*/
+}
+/** south   *************************************/
+#unitSouth .ui-layout-unit.ui-widget.ui-widget-content.ui-corner-all.ui-layout-south.ui-layout-south.ui-layout-pane.ui-layout-pane-south {
+    border: none;
+    padding: 0px!important;
+    margin: 0px!important;
+    /*min-height: 152px;  
+    z-index:40 !important;
+    overflow:visible !important;
+    */
+}
+#unitSouth .ui-layout-unit-header.ui-widget-header.ui-corner-all{
+    
+    overflow: visible !important;
+}
+#unitSouth ui-layout-unit-content.ui-widget-content{
+    visibility: hidden!important;
+    overflow: visible !important;
+    background: blue;
+}
+#unitSouth .ui-layout-unit-content {
+}
 /* =============================================================================
  * SETTING MENU
  * ===========================================================================*/
+
 #layout-menu {
     margin: 0px;
     padding: 0px;
@@ -45,7 +97,7 @@ body, html {
 /* =============================================================================
  * GENERAL DEFAULT SETTING
  * ===========================================================================*/
-/*html, body, div, span, 
+html, body, div, span, 
 applet, object, iframe, 
 h1, h2, h3, h4, h5, h6, p, 
 blockquote, pre, a, abbr, acronym, address,
@@ -66,7 +118,7 @@ time, mark, audio, video {
  * Setup Table
  * ===========================================================================*/
 
-/*
+
 #file-layout button,
 .ui-widget,
 #file-layout .ui-widget input,
@@ -87,7 +139,7 @@ time, mark, audio, video {
 /* =============================================================================
  * Manage CRUD BUTTON / OPTIONS
  * ===========================================================================*/
-/*.ui-btn-set{
+.ui-btn-set{
     border: 1px solid #f2f2f2;
     padding : 3px;
     width: 100%;
@@ -110,7 +162,7 @@ time, mark, audio, video {
 
 
 /*============================================*/
-/*.shortcut-btn {
+.shortcut-btn {
     padding:0px!important;
     margin:0px!important;
     margin: 2px!important;
@@ -131,7 +183,7 @@ time, mark, audio, video {
     display: none;
 }
 /*============================================*/
-/*.menu-btn .ui-icon{
+.menu-btn .ui-icon{
     margin:0px;
     padding: 0px;
     margin-top: -6px;
@@ -142,7 +194,7 @@ time, mark, audio, video {
     margin-left: 20px;
 }
 /*============================================*/
-/*.options-btn {
+.options-btn {
     padding:0px;
     margin:0px;
     margin-top: 2px;
@@ -165,7 +217,7 @@ time, mark, audio, video {
 /* =============================================================================
  * Manage CRUD BUTTON ICON
  * ===========================================================================*/
-/*.ui-button-icon-left.ui-icon.ui-c.ui-btn-Open, .ui-menuitem-icon.ui-icon.ui-btn-Open{
+.ui-button-icon-left.ui-icon.ui-c.ui-btn-Open, .ui-menuitem-icon.ui-icon.ui-btn-Open{
     background: url("#{resource['img/std/Open.png']}") no-repeat;
     background-size:contain;
 }
@@ -200,7 +252,7 @@ time, mark, audio, video {
 .ui-button-icon-left.ui-icon.ui-c.ui-btn-Cancel, .ui-menuitem-icon.ui-icon.ui-btn-Cancel{
     background: url("#{resource['img/std/Cancel.png']}") no-repeat;
     background-size:contain;
-}
+} 
 .ui-button-icon-left.ui-icon.ui-c.ui-btn-Delete, .ui-menuitem-icon.ui-icon.ui-btn-Delete{
     background: url("#{resource['img/std/Delete.png']}") no-repeat;
     background-size:contain;
@@ -224,7 +276,7 @@ time, mark, audio, video {
 .ui-button-icon-left.ui-icon.ui-c.ui-btn-Cloture, .ui-menuitem-icon.ui-icon.ui-btn-Cloture{
     background: url("#{resource['img/std/Cloture.png']}") no-repeat;
     background-size:contain;
-} 
+}
 .ui-button-icon-left.ui-icon.ui-c.ui-btn-Refresh, .ui-menuitem-icon.ui-icon.ui-btn-Refresh{
     background: url("#{resource['img/std/Refresh.png']}") no-repeat;
     background-size:contain;
@@ -279,7 +331,7 @@ time, mark, audio, video {
 /* =============================================================================
  * Manage CRUD MENUITEM ICON
  * ===========================================================================*/
-/*.ui-menuitem-icon.ui-icon.ui-btn-Delete{
+.ui-menuitem-icon.ui-icon.ui-btn-Delete{
     background: url("#{resource['img/std/Open.png']}") no-repeat;
     background-size:contain;
 }
@@ -375,7 +427,7 @@ time, mark, audio, video {
 /* =============================================================================
  * GESTION D'AFFICHAGE DES FORMULAIRE
  * ===========================================================================*/
-/*.columnFieldClass{
+.columnFieldClass{
     min-width: 150px;
 }
 .columnContentClass{
@@ -425,16 +477,8 @@ a span ui-icon ui-icon-minusthick
 */
 
 
-/* =============================================================================
- * GESTION DE TABLE
- * ============================================================================*/
-/*.ui-datatable.ui-widget{
-    font-family: arial!important;
-    font-size: 0.85em!important;
-}
-div.ui-datatable-header.ui-widget-header.ui-corner-top{
-    min-height: 24px!important;
-}
+
+
 
 
 
@@ -445,7 +489,6 @@ div.ui-datatable-header.ui-widget-header.ui-corner-top{
 /* =============================================================================
  * GESTION DES THEMES APPLICATION
  * ===========================================================================*/
-/*
 .ui-theme-afterdark{
     background: url("#{resource['img/theme/afterdark.png']}") no-repeat;
     background-size:contain;
@@ -606,7 +649,5 @@ div.ui-datatable-header.ui-widget-header.ui-corner-top{
     background: url("#{resource['img/theme/pro.png']}") no-repeat;
     background-size:contain;
 }
-*/
-
 
 
