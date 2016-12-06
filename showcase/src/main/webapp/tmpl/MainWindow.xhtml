@@ -4,48 +4,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ism="http://www.ism.org/pi"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:pi="http://primefaces.org/ui/ism"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
       id="html">
-
     <h:head>
-        <title><ui:insert name="title">#{imoka.AppName}</ui:insert></title>
+        <title><ui:insert name="title">#{ism.AppName}</ui:insert></title>
         <link rel="shortcut icon" href="#{resource['img/favico.png']}" type="image/x-png" /> 
+        <meta charset="UTF-8"/>
 
-        <f:facet name="first">
-            <h:outputStylesheet library="css" name="tables.css" />
-            <h:outputStylesheet library="css" name="ribbon.css" />
-            <h:outputStylesheet library="css" name="scada.css" />
-            <h:outputStylesheet library="css" name="layout.css" />
-            <h:outputStylesheet library="css" name="global.css" />
-        </f:facet>
+        <h:outputStylesheet library="primefaces-ism" name="theme.min.css" />
+        <h:outputStylesheet library="js" name="daterangepicker/jquery.comiseo.daterangepicker.min.css" />
+        <h:outputStylesheet library="css" name="w3.min.css" />
+        <h:outputStylesheet library="dist" name="css/icon.css" />
+        <h:outputStylesheet library="dist" name="css/imoka.css" />
+        <h:outputStylesheet library="vendor" name="bootstrap/3.3.7/css/bootstrap.min.css" />
+
         <f:facet name="last">
             <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
             <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
 
-            <h:outputScript library="jquery" name="jquery-2.2.3.min.js" target="head" />
-            <h:outputScript library="jquery" name="jquery-ui.min.js" target="head" />
+            <!-- JQuery add in primeface 
+            <h:outputScript library="vendor" name="jquery/js/jquery.min.js" target="head" />
+            <h:outputScript library="js" name="jquery/jquery-ui.min.js" target="head" />
+            -->
 
+            <h:outputScript library="js" name="daterangepicker/moment.min.js" target="head" />
+            <h:outputScript library="js" name="daterangepicker/jquery.comiseo.daterangepicker.min.js" />
 
+            <h:outputScript library="js" name="lang.min.js" />
+            <h:outputScript library="vendor" name="bootstrap/3.3.7/js/bootstrap.min.js" target="head" />
+            <h:outputScript library="dist" name="js/imoka.js" />
         </f:facet>
-        <style>
-
-        </style>
     </h:head>
 
     <h:body id="body" >
-        <!--    Reste affiché pendant 5s
-                Montre un résumer et affiche les détails
-                Seul les messages sans id sont affiché
-        -->
         <p:growl id="growl" life="5000" 
                  showDetail="true" showSummary="true" escape="false"/>  
 
 
 
 
-        <p:layout id="fullPage" fullPage="true"
+        <p:layout id="fullPage" fullPage="#{viewLayout.layout.fullPage}"
                   resizeTitle="Réduire ou Double click pour réduire"
                   collapseTitle="Réduire la taille"
                   expandTitle="Etirer ou Double click pour restaurer"
@@ -53,11 +53,14 @@
                   stateful="true" 
                   widgetVar="fpLayoutWidget"
                   > 
+            <p:ajax event="resize" listener="#{viewLayout.handleResize}" update="growl"/>
+            <p:ajax event="close" listener="#{viewLayout.handleClose}" update="growl"/>
+            <p:ajax event="toggle" listener="#{viewLayout.handleToggle}" update="growl"/>
 
 
             <p:layoutUnit id="unitNorth" position="north" 
                           size="#{viewLayout.northUnit.size}"
-                          resizable="#{viewLayout.northUnit.resizable}" 
+                          resizable="#{viewLayout.northUnit.resizable}"  
                           closable="#{viewLayout.northUnit.closable}"
                           collapsible="#{viewLayout.northUnit.collapsible}"
                           minSize="#{viewLayout.northUnit.minSize}"
@@ -68,138 +71,25 @@
                           collapseSize="#{viewLayout.northUnit.collapseSize}"
                           effect="#{viewLayout.northUnit.effect}"
                           effectSpeed="#{viewLayout.northUnit.effectSpeed}"
+                          rendered="false"
+                          style="padding: 0px; z-index: 200000;"
                           >
 
 
 
-                <h:form id="mainForm">
-                    <!--
-                    <style>
-                        .ui-ribbon .ui-button-icon-left.ui-icon.ui-c{
-                            margin: 0px!important;
-                            padding: 0px!important;
-                            float: left;
-                            width: 48px!important;
-                            height: 48px!important;
-                            margin-left: 8px!important;
-                            margin-top: -34px!important;
-                        }
-                        .ui-ribbon  span.ui-button-text.ui-c{
-                            margin: 0px!important;
-                            margin:auto!important;
-                            padding: 0px!important;
-                            width:  42px!important;
-                            max-height: 16px!important;
-                            margin-top: 48px!important;
-                        }
-                        .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left{
-                        }
 
-                        .ui-ribbonicon-home{
-                            background: url("#{resource['img/ribbon/home.png']}") no-repeat!important;
-                            background-size:contain!important;
-                        }
-                        .ui-ribbonicon-machines{
-                            background: url("#{resource['img/ribbon/machine.png']}") no-repeat!important;
-                            background-size:contain!important;
-                        }
+                <p:menubar style="z-index: 200000!important; margin: 0px; padding: 0px; top: 0; left: 0;position: fixed!important; width: 100%!important;">
+                    <p:submenu label="File" icon="ui-icon-document">
+                        <p:submenu label="New" icon="ui-icon-contact">
+                            <p:menuitem value="Project" url="#" />
+                            <p:menuitem value="Other" url="#" />
+                        </p:submenu>
+                        <p:menuitem value="Open" url="#" />
+                        <p:separator />
+                        <p:menuitem value="Quit" url="#" />
+                    </p:submenu>
 
-
-                        .ui-datatable.ui-widget{
-                            font-family: arial!important;
-                            font-size: 0.85em!important;
-                        }
-                        div.ui-datatable-header.ui-widget-header.ui-corner-top{
-                            padding: 0px!important;
-                            min-height: 24px!important;
-                        }
-                        div.ui-datatable-header.ui-widget-header.ui-corner-top button, input{
-                            padding: 0px!important;
-                            height: 16px!important;
-                            min-height: 22px!important;
-                        }
-
-
-                        #output .ui-editor.ui-widget-content{
-                            height: 100vh!important;
-                        }
-                        #output .ui-editor-toolbar{
-                            display: none;
-                        }
-                        #output_input{
-                            font-size: 0.85em!important;
-                        }
-                        #output iframe{
-                            height: 100%!important;
-                        }
-                        #output #document{
-                            
-                        }
-                    
-                    </style>
-                    -->
-
-                    <ism:ribbon id="Menu" addJQLib="false">
-                        <ism:ribManager >
-
-                        </ism:ribManager>
-
-                        <ism:tab name="Home" title="Setups">
-                            <ism:ribGroup id="homeGroup" label="Home">
-                                <ism:ribSet set="big">
-                                    <p:commandButton id="BtnRibHome"
-                                                     title="Accéder à la page d'acceuil."
-                                                     action="/index.xhtml?faces-redirect=true"
-                                                     icon="ui-ribbonicon-home" 
-                                                     value="Acceuil"
-                                                     />
-                                </ism:ribSet>
-                            </ism:ribGroup>
-                        </ism:tab>
-                        <ism:tab name="Machines" title="Specify the machines" >
-                            <ism:ribGroup id="ribSetup" label="Configurations">
-                                <ism:ribSet set="big">
-                                    <p:commandButton id="BtnRibManagePLC"
-                                                     title="Gestion des machines (PLC, HMI)"
-                                                     action="/app/machines/List.xhtml?faces-redirect=true"
-                                                     icon="ui-ribbonicon-machines" 
-                                                     value="Machines"
-                                                     />
-                                    <p:commandButton id="BtnRibConnectPLC"
-                                                     title="Connection des machine (PLC, HMI)"
-                                                     action="/app/machines/Connect.xhtml?faces-redirect=true"
-                                                     icon="ui-ribbonicon-machines" 
-                                                     value="Machines"
-                                                     />
-
-                                </ism:ribSet>
-                            </ism:ribGroup>
-                        </ism:tab>
-                        <ism:tab name="Affichage" title="Gestionnaire de l'affichage" >
-                            <ism:ribGroup id="managedLayoutGroup" label="Fenêtre">
-                                <ism:ribSet id="manageLayoutAuto" set="big">
-                                    <p:commandButton id="btnLayoutAuto"
-                                                     icon="ui-icon-layoutInit"
-                                                     value="Réinitialiser"
-                                                     actionListener="#{viewLayout.handleInitLayout()}"
-                                                     update="fullPage"/>
-                                </ism:ribSet>
-                                <ism:ribSet id="manageLayoutOC" set="small" >
-                                    <p:commandButton value="Menu" type="button"  
-                                                     icon="ui-icon-layoutWest"
-                                                     onclick="PF('fpLayoutWidget').toggle('west')"/>  
-                                    <p:commandButton value="Options" type="button"  
-                                                     icon="ui-icon-layoutEast"
-                                                     onclick="PF('fpLayoutWidget').toggle('east')"/>  
-                                    <p:commandButton value="Log" type="button"  
-                                                     icon="ui-icon-layoutSouth"
-                                                     onclick="PF('fpLayoutWidget').toggle('south')"/>  
-                                </ism:ribSet>
-
-                            </ism:ribGroup>
-                        </ism:tab>
-                    </ism:ribbon>
-                </h:form>
+                </p:menubar>
             </p:layoutUnit>
 
 
@@ -216,8 +106,57 @@
                             collapseSize="#{viewLayout.westUnit.collapseSize}"
                             effect="#{viewLayout.westUnit.effect}"
                             effectSpeed="#{viewLayout.westUnit.effectSpeed}"
+                            style="padding: 0px; z-index: 5000;"
                             >
                 <f:facet name="header"><h:outputText value="Menu"/></f:facet> 
+                <h:form id="projectViewForm">
+                    <p:contextMenu for="projectView">
+                        <p:menuitem value="Visualiser" update=":growl"
+                                    action="app/machines/List" icon="ui-icon-search" />
+                        <p:menuitem value="View" update="projectView"
+                                    icon="ui-icon-close" />
+                    </p:contextMenu>
+                    <p:tree id="projectView" widgetVar="projectView"
+                            value="#{viewProject.root}" 
+                            var="pjt" style="width: 100%;"
+                            selectionMode="single"
+                            selection="#{viewProject.selectedNode}"
+                            >
+                        <p:ajax event="select" listener="#{viewProject.handleSelectTreeNode}" />
+                        <p:ajax event="unselect" listener="#{viewProject.handleUnSelectTreeNode}" />
+
+                        <p:treeNode expandedIcon="ui-icon ui-icon-folder-open"
+                                    collapsedIcon="ui-icon ui-icon-folder-collapsed"
+                                    >
+                            <h:outputText value="#{pjt.name}"/>
+                        </p:treeNode>
+                        <p:treeNode type="PROJECT" icon="ui-icon-project">
+                            <h:outputText value="#{pjt.name}" />
+                        </p:treeNode>                    
+                        <p:treeNode type="MACHINES" icon="ui-icon-machines"
+                                    id="machineTreeNode"
+                                    >
+                            <h:outputText value="#{pjt}"  />
+                        </p:treeNode>                    
+                        <p:treeNode type="PLC" icon="ui-icon-machines-plc">
+                            <h:outputText value="#{pjt}" />
+                        </p:treeNode>
+                        <p:treeNode type="HMI" icon="ui-icon-machines-hmi">
+                            <h:outputText value="#{pjt}" />
+                        </p:treeNode>
+                        <p:treeNode type="DATAS" icon="ui-icon-datas">
+                            <h:outputText value="#{pjt}" />
+                        </p:treeNode>
+                        <p:treeNode type="VIEWS" icon="ui-icon-views">
+                            <h:outputText value="#{pjt}" />
+                        </p:treeNode>
+                        <p:treeNode type="ACCESS" icon="ui-icon-access">
+                            <h:outputText value="#{pjt}" />
+                        </p:treeNode>
+                    </p:tree>
+                </h:form>
+
+
                 <ui:insert id="west" name="west" />
             </p:layoutUnit>  
 
@@ -235,6 +174,7 @@
                           collapseSize="#{viewLayout.eastUnit.collapseSize}"
                           effect="#{viewLayout.eastUnit.effect}"
                           effectSpeed="#{viewLayout.eastUnit.effectSpeed}"
+                          style="padding: 0px; z-index: 5000;"
                           >
                 <f:facet name="header">
                     <h:graphicImage library="img" name="ism/std/Options.png" width="22px" height="22px" style="float:left;" /> 
@@ -244,35 +184,33 @@
 
 
             <p:layoutUnit id="unitSouth" position="south" 
-                          size="200"
+                          size="#{viewLayout.southUnit.size}"
                           resizable="#{viewLayout.southUnit.resizable}" 
                           closable="#{viewLayout.southUnit.closable}"
                           collapsible="#{viewLayout.southUnit.collapsible}"
                           minSize="#{viewLayout.southUnit.minSize}"
-                          
-                          styleClass="ui-layout-south"
+                          maxSize="#{viewLayout.southUnit.maxSize}"
                           gutter="#{viewLayout.southUnit.gutter}"
-                          visible="true"
-                          collapsed="false"
+                          visible="#{viewLayout.southUnit.visible}"
+                          collapsed="#{viewLayout.southUnit.collapsed}"
                           collapseSize="#{viewLayout.southUnit.collapseSize}"
                           effect="#{viewLayout.southUnit.effect}"
                           effectSpeed="#{viewLayout.southUnit.effectSpeed}"
-                          style="padding: 0px;"
+                          style="padding: 0px; z-index: 5000;"
+                          rendered="false"
                           >
-                <f:facet name="header"><h:outputText value="Console"/></f:facet> 
-                <p:editor id="output" 
-                          controls=""
-                          value="#{console.out}" 
-                          disabled="true"  />
-
+                <p:messages />
+                <p:outputLabel value="#{ism.EmptyList} : #{request.pathInfo}"
+                               rendered="#{request.pathInfo!='/company/smq/nc/Request/View.xhtml'?true:false}" />
+                <p:outputLabel value="Theme : #{staffSetupController.selected.stsTheme}" />
+                <p:editor id="output" value="#{console.out}" />
             </p:layoutUnit>  
 
 
 
 
-            <p:layoutUnit id="unitCenter" position="center" 
-                          collapseSize="4" gutter="4" 
-                          style="margin:0px;margin-left: -15px;">
+            <p:layoutUnit id="unitCenter" position="center" collapseSize="4" gutter="4" 
+                          style="margin:0px;margin-left: -15px; z-index: 5000;">
                 <ui:insert id="body" name="body" />
             </p:layoutUnit>
 
@@ -355,9 +293,7 @@
 
             <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false"
                       closable="false">
-                <p:graphicImage width="48px" 
-                                height="48px" library="img" 
-                                name="std/Onload.gif"/>
+                <p:graphicImage width="48px" height="48px" library="img" name="ism/std/Onload.gif"/>
             </p:dialog>
 
             <p:ajaxStatus onstart="PF('statusDialog').show()" 
@@ -369,6 +305,9 @@
 
 
     </h:body>
+
+
+
 
 </html>
 

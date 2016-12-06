@@ -56,8 +56,7 @@ public class MachinesController implements Serializable {
     private Map<Integer, String> headerTextMap;     //!< map header in order to manage reodering
     private Map<String, Boolean> visibleColMap;     //!< Allow to keep 
 
-    @Inject
-    Console console;
+    @Inject Console console;
     private List<ConnectionState> statesMachines = new ArrayList<>();
 
     /*

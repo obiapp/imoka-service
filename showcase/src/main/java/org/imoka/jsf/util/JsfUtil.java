@@ -155,7 +155,7 @@ public class JsfUtil {
     /**
      * Allow to retrive a component specify by an id
      *
-     * @param id id  to found
+     * @param id id to found
      * @return component research
      */
     public static UIComponent findComponent(final String id) {
@@ -176,4 +176,55 @@ public class JsfUtil {
         return found[0];
 
     }
+
+
+
+    public static String h1(String out) {
+        String o = "<h1>" + out + "</h1>";
+        out(o);
+        return o;
+    }
+
+    public static String h2(String out) {
+        String o =  "<h2>" + out + "</h2>";
+        out(o);
+        return o;
+    }
+
+    public static String h3(String out) {
+        String o = "<h3>" + out + "</h3>";
+        out(o);
+        return o;
+    }
+
+    public static String h4(String out) {
+        String o = "<h4>" + out + "</h4>";
+        out(o);
+        return o;
+    }
+
+    public static String p(String out) {
+        String o = "<p>" + out + "</p>";
+        out(o);
+        return o;
+    }
+
+    public static String bold(String out) {
+        String o = "<span style=\"font-weight: bold\">" + out + "</span>";
+        out(o);
+        return o;
+    }
+
+    public static String red(String out) {
+        String o = "<span style=\"color: red\">" + out + "</span>";
+        out(o);
+        return o;
+    }
+
+    public static String green(String out) {
+        String o = "<span style=\"color: green\">" + out + "</span>";
+        out(o);
+        return o;
+    }
+
 }

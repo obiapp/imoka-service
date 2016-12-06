@@ -2,53 +2,15 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:i="http://www.ism.org/pi"
-
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
 
     <ui:composition template="/tmpl/MainWindow.xhtml">
 
         <ui:define name="body">
-            <h1><h:outputText   value="IMOKA - SHOWCASE" /></h1>
-
-            
-            <p:panelGrid columns="2" columnClasses="columnFieldClass,columnContentClass" >
-                <h:outputLabel value="IP" for="ipAddress" />
-                <h:panelGroup>
-                    <h:inputText id="ipAddress"
-                                 value="#{client.ipAddress}"
-                                 />
-                    <p:message for="ipAddress"  />
-                </h:panelGroup>
-
-                <h:outputLabel value="Rack" for="rack" />
-                <p:inputText     id="rack"
-                                 value="#{client.rack}"
-                                 />
-
-                <h:outputLabel value="Slot" for="slot" />
-                <p:inputText id="slot"
-                             value="#{client.slot}"
-                             />
-
-
-
-                <h:outputLabel value="Block Number" for="blockNumber" />
-                <p:inputText id="blockNumber"
-                             value="#{client.blockNumber}"
-                             />
-
-            </p:panelGrid>
-
-
-
-
-            <hr />
-            <p:editor id="console" value="#{client.output}" disabled="true" height="480"  style="width:100%;" />
-            <hr />
+            <div class="page-header">
+                <h1><h:outputText   value="IMOKA - SHOWCASE" /></h1>
+            </div>
 
 
 

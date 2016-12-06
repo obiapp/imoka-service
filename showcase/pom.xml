@@ -55,11 +55,6 @@
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>org.ism</groupId>
-            <artifactId>pi</artifactId>
-            <version>1611.11</version>
-        </dependency>
-        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>

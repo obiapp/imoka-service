@@ -16,20 +16,19 @@
 
 /* Component containers
 ----------------------------------*/
-.ui-widget, label{
-    font-family:  Arial, Helvetica;
-    font-size: 0.8em;
+.ui-widget {
+    font-family: calibri, Helvetica,"Trebuchet MS",  sans-serif; /*Arial,Helvetica,sans-serif;*/
+    font-size: 1em;
 }
 .ui-widget .ui-widget {
-    font-size: 0.8em;
+    font-size: 1em;
 }
 .ui-widget input,
 .ui-widget select,
 .ui-widget textarea,
-.ui-widget button,
-label {
-    font-family:  Arial, Helvetica;
-    font-size: 0.8em;
+.ui-widget button {
+    font-family: calibri, Helvetica,"Trebuchet MS",  sans-serif; /*Arial,Helvetica,sans-serif;*/
+    font-size: 0.9em;
 }
 .ui-widget-content {
     border: 1px solid #dddddd;
@@ -45,14 +44,14 @@ label {
     color: #333333;
     font-weight: bold;
     /* ADD  */
-    font-family:  Arial, Helvetica;
+    font-family: calibri, Helvetica,"Trebuchet MS",  sans-serif; 
     font-size: 10pt;
 }
 .ui-widget-header a {
     color: #333333;
     /* ADD  */
-    font-family:  Arial, Helvetica;
-    font-size: 8pt;
+    font-family: calibri, Helvetica,"Trebuchet MS",  sans-serif; 
+    font-size: 10pt;
 }
 
 /* Interaction states
@@ -65,7 +64,7 @@ label {
     font-weight: normal;
     color: #454545;
     /* ADD  */
-    font-family:  Arial, Helvetica;
+    font-family: calibri, Helvetica,"Trebuchet MS",  sans-serif; 
     font-size: 10pt;
     font-weight: bold;
 }
@@ -473,16 +472,16 @@ th .ui-btn-filters span {
     background-position: left center;
 }
 th .ui-btn-filters div:first-child span {
-    background: url("#{resource['img/std/CheckedAll.png']}") no-repeat!important;
+    background: url("#{resource['img/ism/std/CheckedAll.png']}") no-repeat!important;
     background-size:contain!important;
 }
 th .ui-btn-filters div:nth-child(2) span {
-    background: url("#{resource['img/std/CheckedYes.png']}") no-repeat!important;
+    background: url("#{resource['img/ism/std/CheckedYes.png']}") no-repeat!important;
     background-size:contain!important;
     
 }
 th .ui-btn-filters div:nth-child(3) span {
-    background: url("#{resource['img/std/CheckedNo.png']}") no-repeat!important;
+    background: url("#{resource['img/ism/std/CheckedNo.png']}") no-repeat!important;
     background-size:contain!important;
 }
 
@@ -597,3 +596,35 @@ span.ui-menuitem-text{
 .ui-tabs-panel.ui-widget-content.ui-corner-bottom{
     padding:0px!important;
 }
+
+/* =============================================================================
+ * GESTION D'AFFICHAGE DES FORMULAIRE
+ * ===========================================================================*/
+.columnFieldClass{
+    min-width: 150px;
+}
+.columnContentClass{
+    width: 100%;
+}
+.columnContentClass input,
+.columnContentClass select,
+.columnContentClass textarea,
+.columnContentClass .ui-selectonemenu,
+.columnContentClass .ui-selectcheckboxmenu
+{
+    width: 410px;
+}
+.columnContentClass textarea{
+    width: 410px!important;
+}
+
+.columnContentClass .ui-selectonemenu {
+    min-width: 382px;
+    max-width: 382px;
+}
+
+.ui-selectonemenu-panel.ui-widget.ui-widget-content.ui-corner-all.ui-helper-hidden.ui-shadow{
+    max-width: 50%!important;
+}
+
+

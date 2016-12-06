@@ -17,8 +17,64 @@
             <var>imoka</var>
         </resource-bundle>
         <resource-bundle>
+            <base-name>com.ISM</base-name>
+            <var>ism</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/META-INF/Security</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        
+        
+        <resource-bundle>
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
     </application>
+    
+    
+    
+    
+    
+    
+    
+    <name>ism</name>
+    
+    <component>
+        <component-type>org.primefaces.ism.component.Ribbon</component-type>
+        <component-class>org.primefaces.ism.component.ribbon.Ribbon</component-class>
+    </component>
+
+    <component>
+        <component-type>org.primefaces.ism.component.RibbonGroup</component-type>
+        <component-class>org.primefaces.ism.component.ribbon.RibbonGroup</component-class>
+    </component>
+        
+    <component>
+        <component-type>org.primefaces.ism.component.RibbonGroupSet</component-type>
+        <component-class>org.primefaces.ism.component.ribbon.RibbonGroupSet</component-class>
+    </component>
+        
+
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.ism.component</component-family>
+            <renderer-type>org.primefaces.ism.component.RibbonRenderer</renderer-type>
+            <renderer-class>org.primefaces.ism.component.ribbon.RibbonRenderer</renderer-class>
+        </renderer>
+        <renderer>
+            <component-family>org.primefaces.ism.component</component-family>
+            <renderer-type>org.primefaces.ism.component.RibbonGroupRenderer</renderer-type>
+            <renderer-class>org.primefaces.ism.component.ribbon.RibbonGroupRenderer</renderer-class>
+        </renderer>
+        <renderer>
+            <component-family>org.primefaces.ism.component</component-family>
+            <renderer-type>org.primefaces.ism.component.RibbonGroupSetRenderer</renderer-type>
+            <renderer-class>org.primefaces.ism.component.ribbon.RibbonGroupSetRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+    
+    
+    
+    
 </faces-config>

@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
+import org.imoka.jsf.util.JsfUtil;
 import org.primefaces.component.layout.Layout;
 import org.primefaces.component.layout.LayoutUnit;
 import org.primefaces.event.ToggleEvent;
@@ -38,7 +39,7 @@ public class ViewLayout {
         Integer collapseSize = 6;      //!< 20px
         String effect = "fade";         //!< effect : blind, bounce, clip, drop, explode, fold, highlight, puff, pulsate, scale, shake, size and slide.
         String effectSpeed = "1500";    //!< ms effect
-        int northSize = 142;
+        int northSize = 42;
         // Layout
         layout = new Layout();
         layout.setFullPage(true);
@@ -53,8 +54,8 @@ public class ViewLayout {
             northUnit.setResizable(true);
             northUnit.setClosable(false);
             northUnit.setCollapsible(true);
-            northUnit.setMinSize(northSize);
-            northUnit.setMaxSize(northSize);
+            /*northUnit.setMinSize(northSize);
+            northUnit.setMaxSize(northSize);*/
             northUnit.setGutter(gutter);
             //>>> default
             northUnit.setVisible(true);
@@ -188,7 +189,7 @@ public class ViewLayout {
             switch (unit.getPosition()) {
                 case "north":
                     northUnit.setSize(unit.getSize());
-                    //JsfUtil.addSuccessMessage("NorthUnit Size to " + northUnit.getSize());
+                    JsfUtil.addSuccessMessage("NorthUnit Size to " + northUnit.getSize());
                     break;
                 case "west":
                     westUnit.setSize(unit.getSize());

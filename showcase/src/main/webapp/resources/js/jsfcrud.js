@@ -6,3 +6,10 @@ function handleSubmit(args, dialog) {
         PF(dialog).hide();
     }
 }
+
+function redirect(){
+    $('#main').click(function(){
+        alert("complete");
+        window.location.href = "tmpl/ism-setup.xhtml";
+    });
+}
