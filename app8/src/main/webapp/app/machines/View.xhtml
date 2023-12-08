@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{obi.ViewMachinesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{obi.ViewMachinesLabel_id}"/>
+                    <h:outputText value="#{machinesController.selected.id}" title="#{obi.ViewMachinesTitle_id}"/>
+                    <h:outputText value="#{obi.ViewMachinesLabel_address}"/>
+                    <h:outputText value="#{machinesController.selected.address}" title="#{obi.ViewMachinesTitle_address}"/>
+                    <h:outputText value="#{obi.ViewMachinesLabel_rack}"/>
+                    <h:outputText value="#{machinesController.selected.rack}" title="#{obi.ViewMachinesTitle_rack}"/>
+                    <h:outputText value="#{obi.ViewMachinesLabel_slot}"/>
+                    <h:outputText value="#{machinesController.selected.slot}" title="#{obi.ViewMachinesTitle_slot}"/>
+                    <h:outputText value="#{obi.ViewMachinesLabel_deleted}"/>
+                    <h:outputText value="#{machinesController.selected.deleted}" title="#{obi.ViewMachinesTitle_deleted}"/>
+                    <h:outputText value="#{obi.ViewMachinesLabel_created}"/>
+                    <h:outputText value="#{machinesController.selected.created}" title="#{obi.ViewMachinesTitle_created}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{obi.ViewMachinesLabel_changed}"/>
+                    <h:outputText value="#{machinesController.selected.changed}" title="#{obi.ViewMachinesTitle_changed}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{obi.ViewMachinesLabel_type}"/>
+                    <h:outputText value="#{machinesController.selected.type}" title="#{obi.ViewMachinesTitle_type}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{machinesController.destroyAndView}" value="#{obi.ViewMachinesDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{obi.ViewMachinesEditLink}"/>
+                <br />
+                <h:commandLink action="#{machinesController.prepareCreate}" value="#{obi.ViewMachinesCreateLink}" />
+                <br />
+                <h:commandLink action="#{machinesController.prepareList}" value="#{obi.ViewMachinesShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{obi.ViewMachinesIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

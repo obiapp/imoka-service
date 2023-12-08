@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{obi.ViewTagsTypesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{obi.ViewTagsTypesLabel_ttId}"/>
+                    <h:outputText value="#{tagsTypesController.selected.ttId}" title="#{obi.ViewTagsTypesTitle_ttId}"/>
+                    <h:outputText value="#{obi.ViewTagsTypesLabel_ttType}"/>
+                    <h:outputText value="#{tagsTypesController.selected.ttType}" title="#{obi.ViewTagsTypesTitle_ttType}"/>
+                    <h:outputText value="#{obi.ViewTagsTypesLabel_ttDesignation}"/>
+                    <h:outputText value="#{tagsTypesController.selected.ttDesignation}" title="#{obi.ViewTagsTypesTitle_ttDesignation}"/>
+                    <h:outputText value="#{obi.ViewTagsTypesLabel_ttBit}"/>
+                    <h:outputText value="#{tagsTypesController.selected.ttBit}" title="#{obi.ViewTagsTypesTitle_ttBit}"/>
+                    <h:outputText value="#{obi.ViewTagsTypesLabel_ttByte}"/>
+                    <h:outputText value="#{tagsTypesController.selected.ttByte}" title="#{obi.ViewTagsTypesTitle_ttByte}"/>
+                    <h:outputText value="#{obi.ViewTagsTypesLabel_ttWord}"/>
+                    <h:outputText value="#{tagsTypesController.selected.ttWord}" title="#{obi.ViewTagsTypesTitle_ttWord}"/>
+                    <h:outputText value="#{obi.ViewTagsTypesLabel_ttDeleted}"/>
+                    <h:outputText value="#{tagsTypesController.selected.ttDeleted}" title="#{obi.ViewTagsTypesTitle_ttDeleted}"/>
+                    <h:outputText value="#{obi.ViewTagsTypesLabel_ttCreated}"/>
+                    <h:outputText value="#{tagsTypesController.selected.ttCreated}" title="#{obi.ViewTagsTypesTitle_ttCreated}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{obi.ViewTagsTypesLabel_ttChanged}"/>
+                    <h:outputText value="#{tagsTypesController.selected.ttChanged}" title="#{obi.ViewTagsTypesTitle_ttChanged}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tagsTypesController.destroyAndView}" value="#{obi.ViewTagsTypesDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{obi.ViewTagsTypesEditLink}"/>
+                <br />
+                <h:commandLink action="#{tagsTypesController.prepareCreate}" value="#{obi.ViewTagsTypesCreateLink}" />
+                <br />
+                <h:commandLink action="#{tagsTypesController.prepareList}" value="#{obi.ViewTagsTypesShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{obi.ViewTagsTypesIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

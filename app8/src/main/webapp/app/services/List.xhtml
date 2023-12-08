@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="Test Service"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+
+            <h:form>
+                <h:outputLabel for="name">
+                    <h:panelGrid columns="1">
+                        <h:outputText value="Managed Bean PI #{constantsManagedBean.PI}" />
+                        <h:outputText value="Managed Bean GoldenRatio #{constantsManagedBean.goldenRatio}" />
+                        <h:outputText value="EJB Bean PI 3.141592653589793" />
+                        <h:outputText value="EJB Bean GoldenRatio 1.6180339887" />
+                    </h:panelGrid>
+                </h:outputLabel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

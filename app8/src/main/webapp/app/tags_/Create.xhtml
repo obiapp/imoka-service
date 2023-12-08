@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3c.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+
+      >
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{obi.CreateTagsTitle}"></h:outputText>
+        </ui:define>
+
+
+        <ui:define name="body">
+
+
+
+            <h:form>
+                <h:panelGrid columns="2">
+
+
+
+                    <h:outputLabel value="#{obi.CreateTagsLabel_TName}" for="TName" />
+                    <h:inputText id="TName" value="#{tagsController.selected.TName}" 
+                                 title="#{obi.CreateTagsTitle_TName}" required="true" 
+                                 requiredMessage="#{obi.CreateTagsRequiredMessage_TName}"/>
+
+
+                    <h:outputLabel value="#{obi.CreateTagsLabel_TDb}" for="TDb" />
+                    <h:inputText id="TDb" value="#{tagsController.selected.TDb}" title="#{obi.CreateTagsTitle_TDb}" required="true" requiredMessage="#{obi.CreateTagsRequiredMessage_TDb}"/>
+                    <h:outputLabel value="#{obi.CreateTagsLabel_TByte}" for="TByte" />
+                    <h:inputText id="TByte" value="#{tagsController.selected.TByte}" title="#{obi.CreateTagsTitle_TByte}" required="true" requiredMessage="#{obi.CreateTagsRequiredMessage_TByte}"/>
+                    <h:outputLabel value="#{obi.CreateTagsLabel_TBit}" for="TBit" />
+                    <h:inputText id="TBit" value="#{tagsController.selected.TBit}" title="#{obi.CreateTagsTitle_TBit}" required="true" requiredMessage="#{obi.CreateTagsRequiredMessage_TBit}"/>
+                    <h:outputLabel value="#{obi.CreateTagsLabel_TCycle}" for="TCycle" />
+                    <h:inputText id="TCycle" value="#{tagsController.selected.TCycle}" title="#{obi.CreateTagsTitle_TCycle}" required="true" requiredMessage="#{obi.CreateTagsRequiredMessage_TCycle}"/>
+                    <h:outputLabel value="#{obi.CreateTagsLabel_TComment}" for="TComment" />
+                    <h:inputText id="TComment" value="#{tagsController.selected.TComment}" title="#{obi.CreateTagsTitle_TComment}" />
+
+                    <h:outputLabel value="#{obi.CreateTagsLabel_TMachine}" for="TMachine" />
+                    <h:selectOneMenu id="TMachine" value="#{tagsController.selected.TMachine}" title="#{obi.CreateTagsTitle_TMachine}" required="true" requiredMessage="#{obi.CreateTagsRequiredMessage_TMachine}">
+                        <f:selectItems value="#{machinesController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{obi.CreateTagsLabel_TMemory}" for="TMemory" />
+                    <h:selectOneMenu id="TMemory" value="#{tagsController.selected.TMemory}" title="#{obi.CreateTagsTitle_TMemory}" required="true" requiredMessage="#{obi.CreateTagsRequiredMessage_TMemory}">
+                        <f:selectItems value="#{tagsMemoriesController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{obi.CreateTagsLabel_TTable}" for="TTable" />
+                    <h:selectOneMenu id="TTable" value="#{tagsController.selected.TTable}" title="#{obi.CreateTagsTitle_TTable}" >
+                        <f:selectItems value="#{tagsTablesController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{obi.CreateTagsLabel_TType}" for="TType" />
+                    <h:selectOneMenu id="TType" value="#{tagsController.selected.TType}" title="#{obi.CreateTagsTitle_TType}" required="true" requiredMessage="#{obi.CreateTagsRequiredMessage_TType}">
+                        <f:selectItems value="#{tagsTypesController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tagsController.create}" value="#{obi.CreateTagsSaveLink}" />
+                <br />
+                <h:commandLink action="#{tagsController.prepareList}" value="#{obi.CreateTagsShowAllLink}" immediate="true"/>
+                <br />
+                <h:link outcome="/index" value="#{obi.CreateTagsIndexLink}"/>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <!--
+                     <h:outputLabel value="#{obi.CreateTagsLabel_TId}" for="TId" />
+                     <h:inputText id="TId" value="#{tagsController.selected.TId}" title="#{obi.CreateTagsTitle_TId}" required="true" requiredMessage="#{obi.CreateTagsRequiredMessage_TId}"/>
+                
+                                    <h:outputLabel value="#{obi.CreateTagsLabel_TDeleted}" for="TDeleted" />
+                    <h:inputText id="TDeleted" value="#{tagsController.selected.TDeleted}" title="#{obi.CreateTagsTitle_TDeleted}" required="true" requiredMessage="#{obi.CreateTagsRequiredMessage_TDeleted}"/>
+                    <h:outputLabel value="#{obi.CreateTagsLabel_TCreated}" for="TCreated" />
+                    <h:inputText id="TCreated" value="#{tagsController.selected.TCreated}" title="#{obi.CreateTagsTitle_TCreated}" required="true" requiredMessage="#{obi.CreateTagsRequiredMessage_TCreated}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{obi.CreateTagsLabel_TChanged}" for="TChanged" />
+                    <h:inputText id="TChanged" value="#{tagsController.selected.TChanged}" title="#{obi.CreateTagsTitle_TChanged}" required="true" requiredMessage="#{obi.CreateTagsRequiredMessage_TChanged}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                
+                -->
+
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

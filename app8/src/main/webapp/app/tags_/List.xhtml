@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+        
+        <ui:define name="title">
+            <h:outputText value="#{obi.ListTagsTitle}"></h:outputText>
+        </ui:define>
+        
+        
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                
+                <!--
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                -->
+                
+                <h:outputText escape="false" value="#{obi.ListTagsEmpty}" rendered="#{tagsController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{tagsController.items.rowCount > 0}">
+                    <h:outputText value="#{tagsController.pagination.pageFirstItem + 1}..#{tagsController.pagination.pageLastItem + 1}/#{tagsController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{tagsController.previous}" value="#{obi.Previous} #{tagsController.pagination.pageSize}" rendered="#{tagsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{tagsController.next}" value="#{obi.Next} #{tagsController.pagination.pageSize}" rendered="#{tagsController.pagination.hasNextPage}"/>&nbsp;
+                    
+                    
+                    <h:dataTable value="#{tagsController.items}" var="item" border="0" 
+                                 styleClass="table table-striped table-hover table-bordered table-sm border-dark"
+                                 cellpadding="2" cellspacing="0" 
+                                 rowClasses="jsfcrud_odd_row,jsfcrud_even_row" 
+                                 rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{obi.ListTagsTitle_TId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{obi.ListTagsTitle_TName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{obi.ListTagsTitle_TDb}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TDb}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{obi.ListTagsTitle_TByte}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TByte}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{obi.ListTagsTitle_TBit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TBit}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{obi.ListTagsTitle_TCycle}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TCycle}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{obi.ListTagsTitle_TComment}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TComment}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{obi.ListTagsTitle_TDeleted}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TDeleted}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{obi.ListTagsTitle_TCreated}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TCreated}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{obi.ListTagsTitle_TChanged}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TChanged}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{obi.ListTagsTitle_TMachine}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TMachine}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{obi.ListTagsTitle_TMemory}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TMemory}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{obi.ListTagsTitle_TTable}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TTable}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{obi.ListTagsTitle_TType}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.TType}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{tagsController.prepareView}" value="#{obi.ListTagsViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tagsController.prepareEdit}" value="#{obi.ListTagsEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{tagsController.destroy}" value="#{obi.ListTagsDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{tagsController.prepareCreate}" value="#{obi.ListTagsCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{obi.ListTagsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

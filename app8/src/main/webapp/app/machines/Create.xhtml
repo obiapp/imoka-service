@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{obi.CreateMachinesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{obi.CreateMachinesLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{machinesController.selected.id}" title="#{obi.CreateMachinesTitle_id}" required="true" requiredMessage="#{obi.CreateMachinesRequiredMessage_id}"/>
+                    <h:outputLabel value="#{obi.CreateMachinesLabel_address}" for="address" />
+                    <h:inputText id="address" value="#{machinesController.selected.address}" title="#{obi.CreateMachinesTitle_address}" required="true" requiredMessage="#{obi.CreateMachinesRequiredMessage_address}"/>
+                    <h:outputLabel value="#{obi.CreateMachinesLabel_rack}" for="rack" />
+                    <h:inputText id="rack" value="#{machinesController.selected.rack}" title="#{obi.CreateMachinesTitle_rack}" />
+                    <h:outputLabel value="#{obi.CreateMachinesLabel_slot}" for="slot" />
+                    <h:inputText id="slot" value="#{machinesController.selected.slot}" title="#{obi.CreateMachinesTitle_slot}" />
+                    <h:outputLabel value="#{obi.CreateMachinesLabel_deleted}" for="deleted" />
+                    <h:inputText id="deleted" value="#{machinesController.selected.deleted}" title="#{obi.CreateMachinesTitle_deleted}" required="true" requiredMessage="#{obi.CreateMachinesRequiredMessage_deleted}"/>
+                    <h:outputLabel value="#{obi.CreateMachinesLabel_created}" for="created" />
+                    <h:inputText id="created" value="#{machinesController.selected.created}" title="#{obi.CreateMachinesTitle_created}" required="true" requiredMessage="#{obi.CreateMachinesRequiredMessage_created}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{obi.CreateMachinesLabel_changed}" for="changed" />
+                    <h:inputText id="changed" value="#{machinesController.selected.changed}" title="#{obi.CreateMachinesTitle_changed}" required="true" requiredMessage="#{obi.CreateMachinesRequiredMessage_changed}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{obi.CreateMachinesLabel_type}" for="type" />
+                    <h:selectOneMenu id="type" value="#{machinesController.selected.type}" title="#{obi.CreateMachinesTitle_type}" required="true" requiredMessage="#{obi.CreateMachinesRequiredMessage_type}">
+                        <f:selectItems value="#{machinesTypesController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{machinesController.create}" value="#{obi.CreateMachinesSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{machinesController.prepareList}" value="#{obi.CreateMachinesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{obi.CreateMachinesIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

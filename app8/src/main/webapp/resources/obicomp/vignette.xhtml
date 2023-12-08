@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+    <composite:interface>
+        <composite:attribute name = "name"          type="java.lang.String"     required="true"/>
+        <composite:attribute name = "value"                                     required="true" />
+        <composite:attribute name = "subname"       type="java.lang.String" />
+        <composite:attribute name = "subname_ico"   type="java.lang.String" />
+        <composite:attribute name = "issvg"         type="java.lang.Boolean"    default="true" shortDescription="Indicate if svg symbol is provide (true) otherwise fontawesome (false)"/>
+        <composite:attribute name = "symbol"        type="java.lang.String" />
+        <composite:attribute name = "symbolWidth"   type="java.lang.Integer"    default="40" />
+        <composite:attribute name = "symbolHeight"  type="java.lang.Integer"    default="48" />
+        <composite:attribute name = "styleClass"    type="java.lang.String"     default="col-sm-12 col-md-12 col-lg-4 col-xl-3 col-xxl-3 "/>
+        <composite:attribute name = "pattern"       type="java.lang.String"     default="#.####" />
+        <composite:attribute name = "listener"      method-signature="java.lang.String listener()"  />
+        <composite:attribute name = "second"        type="java.lang.Integer"    default="5" />
+        <composite:attribute name = "outcome"       type="java.lang.String" />
+    </composite:interface>
+
+    <composite:implementation >
+        <h:outputStylesheet library = "obicomp" name="css/vignettes.css" /> 
+        <!-- #{cc.attrs.name} -->
+        <div class="#{cc.attrs.styleClass}">
+
+            <h:link class="text-decoration-none "
+                    disabled="#{cc.attrs.outcome == null}"
+                    outcome="#{cc.attrs.outcome}" >
+
+                <div class="card card-raised border-start border-primary border-4 mb-2">
+                    <div class="card-body px-4  border-top">
+
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+
+                            <!-- Text -->
+                            <div class="me-2">
+                                <div class="display-6 card-body-number">
+                                    <h:panelGroup id="#{cc.id}" layout="block">
+                                        <h:outputText value="#{cc.attrs.value}">
+                                            <f:convertNumber pattern="#{cc.attrs.pattern}" />
+                                        </h:outputText>
+                                    </h:panelGroup>
+                                </div>
+                                <div class="card-text">#{cc.attrs.name}</div>
+                                <!-- Sub line -->
+                                <div class="card-text">
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="#{cc.attrs.subname_ico}"></i>
+                                        <div class="caption">&ensp;#{cc.attrs.subname}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Icon -->
+                            <div class="#{cc.attrs.issvg ? '' : 'icon-circle bg-primary'} text-white">
+                                <h:panelGroup rendered="#{cc.attrs.issvg}">
+                                    <svg class="bi "  
+                                         width="#{cc.attrs.symbolWidth}"
+                                         height="#{cc.attrs.symbolHeight}"
+                                         >
+                                        <use href="#{cc.attrs.symbol}" />
+                                    </svg>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{!cc.attrs.issvg}">
+                                    <i class="#{cc.attrs.symbol}"></i>
+                                </h:panelGroup>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </h:link>
+        </div>
+        <h:panelGroup rendered="#{cc.attrs.listener != null}">
+            <h:commandButton id="#{cc.id}_refresh" value="Hidden" style="display:none" >
+                <f:ajax execute="@form" 
+                        render="#{cc.id}:#{cc.id}"
+                        listener="#{cc.attrs.listener}" 
+                        />
+            </h:commandButton>
+            <script type="text/javascript">
+                setInterval(function () {
+                    document.querySelector('[id$=":#{cc.id}_refresh"]').click();
+                
+                }, #{cc.attrs.second} * 1000);
+            </script>
+        </h:panelGroup> 
+
+
+
+
+
+    </composite:implementation>
+</html>

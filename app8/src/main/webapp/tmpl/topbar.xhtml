@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      >
+
+
+
+    <ui:composition >
+
+        <!-- topBarNavigation -->
+        <nav class="navbar navbar-expand-lg 
+             border-bottom sticky-top p-2 shadow" >
+
+
+            <!-- Container Flow arrangement -->
+            <div class="container-fluid">
+
+
+
+                <!-- Custom Menu Toggle Sidebar -->
+                <div class="custom-menu">
+                    <button type="button" id="sidebarCollapse" 
+                            class="btn btn-primary  sidebarManualCollapse">
+                        <i class="fa fa-bars"></i>
+                        <span class="sr-only">Investion du menu</span>
+                    </button>
+                </div>
+
+
+                <!-- Standard Toggler TopBar Nav -->
+                <button class="ms-auto border-0  navbar-toggler " 
+                        type="button" data-bs-toggle="collapse" 
+                        data-bs-target="#navbarSupportedContent" 
+                        aria-controls="navbarSupportedContent" 
+                        aria-expanded="false" 
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+
+                <!-- TopBar Nav Content -->
+                <div class="collapse navbar-collapse"  id="navbarSupportedContent">
+
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><hr class="dropdown-divider"/></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        </li>
+                    </ul>
+
+
+
+                    
+
+
+
+
+                    <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+
+                        <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
+                            <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+                            <hr class="d-lg-none my-2 text-white-50" />
+                        </li>
+
+
+
+                        <li class="nav-item dropdown">
+                            <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
+                                    id="bd-theme" type="button" aria-expanded="false" 
+                                    data-bs-toggle="dropdown" data-bs-display="static" 
+                                    aria-label="Toggle theme (light)">
+
+                                <i class="bi my-1 theme-icon-active fa-regular fa-sun"></i>
+                                <span class="d-lg-none ms-2" id="bd-theme-text">Toggle theme</span>
+                            </button>
+
+
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+                                <li>
+                                    <button type="button" 
+                                            class="dropdown-item d-flex align-items-center active" 
+                                            data-bs-theme-value="light" 
+                                            aria-pressed="true">
+                                        <i class="bi me-2 opacity-50 theme-icon fa-solid fa-sun"></i>
+                                        Light
+                                        <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                                    </button>
+                                </li>
+
+                                <li>
+                                    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+                                        <i class="bi me-2 opacity-50 theme-icon fa-solid fa-moon"></i>
+                                        Dark
+                                        <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="ism" aria-pressed="false">
+
+                                        <i class="bi me-2 opacity-50 theme-icon fa-solid fa-circle"></i>
+                                        Bleu
+                                        <i class="bi ms-auto d-none fa-solid fa-check"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+
+
+
+                    <!-- Navbar User Menu -->
+                    <div class="flex-shrink-0 dropdown ms-3">
+                        <a href="#" class="d-block link-ligth   text-decoration-none dropdown-toggle show" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="true">
+                            <h:graphicImage library="img" name="hr/avatar2.png" 
+                                            alt="mdo" width="32" height="32" 
+                                            styleClass="rounded-circle"/>
+                        </a>
+                        <ul class="dropdown-menu text-small shadow " aria-labelledby="dropdownUser2" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(-112px, 34px);" data-popper-placement="bottom-end">
+                            <li><h6 class="dropdown-header text-end bg-warning">Application</h6></li>
+                            <li><a class="dropdown-item" href="#">Tableau de bord</a></li>
+                            <li><a class="dropdown-item" href="#">Configurations</a></li>
+                            <li><h6 class="dropdown-header text-end bg-warning">Utilisateur</h6></li>
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><hr class="dropdown-divider"/></li>
+                            <li><a class="dropdown-item" href="#">Déconnexion</a></li>
+                        </ul>
+                    </div><!-- end dropdown user -->
+                </div>
+            </div>
+        </nav>
+
+    </ui:composition>
+
+</html>

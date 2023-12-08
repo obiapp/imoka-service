@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:o="http://xmlns.jcp.org/jsf/composite/obicomp"
+      lang="fr"
+      data-bs-theme="light"
+      >
+
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+        <ui:define name="title">
+            <h:outputText value="TOD - Pressions"></h:outputText>
+        </ui:define>
+
+
+        <ui:define name="body">
+            <style>
+
+            </style>
+            <h:form id="APIForm">
+
+
+                <div class="container-fluid">
+                    <div class="row mb-1"><div class="col"><h5>TOD</h5></div></div>
+
+                    <div class="row">
+
+                        <o:vignette id="dataTOD35"
+                                    name="TOD 35 [bar]"
+                                    subname="#{machinesController.handleTagState(15, 1, true)}"
+                                    subname_ico="fa-solid fa-arrows-turn-to-dots"
+
+                                    value="#{machinesController.tagsController.selected.valDouble}"
+                                    symbol="#tank_cct" 
+                                    symbolWidth="38" 
+                                    symbolHeight="91" 
+                                    pattern="#0.0000"
+                                    listener="#{machinesController.handleTag(1)}"
+                                    />
+
+                        <o:vignette id="dataTOD36"
+                                    name="TOD 36 [bar]"
+                                    subname="#{machinesController.handleTagState(16, 1, true)}"
+                                    subname_ico="fa-solid fa-arrows-turn-to-dots"
+                                    value="#{machinesController.tagsController.selected.valDouble}"
+
+                                    symbol="#tank_cct" 
+                                    symbolWidth="38" 
+                                    symbolHeight="91" 
+                                    pattern="#0.0000"
+                                    listener="#{machinesController.handleTag(2)}"
+                                    />
+
+                        <o:vignette id="dataTOD37"
+                                    name="TOD 37 [bar]"
+                                    subname="#{machinesController.handleTagState(17, 1, true)}"
+                                    subname_ico="fa-solid fa-arrows-turn-to-dots"
+                                    value="#{machinesController.tagsController.selected.valDouble}"
+
+                                    symbol="#tank_cct" 
+                                    symbolWidth="38" 
+                                    symbolHeight="91" 
+                                    pattern="#0.0000"
+                                    listener="#{machinesController.handleTag(3)}"
+                                    />
+
+                        <o:vignette id="dataTOD38"
+                                    name="TOD 38 [bar]"
+                                    subname="#{machinesController.handleTagState(18, 1, true)}"
+                                    subname_ico="fa-solid fa-arrows-turn-to-dots"
+                                    value="#{machinesController.tagsController.selected.valDouble}"
+
+                                    symbol="#tank_cct" 
+                                    symbolWidth="38" 
+                                    symbolHeight="91" 
+                                    pattern="#0.0000"
+                                    listener="#{machinesController.handleTag(4)}"
+                                    />
+
+
+                        <o:vignette id="dataTOD39"
+                                    name="TOD 39 [bar]"
+                                    subname="#{machinesController.handleTagState(19, 1, true)}"
+                                    subname_ico="fa-solid fa-arrows-turn-to-dots"
+                                    value="#{machinesController.tagsController.selected.valDouble}"
+
+                                    symbol="#tank_cct" 
+                                    symbolWidth="38" 
+                                    symbolHeight="91" 
+                                    pattern="#0.0000"
+                                    listener="#{machinesController.handleTag(5)}"
+                                    />
+
+                        <o:vignette id="dataTOD40"
+                                    name="TOD 40 [bar]"
+                                    subname="#{machinesController.handleTagState(20, 1, true)}"
+                                    subname_ico="fa-solid fa-arrows-turn-to-dots"
+                                    value="#{machinesController.tagsController.selected.valDouble}"
+
+                                    symbol="#tank_cct" 
+                                    symbolWidth="38" 
+                                    symbolHeight="91" 
+                                    pattern="#0.0000"
+                                    listener="#{machinesController.handleTag(6)}"
+                                    />
+
+                        <o:vignette id="dataTOD41"
+                                    name="TOD 41 [bar]"
+                                    subname="#{machinesController.handleTagState(21, 1, true)}"
+                                    subname_ico="fa-solid fa-arrows-turn-to-dots"
+                                    value="#{machinesController.tagsController.selected.valDouble}"
+
+                                    symbol="#tank_cct" 
+                                    symbolWidth="38" 
+                                    symbolHeight="91" 
+                                    pattern="#0.0000"
+                                    listener="#{machinesController.handleTag(7)}"
+                                    />
+
+                        <o:vignette id="dataTOD42"
+                                    name="TOD 42 [bar]"
+                                    subname="#{machinesController.handleTagState(22, 1, true)}"
+                                    subname_ico="fa-solid fa-arrows-turn-to-dots"
+                                    value="#{machinesController.tagsController.selected.valDouble}"
+
+                                    symbol="#tank_cct" 
+                                    symbolWidth="38" 
+                                    symbolHeight="91" 
+                                    pattern="#0.0000"
+                                    listener="#{machinesController.handleTag(8)}"
+                                    />
+
+                        <o:vignette id="dataTOD43"
+                                    name="TOD 43 [bar]"
+                                    subname="#{machinesController.handleTagState(23, 1, true)}"
+                                    subname_ico="fa-solid fa-arrows-turn-to-dots"
+                                    value="#{machinesController.tagsController.selected.valDouble}"
+
+                                    symbol="#tank_cct" 
+                                    symbolWidth="38" 
+                                    symbolHeight="91" 
+                                    pattern="#0.0000"
+                                    listener="#{machinesController.handleTag(9)}"
+                                    />
+
+                        <o:vignette id="dataTOD44"
+                                    name="TOD 44 [bar]"
+                                    subname="#{machinesController.handleTagState(24, 1, true)}"
+                                    subname_ico="fa-solid fa-arrows-turn-to-dots"
+                                    value="#{machinesController.tagsController.selected.valDouble}"
+
+                                    symbol="#tank_cct" 
+                                    symbolWidth="38" 
+                                    symbolHeight="91" 
+                                    pattern="#0.0000"
+                                    listener="#{machinesController.handleTag(10)}"
+                                    />
+
+
+                        <o:vignette id="dataTOD45"
+                                    name="TOD 45 [bar]"
+                                    subname="#{machinesController.handleTagState(25, 1, true)}"
+                                    subname_ico="fa-solid fa-arrows-turn-to-dots"
+                                    value="#{machinesController.tagsController.selected.valDouble}"
+
+                                    symbol="#tank_cct" 
+                                    symbolWidth="38" 
+                                    symbolHeight="91" 
+                                    pattern="#0.0000"
+                                    listener="#{machinesController.handleTag(11)}"
+                                    />
+
+                        <o:vignette id="dataTOD46"
+                                    name="TOD 46 [bar]"
+                                    subname="#{machinesController.handleTagState(26, 1, true)}"
+                                    subname_ico="fa-solid fa-arrows-turn-to-dots"
+                                    value="#{machinesController.tagsController.selected.valDouble}"
+
+                                    symbol="#tank_cct" 
+                                    symbolWidth="38" 
+                                    symbolHeight="91" 
+                                    pattern="#0.0000"
+                                    listener="#{machinesController.handleTag(12)}"
+                                    /> 
+                        
+                        <o:vignette id="dataTOD17"
+                                    name="TOD 18 [bar]"
+                                    subname="#{machinesController.handleTagState(27, 1, true)}"
+                                    subname_ico="fa-solid fa-arrows-turn-to-dots"
+                                    value="#{machinesController.tagsController.selected.valDouble}"
+
+                                    symbol="#tank_cct" 
+                                    symbolWidth="38" 
+                                    symbolHeight="91" 
+                                    pattern="#0.0000"
+                                    listener="#{machinesController.handleTag(13)}"
+                                    /> 
+                        
+                        <o:vignette id="dataTOD18"
+                                    name="TOD 18 [bar]"
+                                    subname="#{machinesController.handleTagState(28, 1, true)}"
+                                    subname_ico="fa-solid fa-arrows-turn-to-dots"
+                                    value="#{machinesController.tagsController.selected.valDouble}"
+
+                                    symbol="#tank_cct" 
+                                    symbolWidth="38" 
+                                    symbolHeight="91" 
+                                    pattern="#0.0000"
+                                    listener="#{machinesController.handleTag(14)}"
+                                    /> 
+
+                    </div>
+                </div>
+
+<!--                <div class="container-fluid mt-5">
+                    <div class="row mb-1"><div class="col"><h5>Console</h5></div></div>
+                    <h:commandLink 
+                        styleClass="btn btn-outline-primary w-100"
+                        >
+                        <i class="fa-solid fa-network-wired"></i>
+                        Update
+                        <f:ajax execute="APIForm" render="consoleId" />
+                    </h:commandLink>
+                    <div class="row mb-1">
+                        <div class="col-lg-6">
+                            <h:panelGroup id="consoleId">
+                                <p class="console">
+                                    <h:outputText value="#{console.out}"
+                                                  escape="false"
+                                                  />
+
+                                </p>
+                            </h:panelGroup>
+                        </div>
+                    </div>
+                </div>-->
+
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      lang="fr"
+      data-bs-theme="light"
+      >
+    <h:head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content="" />
+        <meta name="author" content="r.hendrick"/>
+        <meta name="generator" content="r.hendrick 27.08.2023" />
+        <title><ui:insert name="title">#{obi.AppName}</ui:insert></title>
+
+        <link rel="shortcut icon" href="#{resource['img/obi/obi-signet-dark.svg']}" type="image/x-png" /> 
+
+        <f:facet name="last">
+            <!-- CSS - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+            <!-- CSS - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+            <!-- CSS - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+            <!-- CSS - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+            <!-- jquery ui official 
+            <h:outputStylesheet library="webjars" name="jquery-ui/1.13.2/jquery-ui.min.css" />
+            -->
+            <!-- fontawesome -->
+            <h:outputStylesheet library="webjars" name="font-awesome/6.4.2/css/all.min-jsf.css"/> 
+            <!-- Cropper 
+            <h:outputStylesheet library="webjars" name="cropper/4.1.0/dist/cropper.min.css" />
+            -->
+            <!-- Bootstrap -->
+            <h:outputStylesheet library="webjars" name="bootstrap/5.3.1/css/bootstrap-jsf.css" />
+
+            <!-- ISM SYMBOL -->
+            <h:outputStylesheet library="img" name="obi/symbols.svg" />
+
+            <!-- Application CSS -->
+
+            <h:outputStylesheet library="dashboard" name="dashboard.css" />
+
+
+            <h:outputStylesheet library="obi" name="css/obi.css" />
+
+
+            //https://bootsnipp.com/snippets/Q0dAX
+
+
+
+            <!-- JS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+            <!-- JS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+            <!-- JS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+            <!-- JS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+            <!-- PRIMEFACES  
+            <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+            -->
+
+            <!-- JQUERY UI : NECESSAIRE POUR L'USAGE DE DATRERANGE PICKER
+            <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
+            -->
+
+            <!-- jquery -->
+            <h:outputScript library="webjars" name="jquery/3.7.0/jquery.min.js" target="body" />
+
+            <!-- jquery ui official 
+            <h:outputScript library="webjars" name="jquery-ui/1.13.2/jquery-ui.min.js" />
+            -->
+
+            <!-- fontawesome -->
+            <h:outputScript library="webjars" name="font-awesome/6.4.2/js/all.min.js" target="body" />
+
+            <!-- Cropper 
+            <h:outputScript library="webjars" name="cropper/4.1.0/dist/cropper.min.js" />
+            -->
+            <!-- Bootstrap -->
+            <!-- Popper include in bundle bootstrap -->
+            <h:outputScript library="webjars" name="popper.js/2.5.4/src/popper.js" />
+
+            <h:outputScript library="webjars" name="bootstrap/5.3.1/js/bootstrap.bundle.min.js" target="body" />
+
+
+            <!-- Application content -->
+            <!--
+            <h:outputScript library="ism" name="bootstrap/js/dashboard.js" target="body" />
+            <h:outputScript library="ism" name="bootstrap/js/sidebars.js" target="body" />
+            -->
+
+            <h:outputScript library="obi" name="js/obi.js" target="body" />
+
+
+
+
+        </f:facet>
+
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+            }
+
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+
+            <!-- To display escape text -->
+            .preformatted {
+                white-space: pre;
+            }
+        </style>
+    </h:head>
+    <h:body>
+
+
+        <!-- Intégration de mes symboles -->
+        <ui:include src="/resources/img/obi/symbols.svg" />
+
+        <div class="page-wrapper chiller-theme toggled">
+
+            <ui:insert name = "sidebar" >
+                <ui:include src = "/tmpl/sidebar.xhtml" />
+            </ui:insert> 
+
+
+            <!-- sidebar-wrapper  -->
+            <main class="page-content">
+                <div class="container-fluid p-0">
+
+
+                    <ui:insert name = "sidebar" >
+                        <ui:include src = "/tmpl/topbar.xhtml" />
+                    </ui:insert> 
+
+
+
+                    <div class="page-data ">
+                        <h2>
+                            <ui:insert name="title"  />
+                        </h2>
+                        <hr />
+                        <ui:insert name="body" />
+                    </div>
+
+                </div>
+            </main>
+            <!-- page-content" -->
+        </div>
+        <!-- page-wrapper -->
+
+
+
+
+
+
+
+    </h:body>
+
+
+
+
+</html>

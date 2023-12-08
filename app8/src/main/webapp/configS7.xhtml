@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:o="http://xmlns.jcp.org/jsf/composite/obicomp"
+      lang="fr"
+      data-bs-theme="light"
+      >
+
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Configurations S7"></h:outputText>
+        </ui:define>
+
+
+        <ui:define name="body">
+
+            <h:form id="APIForm">
+
+
+                <div class="container-fluid">
+                    <div class="row mb-1"><div class="col"><h5>Configurations</h5></div></div>
+
+                    <div class="row">
+                        <style>
+                            .icon-circle {
+                                height: 4.5rem;
+                                width: 4.5rem;
+                            }
+                        </style>
+
+
+                        <!-- Machines // Connexions -->
+                        <o:vignette id="conn"
+                                    name="Connexion(s)"
+                                    value="#{machinesController.itemsAll.size()}"
+                                    issvg="false"
+                                    symbol="fa-solid fa-ethernet fa-3x" 
+                                    pattern="###"
+                                    outcome="/app/machines/List"
+                                    />
+
+
+                        <!-- Types Machines // PLC S300 / S400 ... -->
+                        <o:vignette id="connType"
+                                    name="Types de machine(s)"
+                                    value="#{machinesTypesController.itemsAll.size()}"
+                                    issvg="false"
+                                    symbol="fa-solid fa-hurricane fa-3x" 
+                                    pattern="###"
+                                    outcome="/app/machinesTypes/List"
+                                    />
+
+                        <!-- Tags // Vraiables-->
+                        <o:vignette id="tags"
+                                    name="Variables"
+                                    value="#{tagsController.itemsAll.size()}"
+                                    issvg="false"
+                                    symbol="fa-solid fa-tags fa-3x" 
+                                    pattern="###"
+                                    outcome="/app/tags/List"
+                                    />
+
+
+                        <!-- Tags // Memory -->
+                        <o:vignette id="tagsMemory"
+                                    name="Mémoires - variables"
+                                    value="#{tagsMemoriesController.itemsAll.size()}"
+                                    issvg="false"
+                                    symbol="fa-solid fa-memory fa-3x" 
+                                    pattern="###"
+                                    outcome="/app/tagsMemories/List"
+                                    />
+
+                        <!-- Tags // Tables -->
+                        <o:vignette id="tagsTable"
+                                    name="Table des variables"
+                                    value="#{tagsTablesController.itemsAll.size()}"
+                                    issvg="false"
+                                    symbol="fa-solid fa-table-cells fa-3x" 
+                                    pattern="###"
+                                    outcome="/app/tagsTables/List"
+                                    />
+
+                        <!-- Tags // Types -->
+                        <o:vignette id="tagsTypes"
+                                    name="Types - variables"
+                                    value="#{tagsTypesController.itemsAll.size()}"
+                                    issvg="false"
+                                    symbol="fa-solid fa-strikethrough fa-3x" 
+                                    pattern="###"
+                                    outcome="/app/tagsTypes/List"
+
+                                    />
+
+
+
+
+
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="container-fluid mt-5">
+                    <div class="row mb-1"><div class="col"><h5>Tester</h5></div></div>
+
+                    <div class="row mb-1">
+                        <label for="inputIP" class="col-sm-2 col-form-label">IP</label>
+                        <div class="col-lg-6">
+                            <h:inputText id="inputIP"   class="form-control"
+                                         value="#{machinesController.selected.address}"
+                                         />
+                        </div>
+                    </div>
+
+
+
+                    <div class="row mb-1">
+                        <label for="inputRack" class="col-sm-2 col-form-label">Rack</label>
+                        <div class="col-lg-6">
+                            <h:inputText id="inputRack"   class="form-control"
+                                         value="#{machinesController.selected.rack}"
+                                         />
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <label for="inputSlot" class="col-sm-2 col-form-label">Slot</label>
+                        <div class="col-lg-6">
+                            <h:inputText id="inputSlot"   class="form-control"
+                                         value="#{machinesController.selected.slot}"
+                                         />
+                        </div>
+                    </div>
+
+                    <div class="row mb-1"><div class="col-lg-8"><hr /></div></div>
+
+                    <div class="row mb-1">
+                        <label for="iDB" class="col-sm-2 col-form-label">DB</label>
+                        <div class="col-lg-6">
+                            <h:inputText id="iDB"   class="form-control"
+                                         value="#{tagsController.selected.TDb}"
+                                         />
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <label for="iDBOffset" class="col-sm-2 col-form-label">DB Offset</label>
+                        <div class="col-lg-6">
+                            <h:inputText id="iDBOffset"   class="form-control"
+                                         value="#{tagsController.selected.TByte}"
+                                         />
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <label for="iDBTypeSize" class="col-sm-2 col-form-label">DB Type Size</label>
+                        <div class="col-lg-6">
+                            <!--                            <h:inputText id="iDBTypeSize"   class="form-control"
+                                                                     value="#{tagsController.selected.TType}"
+                                                                     />-->
+
+                            <h:selectOneMenu value = "#{tagsController.selected.TType}"
+                                             styleClass="form-select"> 
+                                <f:selectItems var="type" value="#{tagsTypesController.itemsAvailableSelectOne}" 
+                                               itemLabel="#{type.label}" />
+                            </h:selectOneMenu> 
+                        </div>
+                    </div>
+
+                    <div class="row mb-1"><div class="col-lg-8"><hr /></div></div>
+
+
+                    <div class="row mb-1">
+
+                        <div class="col-2">
+                            <h:commandLink 
+                                styleClass="btn btn-outline-primary w-100"
+                                action="#{machinesController.handlePLCConnection}"
+                                >
+                                <i class="fa-solid fa-network-wired"></i>
+                                Connecter
+                                <f:ajax execute="APIForm" render="consoleId" />
+                            </h:commandLink>
+                        </div>
+
+                        <div class="col-2">
+                            <h:commandLink 
+                                styleClass="btn btn-outline-primary w-100"
+                                action="#{machinesController.handlePLCRead}"
+                                >
+                                <i class="fa-solid fa-network-wired"></i>
+                                Lecture
+                                <f:ajax execute="APIForm" render="pressureCCT35" />
+                            </h:commandLink>
+                        </div>
+
+                        <div class="col-2 " placeholder="Disabled input">
+                            <h:panelGroup id="pressureCCT35">
+                                <h:outputText styleClass="form-control w-100"
+                                              rendererType="number" 
+                                              value="#{machinesController.dbResult}" />
+                            </h:panelGroup>
+                        </div>
+
+                        <div class="col-2">
+
+                        </div>
+
+                        <div class="col-2">
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+                    <div class="container-fluid mt-5">
+                        <div class="row mb-1"><div class="col"><h5>Console</h5></div></div>
+
+                        <div class="row mb-1">
+                            <div class="col-lg-6">
+                                <h:panelGroup id="consoleId">
+                                    <p class="console">
+                                        <h:outputText value="#{console.out}"
+                                                      escape="false"
+                                                      />
+
+                                    </p>
+                                </h:panelGroup>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

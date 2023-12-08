@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{obi.ViewTagsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{obi.ViewTagsLabel_TId}"/>
+                    <h:outputText value="#{tagsController.selected.TId}" title="#{obi.ViewTagsTitle_TId}"/>
+                    <h:outputText value="#{obi.ViewTagsLabel_TName}"/>
+                    <h:outputText value="#{tagsController.selected.TName}" title="#{obi.ViewTagsTitle_TName}"/>
+                    <h:outputText value="#{obi.ViewTagsLabel_TDb}"/>
+                    <h:outputText value="#{tagsController.selected.TDb}" title="#{obi.ViewTagsTitle_TDb}"/>
+                    <h:outputText value="#{obi.ViewTagsLabel_TByte}"/>
+                    <h:outputText value="#{tagsController.selected.TByte}" title="#{obi.ViewTagsTitle_TByte}"/>
+                    <h:outputText value="#{obi.ViewTagsLabel_TBit}"/>
+                    <h:outputText value="#{tagsController.selected.TBit}" title="#{obi.ViewTagsTitle_TBit}"/>
+                    <h:outputText value="#{obi.ViewTagsLabel_TCycle}"/>
+                    <h:outputText value="#{tagsController.selected.TCycle}" title="#{obi.ViewTagsTitle_TCycle}"/>
+                    <h:outputText value="#{obi.ViewTagsLabel_TComment}"/>
+                    <h:outputText value="#{tagsController.selected.TComment}" title="#{obi.ViewTagsTitle_TComment}"/>
+                    <h:outputText value="#{obi.ViewTagsLabel_TDeleted}"/>
+                    <h:outputText value="#{tagsController.selected.TDeleted}" title="#{obi.ViewTagsTitle_TDeleted}"/>
+                    <h:outputText value="#{obi.ViewTagsLabel_TCreated}"/>
+                    <h:outputText value="#{tagsController.selected.TCreated}" title="#{obi.ViewTagsTitle_TCreated}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{obi.ViewTagsLabel_TChanged}"/>
+                    <h:outputText value="#{tagsController.selected.TChanged}" title="#{obi.ViewTagsTitle_TChanged}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{obi.ViewTagsLabel_TMachine}"/>
+                    <h:outputText value="#{tagsController.selected.TMachine}" title="#{obi.ViewTagsTitle_TMachine}"/>
+                    <h:outputText value="#{obi.ViewTagsLabel_TMemory}"/>
+                    <h:outputText value="#{tagsController.selected.TMemory}" title="#{obi.ViewTagsTitle_TMemory}"/>
+                    <h:outputText value="#{obi.ViewTagsLabel_TTable}"/>
+                    <h:outputText value="#{tagsController.selected.TTable}" title="#{obi.ViewTagsTitle_TTable}"/>
+                    <h:outputText value="#{obi.ViewTagsLabel_TType}"/>
+                    <h:outputText value="#{tagsController.selected.TType}" title="#{obi.ViewTagsTitle_TType}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tagsController.destroyAndView}" value="#{obi.ViewTagsDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{obi.ViewTagsEditLink}"/>
+                <br />
+                <h:commandLink action="#{tagsController.prepareCreate}" value="#{obi.ViewTagsCreateLink}" />
+                <br />
+                <h:commandLink action="#{tagsController.prepareList}" value="#{obi.ViewTagsShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{obi.ViewTagsIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

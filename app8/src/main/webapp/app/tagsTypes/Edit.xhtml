@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{obi.EditTagsTypesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{obi.EditTagsTypesLabel_ttId}" for="ttId" />
+                    <h:inputText id="ttId" value="#{tagsTypesController.selected.ttId}" title="#{obi.EditTagsTypesTitle_ttId}" required="true" requiredMessage="#{obi.EditTagsTypesRequiredMessage_ttId}"/>
+                    <h:outputLabel value="#{obi.EditTagsTypesLabel_ttType}" for="ttType" />
+                    <h:inputText id="ttType" value="#{tagsTypesController.selected.ttType}" title="#{obi.EditTagsTypesTitle_ttType}" required="true" requiredMessage="#{obi.EditTagsTypesRequiredMessage_ttType}"/>
+                    <h:outputLabel value="#{obi.EditTagsTypesLabel_ttDesignation}" for="ttDesignation" />
+                    <h:inputText id="ttDesignation" value="#{tagsTypesController.selected.ttDesignation}" title="#{obi.EditTagsTypesTitle_ttDesignation}" />
+                    <h:outputLabel value="#{obi.EditTagsTypesLabel_ttBit}" for="ttBit" />
+                    <h:inputText id="ttBit" value="#{tagsTypesController.selected.ttBit}" title="#{obi.EditTagsTypesTitle_ttBit}" required="true" requiredMessage="#{obi.EditTagsTypesRequiredMessage_ttBit}"/>
+                    <h:outputLabel value="#{obi.EditTagsTypesLabel_ttByte}" for="ttByte" />
+                    <h:inputText id="ttByte" value="#{tagsTypesController.selected.ttByte}" title="#{obi.EditTagsTypesTitle_ttByte}" required="true" requiredMessage="#{obi.EditTagsTypesRequiredMessage_ttByte}"/>
+                    <h:outputLabel value="#{obi.EditTagsTypesLabel_ttWord}" for="ttWord" />
+                    <h:inputText id="ttWord" value="#{tagsTypesController.selected.ttWord}" title="#{obi.EditTagsTypesTitle_ttWord}" required="true" requiredMessage="#{obi.EditTagsTypesRequiredMessage_ttWord}"/>
+                    <h:outputLabel value="#{obi.EditTagsTypesLabel_ttDeleted}" for="ttDeleted" />
+                    <h:inputText id="ttDeleted" value="#{tagsTypesController.selected.ttDeleted}" title="#{obi.EditTagsTypesTitle_ttDeleted}" required="true" requiredMessage="#{obi.EditTagsTypesRequiredMessage_ttDeleted}"/>
+                    <h:outputLabel value="#{obi.EditTagsTypesLabel_ttCreated}" for="ttCreated" />
+                    <h:inputText id="ttCreated" value="#{tagsTypesController.selected.ttCreated}" title="#{obi.EditTagsTypesTitle_ttCreated}" required="true" requiredMessage="#{obi.EditTagsTypesRequiredMessage_ttCreated}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{obi.EditTagsTypesLabel_ttChanged}" for="ttChanged" />
+                    <h:inputText id="ttChanged" value="#{tagsTypesController.selected.ttChanged}" title="#{obi.EditTagsTypesTitle_ttChanged}" required="true" requiredMessage="#{obi.EditTagsTypesRequiredMessage_ttChanged}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <h:commandLink action="#{tagsTypesController.update}" value="#{obi.EditTagsTypesSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{obi.EditTagsTypesViewLink}"/>
+                <br />
+                <h:commandLink action="#{tagsTypesController.prepareList}" value="#{obi.EditTagsTypesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{obi.EditTagsTypesIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{obi.EditTagsTablesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{obi.EditTagsTablesLabel_ttId}" for="ttId" />
+                    <h:inputText id="ttId" value="#{tagsTablesController.selected.ttId}" title="#{obi.EditTagsTablesTitle_ttId}" required="true" requiredMessage="#{obi.EditTagsTablesRequiredMessage_ttId}"/>
+                    <h:outputLabel value="#{obi.EditTagsTablesLabel_ttTable}" for="ttTable" />
+                    <h:inputText id="ttTable" value="#{tagsTablesController.selected.ttTable}" title="#{obi.EditTagsTablesTitle_ttTable}" required="true" requiredMessage="#{obi.EditTagsTablesRequiredMessage_ttTable}"/>
+                    <h:outputLabel value="#{obi.EditTagsTablesLabel_ttDesignation}" for="ttDesignation" />
+                    <h:inputText id="ttDesignation" value="#{tagsTablesController.selected.ttDesignation}" title="#{obi.EditTagsTablesTitle_ttDesignation}" />
+                    <h:outputLabel value="#{obi.EditTagsTablesLabel_ttComment}" for="ttComment" />
+                    <h:inputText id="ttComment" value="#{tagsTablesController.selected.ttComment}" title="#{obi.EditTagsTablesTitle_ttComment}" />
+                    <h:outputLabel value="#{obi.EditTagsTablesLabel_ttDeleted}" for="ttDeleted" />
+                    <h:inputText id="ttDeleted" value="#{tagsTablesController.selected.ttDeleted}" title="#{obi.EditTagsTablesTitle_ttDeleted}" required="true" requiredMessage="#{obi.EditTagsTablesRequiredMessage_ttDeleted}"/>
+                    <h:outputLabel value="#{obi.EditTagsTablesLabel_ttCreated}" for="ttCreated" />
+                    <h:inputText id="ttCreated" value="#{tagsTablesController.selected.ttCreated}" title="#{obi.EditTagsTablesTitle_ttCreated}" required="true" requiredMessage="#{obi.EditTagsTablesRequiredMessage_ttCreated}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{obi.EditTagsTablesLabel_ttChanged}" for="ttChanged" />
+                    <h:inputText id="ttChanged" value="#{tagsTablesController.selected.ttChanged}" title="#{obi.EditTagsTablesTitle_ttChanged}" required="true" requiredMessage="#{obi.EditTagsTablesRequiredMessage_ttChanged}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <h:commandLink action="#{tagsTablesController.update}" value="#{obi.EditTagsTablesSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{obi.EditTagsTablesViewLink}"/>
+                <br />
+                <h:commandLink action="#{tagsTablesController.prepareList}" value="#{obi.EditTagsTablesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{obi.EditTagsTablesIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

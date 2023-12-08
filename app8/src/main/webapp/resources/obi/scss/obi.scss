@@ -1,0 +1,102 @@
+// Option B: Include parts of Bootstrap
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../../vendor/bootstrap/5.3.1/scss/functions";
+
+// 2. Include any default variable overrides here
+@import "variables";
+
+// 3. Include remainder of required Bootstrap stylesheets (including any separate color mode stylesheets)
+@import "../../vendor/bootstrap/5.3.1/scss/variables";
+@import "../../vendor/bootstrap/5.3.1/scss/variables-dark";
+
+// 4. Include any default map overrides here
+   
+ 
+// 5. Include remainder of required parts
+@import "../../vendor/bootstrap/5.3.1/scss/maps";
+@import "../../vendor/bootstrap/5.3.1/scss/mixins";
+@import "../../vendor/bootstrap/5.3.1/scss/root";
+
+// 6. Optionally include any other parts as needed
+@import "../../vendor/bootstrap/5.3.1/scss/utilities";
+@import "../../vendor/bootstrap/5.3.1/scss/reboot";
+@import "../../vendor/bootstrap/5.3.1/scss/type";
+@import "../../vendor/bootstrap/5.3.1/scss/images";
+@import "../../vendor/bootstrap/5.3.1/scss/containers";
+@import "../../vendor/bootstrap/5.3.1/scss/grid";
+@import "../../vendor/bootstrap/5.3.1/scss/helpers";
+
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+@import "../../vendor/bootstrap/5.3.1/scss/utilities/api";
+
+// 8. Add additional custom code here
+@import "./themes/obi";
+@import "./themes/variables-dark";
+
+@import "dashboard";
+@import "navbartop"; 
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+Breakpoint          Class infix Dimensions
+X-Small             None	<576px
+Small               sm          ≥576px
+Medium              md          ≥768px
+Large               lg          ≥992px
+Extra large         xl          ≥1200px
+Extra extra large   xxl         ≥1400px
+
+*/
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+
+}
+
+// X-Large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@media (min-width: 1400px) {
+}
+
+// X-Small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+}
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) {
+}
+
+// X-Large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{obi.ViewEntitiesSetTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{obi.ViewEntitiesSetLabel_esId}"/>
+                    <h:outputText value="#{entitiesSetController.selected.esId}" title="#{obi.ViewEntitiesSetTitle_esId}"/>
+                    <h:outputText value="#{obi.ViewEntitiesSetLabel_esValue}"/>
+                    <h:outputText value="#{entitiesSetController.selected.esValue}" title="#{obi.ViewEntitiesSetTitle_esValue}"/>
+                    <h:outputText value="#{obi.ViewEntitiesSetLabel_esLabel}"/>
+                    <h:outputText value="#{entitiesSetController.selected.esLabel}" title="#{obi.ViewEntitiesSetTitle_esLabel}"/>
+                    <h:outputText value="#{obi.ViewEntitiesSetLabel_esComment}"/>
+                    <h:outputText value="#{entitiesSetController.selected.esComment}" title="#{obi.ViewEntitiesSetTitle_esComment}"/>
+                    <h:outputText value="#{obi.ViewEntitiesSetLabel_esDeleted}"/>
+                    <h:outputText value="#{entitiesSetController.selected.esDeleted}" title="#{obi.ViewEntitiesSetTitle_esDeleted}"/>
+                    <h:outputText value="#{obi.ViewEntitiesSetLabel_esCreated}"/>
+                    <h:outputText value="#{entitiesSetController.selected.esCreated}" title="#{obi.ViewEntitiesSetTitle_esCreated}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{obi.ViewEntitiesSetLabel_esChanged}"/>
+                    <h:outputText value="#{entitiesSetController.selected.esChanged}" title="#{obi.ViewEntitiesSetTitle_esChanged}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{obi.ViewEntitiesSetLabel_esGroup}"/>
+                    <h:outputText value="#{entitiesSetController.selected.esGroup}" title="#{obi.ViewEntitiesSetTitle_esGroup}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{entitiesSetController.destroyAndView}" value="#{obi.ViewEntitiesSetDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{obi.ViewEntitiesSetEditLink}"/>
+                <br />
+                <h:commandLink action="#{entitiesSetController.prepareCreate}" value="#{obi.ViewEntitiesSetCreateLink}" />
+                <br />
+                <h:commandLink action="#{entitiesSetController.prepareList}" value="#{obi.ViewEntitiesSetShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{obi.ViewEntitiesSetIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

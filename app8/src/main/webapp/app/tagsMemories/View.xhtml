@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/tmpl/MainWindow.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{obi.ViewTagsMemoriesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{obi.ViewTagsMemoriesLabel_tmId}"/>
+                    <h:outputText value="#{tagsMemoriesController.selected.tmId}" title="#{obi.ViewTagsMemoriesTitle_tmId}"/>
+                    <h:outputText value="#{obi.ViewTagsMemoriesLabel_tmName}"/>
+                    <h:outputText value="#{tagsMemoriesController.selected.tmName}" title="#{obi.ViewTagsMemoriesTitle_tmName}"/>
+                    <h:outputText value="#{obi.ViewTagsMemoriesLabel_tmComment}"/>
+                    <h:outputText value="#{tagsMemoriesController.selected.tmComment}" title="#{obi.ViewTagsMemoriesTitle_tmComment}"/>
+                    <h:outputText value="#{obi.ViewTagsMemoriesLabel_tmDeleted}"/>
+                    <h:outputText value="#{tagsMemoriesController.selected.tmDeleted}" title="#{obi.ViewTagsMemoriesTitle_tmDeleted}"/>
+                    <h:outputText value="#{obi.ViewTagsMemoriesLabel_tmCreated}"/>
+                    <h:outputText value="#{tagsMemoriesController.selected.tmCreated}" title="#{obi.ViewTagsMemoriesTitle_tmCreated}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{obi.ViewTagsMemoriesLabel_tmChanged}"/>
+                    <h:outputText value="#{tagsMemoriesController.selected.tmChanged}" title="#{obi.ViewTagsMemoriesTitle_tmChanged}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{tagsMemoriesController.destroyAndView}" value="#{obi.ViewTagsMemoriesDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{obi.ViewTagsMemoriesEditLink}"/>
+                <br />
+                <h:commandLink action="#{tagsMemoriesController.prepareCreate}" value="#{obi.ViewTagsMemoriesCreateLink}" />
+                <br />
+                <h:commandLink action="#{tagsMemoriesController.prepareList}" value="#{obi.ViewTagsMemoriesShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{obi.ViewTagsMemoriesIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

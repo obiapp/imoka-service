@@ -1,0 +1,124 @@
+
+.page-wrapper {
+
+    .custom-menu{
+        display: block;
+        position: absolute;
+        top: 0.5rem;
+        left: 0;
+        margin-left: -20px;
+        @include transition(.3s);
+        z-index: 50;
+        .btn{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            &.btn-primary{
+                background: darken($primary,10%);
+                border-color: darken($primary,10%);
+                &:hover, &:focus{
+                    background: darken($primary,10%) !important;
+                    border-color: darken($primary,10%) !important;
+                }
+            }
+        }
+    }
+
+    .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%!important;
+        background: var(--ism-nav-body-bg);
+        
+    }
+
+    &.toggled {
+        .navbar {
+            width: calc(100% - $sidebar-width)!important;
+        }
+    }
+ 
+    @include media-breakpoint-down(md){
+        .custom-menu{
+            margin-left: 10px !important;
+            //top: 10px !important;
+        }
+        margin-left: 0px!important;
+
+
+        &.sidebarCollapseManualOn{
+            margin-left: $sidebar-width !important;
+        }
+
+
+    }
+
+
+
+    /**
+    Breakpoint          Class infix Dimensions
+    X-Small             None	<576px
+    Small               sm          ≥576px
+    Medium              md          ≥768px
+    Large               lg          ≥992px
+    Extra large         xl          ≥1200px
+    Extra extra large   xxl         ≥1400px
+    
+    */
+    // Small devices (landscape phones, 576px and up)
+    @media (min-width: 576px) {
+
+
+    }
+
+    // Medium devices (tablets, 768px and up)
+    @media (min-width: 768px) {
+    }
+
+        
+    // Large devices (desktops, 992px and up)
+    @media (min-width: 992px) {
+
+    }
+
+    // X-Large devices (large desktops, 1200px and up)
+    @media (min-width: 1200px) {
+    }
+
+    // XX-Large devices (larger desktops, 1400px and up)
+    @media (min-width: 1400px) {
+    }
+
+    // X-Small devices (portrait phones, less than 576px)
+    @media (max-width: 575.98px) {
+    }
+
+    // Small devices (landscape phones, less than 768px)
+    @media (max-width: 767.98px) {
+    }
+
+    // Medium devices (tablets, less than 992px)
+    @media (max-width: 991.98px) {
+    }
+
+    // Large devices (desktops, less than 1200px)
+    @media (max-width: 1199.98px) {
+    }
+
+    // X-Large devices (large desktops, less than 1400px)
+    @media (max-width: 1399.98px) {
+    }
+
+
+
+
+
+}
+
+
+
+
+
+
+
+

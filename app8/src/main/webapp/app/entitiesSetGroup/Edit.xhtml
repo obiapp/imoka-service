@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{obi.EditEntitiesSetGroupTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{obi.EditEntitiesSetGroupLabel_esgId}" for="esgId" />
+                    <h:inputText id="esgId" value="#{entitiesSetGroupController.selected.esgId}" title="#{obi.EditEntitiesSetGroupTitle_esgId}" required="true" requiredMessage="#{obi.EditEntitiesSetGroupRequiredMessage_esgId}"/>
+                    <h:outputLabel value="#{obi.EditEntitiesSetGroupLabel_esgGroup}" for="esgGroup" />
+                    <h:inputText id="esgGroup" value="#{entitiesSetGroupController.selected.esgGroup}" title="#{obi.EditEntitiesSetGroupTitle_esgGroup}" required="true" requiredMessage="#{obi.EditEntitiesSetGroupRequiredMessage_esgGroup}"/>
+                    <h:outputLabel value="#{obi.EditEntitiesSetGroupLabel_esgDesignation}" for="esgDesignation" />
+                    <h:inputText id="esgDesignation" value="#{entitiesSetGroupController.selected.esgDesignation}" title="#{obi.EditEntitiesSetGroupTitle_esgDesignation}" />
+                    <h:outputLabel value="#{obi.EditEntitiesSetGroupLabel_esgComment}" for="esgComment" />
+                    <h:inputText id="esgComment" value="#{entitiesSetGroupController.selected.esgComment}" title="#{obi.EditEntitiesSetGroupTitle_esgComment}" />
+                    <h:outputLabel value="#{obi.EditEntitiesSetGroupLabel_esgDeleted}" for="esgDeleted" />
+                    <h:inputText id="esgDeleted" value="#{entitiesSetGroupController.selected.esgDeleted}" title="#{obi.EditEntitiesSetGroupTitle_esgDeleted}" required="true" requiredMessage="#{obi.EditEntitiesSetGroupRequiredMessage_esgDeleted}"/>
+                    <h:outputLabel value="#{obi.EditEntitiesSetGroupLabel_esgCreated}" for="esgCreated" />
+                    <h:inputText id="esgCreated" value="#{entitiesSetGroupController.selected.esgCreated}" title="#{obi.EditEntitiesSetGroupTitle_esgCreated}" required="true" requiredMessage="#{obi.EditEntitiesSetGroupRequiredMessage_esgCreated}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{obi.EditEntitiesSetGroupLabel_esgChanged}" for="esgChanged" />
+                    <h:inputText id="esgChanged" value="#{entitiesSetGroupController.selected.esgChanged}" title="#{obi.EditEntitiesSetGroupTitle_esgChanged}" required="true" requiredMessage="#{obi.EditEntitiesSetGroupRequiredMessage_esgChanged}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <h:commandLink action="#{entitiesSetGroupController.update}" value="#{obi.EditEntitiesSetGroupSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{obi.EditEntitiesSetGroupViewLink}"/>
+                <br />
+                <h:commandLink action="#{entitiesSetGroupController.prepareList}" value="#{obi.EditEntitiesSetGroupShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{obi.EditEntitiesSetGroupIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
