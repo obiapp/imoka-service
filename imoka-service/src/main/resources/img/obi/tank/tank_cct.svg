@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="20.605202mm"
+   height="48.465057mm"
+   viewBox="0 0 20.605202 48.465057"
+   version="1.1"
+   id="svg2984"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2981">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath2884">
+      <path
+         style="fill:#ffffff;stroke:#1a1a1a;stroke-width:0.268603"
+         id="path2886"
+         d="m 71.885382,125.07806 -4.894532,8.47131 -4.894533,8.47131 -4.889102,-8.47444 -4.889102,-8.47445 9.783635,0.003 z"
+         transform="matrix(1.2080876,0,0,1.1053675,-13.474102,-12.868899)" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath2808">
+      <rect
+         style="fill:#ffffff;stroke:#1a1a1a;stroke-width:0.25"
+         id="rect2810"
+         width="19.755009"
+         height="28.608618"
+         x="126.1686"
+         y="94.843208"
+         clip-path="url(#clipPath2770-2)"
+         transform="matrix(1.2272616,0,0,1,-30.884794,-0.2294122)" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath2762">
+      <rect
+         style="fill:#ffffff;stroke:#1a1a1a;stroke-width:0.25"
+         id="rect2764"
+         width="42.152687"
+         height="12.921805"
+         x="117.5508"
+         y="81.921745" />
+    </clipPath>
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-97.213526,-98.541669)">
+    <g
+       id="g2961"
+       transform="translate(-28.541064,11.336151)">
+      <path
+         style="fill:#d4aa00;stroke:#1a1a1a;stroke-width:0.268603"
+         id="path2671"
+         d="m 71.885382,125.07806 -4.894532,8.47131 -4.894533,8.47131 -4.889102,-8.47444 -4.889102,-8.47445 9.783635,0.003 z"
+         transform="matrix(1.0285885,0,0,0.72161578,72.180006,32.992375)"
+         clip-path="url(#clipPath2884)" />
+      <rect
+         style="fill:#d4aa00;stroke:#1a1a1a;stroke-width:0.25"
+         id="rect1839"
+         width="19.755009"
+         height="28.608618"
+         x="126.1686"
+         y="94.843208"
+         clip-path="url(#clipPath2808)"
+         transform="matrix(1,0,0,1.0107362,0.0110873,-1.0169107)" />
+      <ellipse
+         style="fill:#d4aa00;stroke:#1a1a1a;stroke-width:0.239115"
+         id="path2673"
+         cx="136.0461"
+         cy="95.091713"
+         clip-path="url(#clipPath2762)"
+         rx="9.9030161"
+         ry="7.2684727"
+         transform="matrix(0.99774773,0,0,1.0931132,0.31750938,-8.6645348)" />
+    </g>
+  </g>
+</svg>

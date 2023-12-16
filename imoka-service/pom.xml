@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.imoka</groupId>
+        <artifactId>imoka</artifactId>
+        <version>16.11.01</version>
+    </parent>
+    
+    <artifactId>imoka-service</artifactId>
+    <packaging>jar</packaging>
+    
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <exec.mainClass>org.imoka.Sservice.ImokaService</exec.mainClass>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>sqljdbc42</artifactId>
+            <version>4.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.glassfish.main.extras/appserv-rt -->
+        <dependency>
+            <groupId>org.glassfish.main.extras</groupId>
+            <artifactId>appserv-rt</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.imoka</groupId>
+            <artifactId>core</artifactId>
+            <version>23122.10</version>
+        </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/org.glassfish.main.extras/appserv-rt -->
+        <dependency>
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
+            <version>1.8.1</version>
+        </dependency>
+    </dependencies>
+    <version>2312.16</version>
+</project>
