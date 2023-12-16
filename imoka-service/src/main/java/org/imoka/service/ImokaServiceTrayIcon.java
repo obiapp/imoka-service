@@ -51,7 +51,7 @@ public class ImokaServiceTrayIcon {
         if (Settings.createIniFile()) {
             Settings.writeDefaultClientSetup();
         }
-
+  
         /* Turn off metal's use of bold fonts */
         UIManager.put("swing.boldMetal", Boolean.FALSE);
         //Schedule a job for the event-dispatching thread:
