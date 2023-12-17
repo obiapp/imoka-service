@@ -230,3 +230,42 @@
 2023-12-17T15:25:38.114052200Z >> MainWindow : Constructor >> Started ...
 2023-12-17T15:25:56.978131200Z >> Path on image load obj : /img/obi/obi-signet-dark.png
 2023-12-17T15:26:09.471841400Z >> Path on image load obj : /img/obi/obi-signet-light.png
+2023-12-17T15:49:38.979605400Z >> OBI - Start...
+2023-12-17T15:49:38.991603900Z >> ImokaServiceTrayIcon >> Main  : Initialisation du fichier de configuration...
+2023-12-17T15:49:38.992604Z >> org.imoka.util.Settings : createIniFile(String) >> Le fichier obi_service.ini existe déjà !
+2023-12-17T15:49:39.078598900Z >> ISMPro - End run...
+2023-12-17T15:49:39.366601500Z >> Path on image load obj : /img/obi/obi-signet-dark.png
+2023-12-17T15:49:39.380602700Z >> Path on image load obj : /img/oz/config.png
+2023-12-17T15:49:39.398600400Z >> Path on image load obj : /img/oz/link.png
+2023-12-17T15:49:39.412601700Z >> Path on image load obj : /img/oz/transfer.png
+2023-12-17T15:49:39.428602Z >> Path on image load obj : /img/oz/exit.png
+2023-12-17T15:49:39.439604600Z >> Path on image load obj : /img/oz/config.png
+2023-12-17T15:49:39.456603900Z >> Path on image load obj : /img/oz/exit.png
+2023-12-17T15:49:39.462602600Z >> Path on image load obj : /img/oz/config.png
+2023-12-17T15:49:39.468601900Z >> Path on image load obj : /img/oz/link.png
+2023-12-17T15:49:39.475601300Z >> Path on image load obj : /img/oz/transfer.png
+2023-12-17T15:49:39.482600700Z >> Path on image load obj : /img/oz/config.png
+2023-12-17T15:49:39.488602800Z >> Path on image load obj : /img/oz/config.png
+2023-12-17T15:49:39.500600900Z >> Path on image load obj : /img/std/DlgInfos.png
+2023-12-17T15:49:39.675601600Z >> MainWindow : Constructor >> Started ...
+2023-12-17T15:50:43.949687800Z >> Path on image load obj : /img/obi/obi-signet-dark.png
+2023-12-17T15:50:54.257888800Z >> Path on image load obj : /img/obi/obi-signet-dark.png
+2023-12-17T16:07:32.310764600Z >> OBI - Start...
+2023-12-17T16:07:32.317840700Z >> ImokaServiceTrayIcon >> Main  : Initialisation du fichier de configuration...
+2023-12-17T16:07:32.318767900Z >> org.imoka.util.Settings : createIniFile(String) >> Le fichier obi_service.ini existe déjà !
+2023-12-17T16:07:32.416767800Z >> ISMPro - End run...
+2023-12-17T16:07:32.715771700Z >> Path on image load obj : /img/obi/obi-signet-dark.png
+2023-12-17T16:07:32.729770200Z >> Path on image load obj : /img/oz/config.png
+2023-12-17T16:07:32.746773600Z >> Path on image load obj : /img/oz/link.png
+2023-12-17T16:07:32.761768100Z >> Path on image load obj : /img/oz/transfer.png
+2023-12-17T16:07:32.776773200Z >> Path on image load obj : /img/oz/exit.png
+2023-12-17T16:07:32.785771700Z >> Path on image load obj : /img/oz/config.png
+2023-12-17T16:07:32.801772700Z >> Path on image load obj : /img/oz/exit.png
+2023-12-17T16:07:32.807773700Z >> Path on image load obj : /img/oz/config.png
+2023-12-17T16:07:32.815775400Z >> Path on image load obj : /img/oz/link.png
+2023-12-17T16:07:32.823773900Z >> Path on image load obj : /img/oz/transfer.png
+2023-12-17T16:07:32.836773400Z >> Path on image load obj : /img/oz/config.png
+2023-12-17T16:07:32.842772200Z >> Path on image load obj : /img/oz/config.png
+2023-12-17T16:07:32.859861400Z >> Path on image load obj : /img/std/DlgInfos.png
+2023-12-17T16:07:33.018793300Z >> MainWindow : Constructor >> Started ...
+2023-12-17T16:07:48.171929500Z >> Path on image load obj : /img/obi/obi-signet-dark.png

@@ -5,6 +5,8 @@
  */
 package org.imoka.demo_single_app.basic;
 
+import ModernDocking.Dockable;
+import ModernDocking.DockableMenuItem;
 import ModernDocking.Docking;
 import ModernDocking.LayoutsMenu;
 import ModernDocking.api.DockingAPI;
@@ -15,6 +17,7 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatSolarizedDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
+import java.awt.Color;
 import java.awt.Insets;
 import org.imoka.util.Ico;
 import java.beans.PropertyVetoException;
@@ -29,6 +32,7 @@ import javax.naming.NamingException;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
@@ -133,8 +137,9 @@ public class MainWindow extends javax.swing.JFrame implements InternalFrameListe
         menuItemLinks = new javax.swing.JMenuItem();
         menuItemTransfer = new javax.swing.JMenuItem();
         mItemConfig = new javax.swing.JMenu();
-        mIConfigDatabase = new javax.swing.JMenuItem();
+        mIConfigApp = new javax.swing.JMenuItem();
         mIConfigAutomate = new javax.swing.JMenuItem();
+        viewMenu = new javax.swing.JMenu();
         themeMenu = new javax.swing.JMenu();
         menuItemThemeMetal = new javax.swing.JMenuItem();
         menuItemThemeNimbus = new javax.swing.JMenuItem();
@@ -323,15 +328,15 @@ public class MainWindow extends javax.swing.JFrame implements InternalFrameListe
         mItemConfig.setMnemonic('e');
         mItemConfig.setText(bundle.getString("MenuEdit")); // NOI18N
 
-        mIConfigDatabase.setIcon(Ico.i16("/img/oz/config.png", this));
-        mIConfigDatabase.setMnemonic('t');
-        mIConfigDatabase.setText("Bases");
-        mIConfigDatabase.addActionListener(new java.awt.event.ActionListener() {
+        mIConfigApp.setIcon(Ico.i16("/img/oz/config.png", this));
+        mIConfigApp.setMnemonic('t');
+        mIConfigApp.setText("Application");
+        mIConfigApp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mIConfigDatabaseActionPerformed(evt);
+                mIConfigAppActionPerformed(evt);
             }
         });
-        mItemConfig.add(mIConfigDatabase);
+        mItemConfig.add(mIConfigApp);
 
         mIConfigAutomate.setIcon(Ico.i16("/img/oz/config.png", this));
         mIConfigAutomate.setMnemonic('t');
@@ -344,6 +349,9 @@ public class MainWindow extends javax.swing.JFrame implements InternalFrameListe
         mItemConfig.add(mIConfigAutomate);
 
         menuBar.add(mItemConfig);
+
+        viewMenu.setText("Affichage");
+        menuBar.add(viewMenu);
 
         themeMenu.setText("Thèmes");
 
@@ -610,8 +618,20 @@ public class MainWindow extends javax.swing.JFrame implements InternalFrameListe
 
     }//GEN-LAST:event_tbBtnPLCTesterActionPerformed
 
-    private void mIConfigDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mIConfigDatabaseActionPerformed
-//        // TODO add your handling code here:
+    private JMenuItem actionListenDock(DockingAPI docking, Dockable dockable) {
+        return new DockableMenuItem(docking, dockable.getPersistentID(), dockable.getTabText());
+    }
+    private void mIConfigAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mIConfigAppActionPerformed
+        // TODO add your handling code here:
+        SimplePanel appConfig = new SimplePanel(docking,
+                "Configuration - Application",
+                "configApp");
+        appConfig.setBackground(new Color(0xa1f2ff));
+        appConfig.setTitleForeground(Color.black);
+
+        viewMenu.add(actionListenDock(docking, appConfig));
+
+
 //        if (ConfigFrame.openFrameCount == 0) {
 //            configFrame = new ConfigFrame();
 //            desktopPane.add(configFrame);
@@ -626,7 +646,7 @@ public class MainWindow extends javax.swing.JFrame implements InternalFrameListe
 //        } catch (PropertyVetoException ex) {
 //            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-    }//GEN-LAST:event_mIConfigDatabaseActionPerformed
+    }//GEN-LAST:event_mIConfigAppActionPerformed
 
     private void mIConfigAutomateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mIConfigAutomateActionPerformed
         // TODO add your handling code here:
@@ -848,8 +868,8 @@ public class MainWindow extends javax.swing.JFrame implements InternalFrameListe
     private javax.swing.JMenu helpMenu;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuItem loadLayoutMenuItem;
+    private javax.swing.JMenuItem mIConfigApp;
     private javax.swing.JMenuItem mIConfigAutomate;
-    private javax.swing.JMenuItem mIConfigDatabase;
     private javax.swing.JMenu mItemConfig;
     private javax.swing.JToolBar mainToolBar;
     private javax.swing.JMenuBar menuBar;
@@ -876,6 +896,7 @@ public class MainWindow extends javax.swing.JFrame implements InternalFrameListe
     private javax.swing.JButton tbBtnTransfer;
     private javax.swing.JMenu themeMenu;
     private javax.swing.JPopupMenu.Separator themeSeparator;
+    private javax.swing.JMenu viewMenu;
     // End of variables declaration//GEN-END:variables
 
     @Override

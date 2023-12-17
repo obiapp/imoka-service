@@ -90,9 +90,15 @@ public class ImokaServiceTrayIcon {
             return null;
         }
 
+        // Tray system
+        final SystemTray tray = SystemTray.getSystemTray();
+        
         // Managing main thread
         TagCollectorThread tct = new TagCollectorThread(trayIcon);
 
+        
+     
+        
         // MainFrame
         DockingUI.initialize();
         MainFrame mf = new MainFrame(new File("multiframe_demo_layout_1.xml"));
@@ -140,19 +146,16 @@ public class ImokaServiceTrayIcon {
         optionsMenu.add(cb1);
         optionsMenu.add(cb2);
 
+        // 0.2. Menu Quitter
         MenuItem exitItem = new MenuItem("Quitter");
+        exitItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                tray.remove(trayIcon);
+                System.exit(0);
+            }
+        });
 
-        MenuItem errorItem = new MenuItem("Error");
-        MenuItem warningItem = new MenuItem("Warning");
-        MenuItem infoItem = new MenuItem("Info");
-        MenuItem noneItem = new MenuItem("None");
-        Menu displayMenu = new Menu("Display");
-        displayMenu.add(errorItem);
-        displayMenu.add(warningItem);
-        displayMenu.add(infoItem);
-        displayMenu.add(noneItem);
-
-        // Menu Base de donnée
+        // 0.3. Menu Base de donnée
         MenuItem imokaServiceMenuItem = new MenuItem("Application");
         imokaServiceMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -180,7 +183,7 @@ public class ImokaServiceTrayIcon {
         databaseMenu.add(configDBMenuItem);
         databaseMenu.add(infoDBMenuItem);
 
-        // Menu Processus
+        // 0.4. Menu Processus
         MenuItem connexionPLCMenuItem = new MenuItem("Connexions PLC");
         connexionPLCMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -231,7 +234,6 @@ public class ImokaServiceTrayIcon {
         popup.addSeparator();
         popup.add(optionsMenu);
         popup.add(aboutItem);
-        popup.add(displayMenu);
         popup.addSeparator();
         popup.add(exitItem);
 
@@ -239,7 +241,6 @@ public class ImokaServiceTrayIcon {
         trayIcon.setPopupMenu(popup);
 
         // 3 - Add TrayIcon to the system tray
-        final SystemTray tray = SystemTray.getSystemTray();
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
@@ -247,60 +248,13 @@ public class ImokaServiceTrayIcon {
             return null;
         }
 
-        trayIcon.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,
-                        "This dialog box is run from System Tray");
-            }
-        });
+        
 
-        ActionListener listener = new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                MenuItem item = (MenuItem) e.getSource();
-                //TrayIcon.MessageType type = null;
-                System.out.println(item.getLabel());
-                if ("Error".equals(item.getLabel())) {
-                    //type = TrayIcon.MessageType.ERROR;
-                    trayIcon.displayMessage("Sun TrayIcon Demo",
-                            "This is an error message", TrayIcon.MessageType.ERROR);
-
-                } else if ("Warning".equals(item.getLabel())) {
-                    //type = TrayIcon.MessageType.WARNING;
-                    trayIcon.displayMessage("Sun TrayIcon Demo",
-                            "This is a warning message", TrayIcon.MessageType.WARNING);
-
-                } else if ("Info".equals(item.getLabel())) {
-                    //type = TrayIcon.MessageType.INFO;
-                    trayIcon.displayMessage("Sun TrayIcon Demo",
-                            "This is an info message", TrayIcon.MessageType.INFO);
-
-                } else if ("None".equals(item.getLabel())) {
-                    //type = TrayIcon.MessageType.NONE;
-                    trayIcon.displayMessage("Sun TrayIcon Demo",
-                            "This is an ordinary message", TrayIcon.MessageType.NONE);
-                }
-            }
-        };
-
-        errorItem.addActionListener(listener);
-        warningItem.addActionListener(listener);
-        infoItem.addActionListener(listener);
-        noneItem.addActionListener(listener);
-
-        exitItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                tray.remove(trayIcon);
-                System.exit(0);
-            }
-        });
-
+      
+        
         return trayIcon;
     }
 
-    public void a(ActionEvent e) {
-        JOptionPane.showMessageDialog(null,
-                "This dialog box is run from System Tray");
-    }
 
     //Obtain the image URL
     protected static Image createImage(String path, String description) {
