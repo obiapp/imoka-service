@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<app-layout>
+<layout main-frame="true" location="308,198" size="942,528" state="0">
+<westToolbar>
+</westToolbar>
+<eastToolbar>
+</eastToolbar>
+<southToolbar>
+</southToolbar>
+<split orientation="0" divider-proportion="0.6054279804229736">
+<left>
+<split orientation="1" divider-proportion="0.48471614718437195">
+<left>
+<simple persistentID="three" class-name="org.imoka.demo_single_app.basic.Example.Panel">
+<properties></properties>
+</simple>
+</left>
+<right>
+<simple persistentID="two" class-name="org.imoka.demo_single_app.basic.Example.Panel">
+<properties></properties>
+</simple>
+</right>
+</split>
+</left>
+<right>
+<split orientation="1" divider-proportion="0.35480350255966187">
+<left>
+<simple persistentID="four" class-name="org.imoka.demo_single_app.basic.Example.Panel">
+<properties></properties>
+</simple>
+</left>
+<right>
+<simple persistentID="one" class-name="org.imoka.demo_single_app.basic.Example.Panel">
+<properties></properties>
+</simple>
+</right>
+</split>
+</right>
+</split>
+</layout>
+<undocked>
+</undocked>
+</app-layout>

@@ -136,10 +136,10 @@ public class MachineConnection extends Thread implements ConnectionListener {
      * @return value of current time in millisec
      */
     private long begin(String FunctionName) {
-        Util.out("");
-        Util.out("MachineConnection : begin >> +================================================================");
-        Util.out("MachineConnection : begin >> | " + FunctionName);
-        Util.out("MachineConnection : begin >> +================================================================");
+//        Util.out("");
+//        Util.out("MachineConnection : begin >> +================================================================");
+//        Util.out("MachineConnection : begin >> | " + FunctionName);
+//        Util.out("MachineConnection : begin >> +================================================================");
         Elapsed = System.currentTimeMillis();
         return Elapsed;
     }
@@ -160,7 +160,7 @@ public class MachineConnection extends Thread implements ConnectionListener {
             ok++;
         }
         long duration = (System.currentTimeMillis() - Elapsed);
-        Util.out("MachineConnection : end >> Execution time " + duration + " ms");
+//        Util.out("MachineConnection : end >> Execution time " + duration + " ms");
         return duration;
     }
 
@@ -180,12 +180,12 @@ public class MachineConnection extends Thread implements ConnectionListener {
                 machine.getSlot());
 
         if (errorCode == 0) {
-            Util.out("MachineConnection : doConnect >> Connected to   : "
-                    + machine.getAddress() + " (Rack="
-                    + machine.getRack() + ", Slot="
-                    + machine.getSlot() + ")");
-            Util.out("MachineConnection : doConnect >> PDU negotiated : "
-                    + client.PDULength() + " bytes");
+//            Util.out("MachineConnection : doConnect >> Connected to   : "
+//                    + machine.getAddress() + " (Rack="
+//                    + machine.getRack() + ", Slot="
+//                    + machine.getSlot() + ")");
+//            Util.out("MachineConnection : doConnect >> PDU negotiated : "
+//                    + client.PDULength() + " bytes");
 
             PDULength = client.PDULength();
 

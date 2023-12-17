@@ -280,11 +280,11 @@ public class DatabaseModel {
                 }
             } else if (j == 1) {
                 model.setUser(e[j]);
-                Util.out("DatabaseModel >> parseFull >> Defined user = " + e[j]);
+                //Util.out("DatabaseModel >> parseFull >> Defined user = " + e[j]);
                 correctCounterInfo++;
             } else if (j == 2) {
                 model.setPassword(e[j]);
-                Util.out("DatabaseModel >> parseFull >> Defined password = " + e[j]);
+                //Util.out("DatabaseModel >> parseFull >> Defined password = " + e[j]);
                 correctCounterInfo++;
             } else {
                 System.err.println("DatabaseModel >> parseFull >> unknow parameter >> " + e[j]);
@@ -307,7 +307,8 @@ public class DatabaseModel {
         return "jdbc:"
                 + model.getDriver() + ":"
                 + model.getServer().replace("\\\\", "//")
-                + (model.getPort().trim().isEmpty() ? (model.getDriver().matches("sqlserver") ? ":1433" : "") : ":")
+                //+ (model.getPort().trim().isEmpty() ? (model.getDriver().matches("sqlserver") ? ":1433" : "") : ":")
+                + (model.getPort().trim().isEmpty() ? "" : ":")
                 + model.getPort() + ";"
                 + "databaseName=" + model.getDatabaseName() + "?"
                 + model.getUser() + "?"

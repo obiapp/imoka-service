@@ -90,8 +90,6 @@ public class DatabaseFrame extends javax.swing.JDialog {
         jLabel4.setText("Port");
         jLabel4.setPreferredSize(new java.awt.Dimension(82, 14));
 
-        port.setText("1433");
-
         jLabel5.setText("Utilisateur");
         jLabel5.setPreferredSize(new java.awt.Dimension(82, 14));
 
@@ -137,10 +135,10 @@ public class DatabaseFrame extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(user)
-                            .addComponent(password)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(password)
+                            .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCheckConnexion, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,17 +153,17 @@ public class DatabaseFrame extends javax.swing.JDialog {
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbDriver, 0, 382, Short.MAX_VALUE)
+                            .addComponent(cbDriver, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(server)
                             .addComponent(databaseName)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(port)
-                            .addComponent(hostname)))
+                            .addComponent(hostname, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jSeparator2))
                 .addContainerGap())
         );
@@ -348,7 +346,8 @@ public class DatabaseFrame extends javax.swing.JDialog {
         try {
             Class.forName(DatabaseModel.mapReadableToDriver(model.getDriver()));
             url = "jdbc:" + model.getDriver() + "://"
-                    + model.getServer() + (model.getPort().trim().isEmpty() ? "" : ":" + model.getPort())
+                    + model.getServer() 
+                    + (model.getPort()==null?"":(model.getPort().trim().isEmpty() ? "" : ":" + model.getPort()))
                     + ";databaseName=" + model.getDatabaseName();
             Connection conn = DriverManager.getConnection(url, model.getUser(), model.getPassword());
             return conn;

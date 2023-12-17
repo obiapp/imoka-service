@@ -14,8 +14,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.imoka.service.Form.DatabaseFrame;
 import org.imoka.service.Form.DatabaseInformations;
-import org.imoka.service.ImokaService;
+import org.imoka.service.ImokaServiceTrayIcon;
+import org.imoka.service.model.DatabaseModel;
+
 
 /**
  *
@@ -25,18 +28,10 @@ public class DatabaseInfoActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String url = "jdbc:sqlserver://localhost;"
-                + "databaseName=imoka;"
-                + "integratedSecurity=true;"
-                + "encrypt=true;"
-                + "trustServerCertificate=true";
-        String user = "sa";
-        String pwd = "@dm!n!str@t3ur";
         Connection conn = null;
 
         try {
-            DriverManager.registerDriver(new SQLServerDriver());
-            conn = DriverManager.getConnection(url, user, pwd);
+            conn = DatabaseFrame.toConnection(DatabaseModel.databaseModel());
 
             if (conn != null) {
                 DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
@@ -55,7 +50,7 @@ public class DatabaseInfoActionListener implements ActionListener {
                 System.out.println("Imoka Service >> Unable to connect !");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ImokaService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImokaServiceTrayIcon.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (conn != null && !conn.isClosed()) {

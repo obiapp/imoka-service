@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<app-layout>
+<layout main-frame="true" location="-1928,-8" size="1936,1056" state="6">
+<westToolbar>
+</westToolbar>
+<eastToolbar>
+</eastToolbar>
+<southToolbar>
+</southToolbar>
+<split orientation="1" divider-proportion="0.7496063113212585">
+<left>
+<split orientation="0" divider-proportion="0.7617617845535278">
+<left>
+<split orientation="1" divider-proportion="0.3872101306915283">
+<left>
+<tabbed>
+<selectedTab persistentID="three">
+</selectedTab>
+<tab persistentID="three">
+<properties test="one" test11="twelve" test10="eleven" test_int_1="5" test1="two" test4="five" test5="six" test2="three" test3="four" test8="nine" test9="ten" test6="seven" test7="eight"></properties>
+</tab>
+</tabbed>
+</left>
+<right>
+<split orientation="0" divider-proportion="0.4801587164402008">
+<left>
+<tabbed>
+<selectedTab persistentID="always-displayed">
+</selectedTab>
+<tab persistentID="always-displayed">
+<properties></properties>
+</tab>
+</tabbed>
+</left>
+<right>
+<tabbed>
+<selectedTab persistentID="two">
+</selectedTab>
+<tab persistentID="two">
+<properties test="one" test11="twelve" test10="eleven" test_int_1="5" test1="two" test4="five" test5="six" test2="three" test3="four" test8="nine" test9="ten" test6="seven" test7="eight"></properties>
+</tab>
+<tab persistentID="four">
+<properties test="one" test11="twelve" test10="eleven" test_int_1="5" test1="two" test4="five" test5="six" test2="three" test3="four" test8="nine" test9="ten" test6="seven" test7="eight"></properties>
+</tab>
+</tabbed>
+</right>
+</split>
+</right>
+</split>
+</left>
+<right>
+<tabbed>
+<selectedTab persistentID="output">
+</selectedTab>
+<tab persistentID="output">
+<properties first-column-name="one"></properties>
+</tab>
+</tabbed>
+</right>
+</split>
+</left>
+<right>
+<tabbed>
+<selectedTab persistentID="themes">
+</selectedTab>
+<tab persistentID="themes">
+<properties></properties>
+</tab>
+<tab persistentID="explorer">
+<properties></properties>
+</tab>
+</tabbed>
+</right>
+</split>
+</layout>
+<undocked>
+<simple persistentID="six" class-name="org.imoka.demo_single_app.basic.SimplePanel">
+<properties test="one" test11="twelve" test10="eleven" test_int_1="0" test1="two" test4="five" test5="six" test2="three" test3="four" test8="nine" test9="ten" test6="seven" test7="eight"></properties>
+</simple>
+<simple persistentID="one" class-name="org.imoka.demo_single_app.basic.SimplePanel">
+<properties test="one" test11="twelve" test10="eleven" test_int_1="5" test1="two" test4="five" test5="six" test2="three" test3="four" test8="nine" test9="ten" test6="seven" test7="eight"></properties>
+</simple>
+<simple persistentID="seven" class-name="org.imoka.demo_single_app.basic.SimplePanel">
+<properties test="one" test11="twelve" test10="eleven" test_int_1="0" test1="two" test4="five" test5="six" test2="three" test3="four" test8="nine" test9="ten" test6="seven" test7="eight"></properties>
+</simple>
+<simple persistentID="five" class-name="org.imoka.demo_single_app.basic.SimplePanel">
+<properties test="one" test11="twelve" test10="eleven" test_int_1="0" test1="two" test4="five" test5="six" test2="three" test3="four" test8="nine" test9="ten" test6="seven" test7="eight"></properties>
+</simple>
+<simple persistentID="eight" class-name="org.imoka.demo_single_app.basic.SimplePanel">
+<properties test="one" test11="twelve" test10="eleven" test_int_1="0" test1="two" test4="five" test5="six" test2="three" test3="four" test8="nine" test9="ten" test6="seven" test7="eight"></properties>
+</simple>
+</undocked>
+</app-layout>

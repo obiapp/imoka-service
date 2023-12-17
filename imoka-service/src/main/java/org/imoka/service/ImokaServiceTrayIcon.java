@@ -4,16 +4,21 @@
  */
 package org.imoka.service;
 
+import docking.ui.DockingUI;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.net.URL;
 import javax.swing.*;
+import org.imoka.demo_single_app.basic.MainFrame;
+import org.imoka.demo_single_app.basic.MainWindow;
 import org.imoka.service.Form.SettingFrame;
 import org.imoka.service.app.ConnexionForm;
 import org.imoka.service.app.TagCollectorThread;
 import org.imoka.service.listener.DatabaseInfoActionListener;
 import org.imoka.util.Settings;
 import org.imoka.util.Util;
+import picocli.CommandLine;
 
 /**
  *
@@ -51,15 +56,24 @@ public class ImokaServiceTrayIcon {
         if (Settings.createIniFile()) {
             Settings.writeDefaultClientSetup();
         }
-  
+
         /* Turn off metal's use of bold fonts */
         UIManager.put("swing.boldMetal", Boolean.FALSE);
         //Schedule a job for the event-dispatching thread:
         //adding TrayIcon.
 
+        final TrayIcon trayIcon
+                = new TrayIcon(createImage("/img/obi/obi-signet-dark.png",
+                        "OBI Service")
+                        .getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+        trayIcon.setToolTip("OBI Service - collecting data");
+
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI();
+                createAndShowGUI(trayIcon);
+                trayIcon.displayMessage("OBI Start",
+                        "L'application s'execute en arrière plan.",
+                        TrayIcon.MessageType.INFO);
             }
         });
         // Affichage plein écrant
@@ -67,33 +81,71 @@ public class ImokaServiceTrayIcon {
 
     }
 
-    private static void createAndShowGUI() {
+    private static TrayIcon createAndShowGUI(TrayIcon trayIcon) {
 
         // Check the SystemTray support
         if (!SystemTray.isSupported()) {
 //            System.out.println("SystemTray is not supported");
             Util.out("ImokaServiceTrayIcon >> CreateAndShowGui >> SystemTray is not supported !");
-            return;
+            return null;
         }
-        final TrayIcon trayIcon
-                = new TrayIcon(createImage("/img/obi/obi-signet-dark.png", "tray icon")
-                        .getScaledInstance(16, 16, Image.SCALE_SMOOTH));
 
         // Managing main thread
         TagCollectorThread tct = new TagCollectorThread(trayIcon);
 
-        // 0 - Create a popup menu components
-        MenuItem aboutItem = new MenuItem("About");
+        // MainFrame
+        DockingUI.initialize();
+        MainFrame mf = new MainFrame(new File("multiframe_demo_layout_1.xml"));
+        mf.setLocation(100, 100);
 
-        CheckboxMenuItem cb1 = new CheckboxMenuItem("Set auto size");
+        MainWindow mw = new MainWindow();
+        mw.setLocation(100, 100);
+
+        // 0 - Create a popup menu components
+        // 0.0. Menu About
+        MenuItem aboutItem = new MenuItem("A Propos");
+        aboutItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,
+                        "IMOKA OBI Service - is service operation for OBI to collect datas");
+            }
+        });
+
+        // 0.1. Menu Option
+        CheckboxMenuItem cb1 = new CheckboxMenuItem("Auto-Size");
+        cb1.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                int cb1Id = e.getStateChange();
+                if (cb1Id == ItemEvent.SELECTED) {
+                    trayIcon.setImageAutoSize(true);
+                } else {
+                    trayIcon.setImageAutoSize(false);
+                }
+            }
+        });
+
         CheckboxMenuItem cb2 = new CheckboxMenuItem("Set tooltip");
+        cb2.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                int cb2Id = e.getStateChange();
+                if (cb2Id == ItemEvent.SELECTED) {
+                    trayIcon.setToolTip("IMOKA OBI Service");
+                } else {
+                    trayIcon.setToolTip(null);
+                }
+            }
+        });
+
+        Menu optionsMenu = new Menu("Options");
+        optionsMenu.add(cb1);
+        optionsMenu.add(cb2);
+
+        MenuItem exitItem = new MenuItem("Quitter");
 
         MenuItem errorItem = new MenuItem("Error");
         MenuItem warningItem = new MenuItem("Warning");
         MenuItem infoItem = new MenuItem("Info");
         MenuItem noneItem = new MenuItem("None");
-        MenuItem exitItem = new MenuItem("Exit");
-
         Menu displayMenu = new Menu("Display");
         displayMenu.add(errorItem);
         displayMenu.add(warningItem);
@@ -101,6 +153,19 @@ public class ImokaServiceTrayIcon {
         displayMenu.add(noneItem);
 
         // Menu Base de donnée
+        MenuItem imokaServiceMenuItem = new MenuItem("Application");
+        imokaServiceMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new CommandLine(mf).execute("--always-use-tabs", "--laf=light");
+            }
+        });
+        MenuItem imokaAppMenuItem = new MenuItem("Imoka");
+        imokaAppMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new CommandLine(mw).execute("--always-use-tabs", "--laf=light");
+            }
+        });
+
         MenuItem configDBMenuItem = new MenuItem("Configurations");
         configDBMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -128,6 +193,7 @@ public class ImokaServiceTrayIcon {
         startProcessusMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (!tct.isAlive()) {
+
                     tct.start();
                 } else {
                     trayIcon.displayMessage("OBI",
@@ -157,15 +223,16 @@ public class ImokaServiceTrayIcon {
 
         // 1 - Add components to popup menu
         final PopupMenu popup = new PopupMenu();
+        popup.add(imokaServiceMenuItem);
+        popup.add(imokaAppMenuItem);
+        popup.addSeparator();
         popup.add(databaseMenu);
         popup.add(processusMenu);
         popup.addSeparator();
+        popup.add(optionsMenu);
         popup.add(aboutItem);
-        popup.addSeparator();
-        popup.add(cb1);
-        popup.add(cb2);
-        popup.addSeparator();
         popup.add(displayMenu);
+        popup.addSeparator();
         popup.add(exitItem);
 
         // 2 - Add popup to a tray ICON
@@ -177,42 +244,13 @@ public class ImokaServiceTrayIcon {
             tray.add(trayIcon);
         } catch (AWTException e) {
             System.out.println("TrayIcon could not be added.");
-            return;
+            return null;
         }
 
         trayIcon.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,
                         "This dialog box is run from System Tray");
-            }
-        });
-
-        aboutItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,
-                        "This dialog box is run from the About menu item");
-            }
-        });
-
-        cb1.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-                int cb1Id = e.getStateChange();
-                if (cb1Id == ItemEvent.SELECTED) {
-                    trayIcon.setImageAutoSize(true);
-                } else {
-                    trayIcon.setImageAutoSize(false);
-                }
-            }
-        });
-
-        cb2.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-                int cb2Id = e.getStateChange();
-                if (cb2Id == ItemEvent.SELECTED) {
-                    trayIcon.setToolTip("Sun TrayIcon");
-                } else {
-                    trayIcon.setToolTip(null);
-                }
             }
         });
 
@@ -255,6 +293,8 @@ public class ImokaServiceTrayIcon {
                 System.exit(0);
             }
         });
+
+        return trayIcon;
     }
 
     public void a(ActionEvent e) {

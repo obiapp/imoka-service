@@ -2,8 +2,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>D:\APPLICATIONS\Java\imoka\project\imoka-service\target\imoka-service-16.11.01.jar</jar>
-  <outfile>D:\APPLICATIONS\Java\imoka\project\imoka-service\imoka-service-1611.01.exe</outfile>
+  <jar>D:\APPLICATIONS\Java\imoka\project\imoka-service\target\imoka-service-2312.16-jar-with-dependencies.jar</jar>
+  <outfile>D:\APPLICATIONS\Java\imoka\project\imoka-service\imoka-service-release\imoka-service.exe</outfile>
   <errTitle>Vous devez télécharger la dernière version de java</errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
@@ -17,21 +17,14 @@
   <jre>
     <path>%JAVA_HOME%;%PATH%</path>
     <requiresJdk>false</requiresJdk>
-    <requires64Bit>true</requires64Bit>
+    <requires64Bit>false</requires64Bit>
     <minVersion></minVersion>
     <maxVersion></maxVersion>
   </jre>
   <splash>
     <file>D:\APPLICATIONS\Java\imoka\project\imoka-service\src\main\resources\img\obi\splash\obi-splash-dark.bmp</file>
     <waitForWindow>true</waitForWindow>
-    <timeout>60</timeout>
-    <timeoutErr>true</timeoutErr>
+    <timeout>3</timeout>
+    <timeoutErr>false</timeoutErr>
   </splash>
-  <messages>
-    <startupErr>Une erreur s&apos;est produite lors du démarrage de l&apos;application An error occurred while starting the application.</startupErr>
-    <jreNotFoundErr>This application requires a Java Runtime Environment.</jreNotFoundErr>
-    <jreVersionErr>This application requires a Java Runtime Environment</jreVersionErr>
-    <launcherErr>The registry refers to a nonexistent Java Runtime Environment installation or the runtime is corrupted.</launcherErr>
-    <instanceAlreadyExistsMsg>An application instance is already running.</instanceAlreadyExistsMsg>
-  </messages>
 </launch4jConfig>
