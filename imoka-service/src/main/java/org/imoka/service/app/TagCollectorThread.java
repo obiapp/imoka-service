@@ -168,24 +168,26 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
                                 MachineConnection mc = new MachineConnection(machine);
                                 if (mc.doConnect()) { // Check if connection is working
                                     tags.stream().forEach((tag) -> {
-                                        // Init. default value
-                                        tag.setTValueBool(false);
-                                        tag.setTValueFloat(0.0);
-                                        tag.setTValueInt(0);
-                                        tag.setTValueDate(Date.from(Instant.now()));
+                                        // Collect only if cyle time is reached since last change
+                                        if (Instant.now().toEpochMilli() - tag.getTChanged().toInstant().toEpochMilli() > (tag.getTCycle() * 1000)) {
+                                            // Init. default value
+                                            tag.setTValueBool(false);
+                                            tag.setTValueFloat(0.0);
+                                            tag.setTValueInt(0);
+                                            tag.setTValueDate(Date.from(Instant.now()));
 
-                                        List<TagsTypes> tagsTypes = tagsTypesFacade.findId(tag.getTType().getTtId());
+                                            List<TagsTypes> tagsTypes = tagsTypesFacade.findId(tag.getTType().getTtId());
 
-                                        if (tagsTypes != null) {
-                                            TagsTypes tagType = tagsTypes.get(0);
-                                            tag.setTType(tagType);
-                                            mc.readValue(tag);
-                                            tagsFacade.updateOnValue(tag);
+                                            if (tagsTypes != null) {
+                                                TagsTypes tagType = tagsTypes.get(0);
+                                                tag.setTType(tagType);
+                                                mc.readValue(tag);
+                                                tagsFacade.updateOnValue(tag);
 
-                                        } else {
-                                            System.out.println(methodName + " Unable to find type " + tag.getTType() + " for tag " + tag);
+                                            } else {
+                                                System.out.println(methodName + " Unable to find type " + tag.getTType() + " for tag " + tag);
+                                            }
                                         }
-
                                     });
                                 } else {
                                     System.out.println(methodName + " Unable to connect to client S7 machine = " + machine);
@@ -224,12 +226,12 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
 
     @Override
     public void onProcessingThread() {
-        
+
     }
 
     @Override
     public void onOldingThread() {
-        
+
     }
 
 }
