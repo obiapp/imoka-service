@@ -225,28 +225,30 @@ public class ImokaServiceTrayIcon {
         MenuItem startProcessusMenuItem = new MenuItem("Démarrer");
         startProcessusMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (!tct.isAlive()) {
-
-                    tct.start();
+                if (!tct.isRunning()) {
+                    tct.doRelease();
+                    if (!tct.isAlive()) {
+                        tct.start();
+                    }
                 } else {
                     trayIcon.displayMessage("OBI",
                             "Processus is already running. Please stop before start !",
                             TrayIcon.MessageType.WARNING);
+                    Util.out("Processus is already running. Please stop before start !");
                 }
-
             }
         });
         MenuItem stopProcessusMenuItem = new MenuItem("Arrêter");
         stopProcessusMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (tct.isAlive()) {
+                if (tct.isRunning()) {
                     tct.doStop();
                 } else {
                     trayIcon.displayMessage("OBI",
                             "Processus is already stopped. Please start before any stop !",
-                            TrayIcon.MessageType.INFO);
+                            TrayIcon.MessageType.WARNING);
+                    Util.out("Processus is already stopped. Please start before any stop !");
                 }
-
             }
         });
         Menu processusMenu = new Menu("Processus");
