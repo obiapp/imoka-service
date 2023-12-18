@@ -160,7 +160,7 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
                     // 3.3- Store data to corresponding line
                     // 4- Close connection to PLC
                     machines.stream().forEach((machine) -> {
-                        List<Tags> tags = tagsFacade.findByMachine(machine.getId());
+                        List<Tags> tags = tagsFacade.findActiveByMachine(machine.getId());
 
                         if (tags != null) {
                             if (tags.size() != 0) {
