@@ -55,13 +55,13 @@ public class MachineConnection extends Thread implements ConnectionListener {
     private Boolean requestCpuInfo = false;
     private Boolean requestCpInfo = false;
     private Boolean requestSzl = false;
+    private boolean requestConnectionState;
 
     /**
      * Array list which contain all the connection listeners that should receive
      * event from client class
      */
     private ArrayList<ConnectionListener> connectionListeners = new ArrayList<>();
-    private boolean requestConnectionState;
 
     /**
      * Allow to add connexion listener to the list of event listener

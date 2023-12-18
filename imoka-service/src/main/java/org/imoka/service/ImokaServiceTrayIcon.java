@@ -4,20 +4,25 @@
  */
 package org.imoka.service;
 
-import docking.ui.DockingUI;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.intellijthemes.FlatSolarizedDarkIJTheme;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
-import org.imoka.demo_single_app.basic.MainFrame;
-import org.imoka.demo_single_app.basic.MainWindow;
+import org.imoka.service.Form.Docking.ButtonSample;
+import org.imoka.service.Form.Docking.MainWindowDocking;
+import org.imoka.service.Form.MainWindow;
 import org.imoka.service.Form.SettingFrame;
+import org.imoka.service.Form.WorkspaceExample;
 import org.imoka.service.app.ConnexionForm;
 import org.imoka.service.app.TagCollectorThread;
 import org.imoka.service.listener.DatabaseInfoActionListener;
 import org.imoka.util.Settings;
 import org.imoka.util.Util;
+
 import picocli.CommandLine;
 
 /**
@@ -26,27 +31,64 @@ import picocli.CommandLine;
  */
 public class ImokaServiceTrayIcon {
 
-    public static void main(String[] args) {
+    @CommandLine.Option(names = "--laf", required = true, description = "look and feel to use. one of: system, light, dark, github-dark or solarized-dark")
+    String lookAndFeel;
 
+    @CommandLine.Option(names = "--enable-edt-violation-detector", defaultValue = "false", description = "enable the Event Dispatch Thread (EDT) violation checker")
+    boolean edtViolationDetector;
 
-        /* Use an appropriate Look and Feel */
+    @CommandLine.Option(names = "--ui-scale", defaultValue = "1", description = "scale to use for the FlatLaf.uiScale value")
+    int uiScale;
+
+    @CommandLine.Option(names = "--always-use-tabs", defaultValue = "false", description = "always use tabs, even when there is only 1 dockable in the tab group")
+    boolean alwaysUseTabs;
+
+    private static void doLookAndFeel() {
+        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-            For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-            //UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-        } catch (UnsupportedLookAndFeelException ex) {
-            ex.printStackTrace();
-        } catch (IllegalAccessException ex) {
-            ex.printStackTrace();
-        } catch (InstantiationException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+
+        Util.out("Try to check look and feel...");
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            Util.out("Look and fell " + info.getName() + " use class : " + info.getClassName());
+            if ("FlatGitHubDarkIJtheme".equals(info.getName())) {
+                try {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    UIManager.setLookAndFeel(new FlatLightLaf());
+                    //break;
+                } catch (ClassNotFoundException ex) {
+                    Util.out("Erro on look and feel");
+                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    Util.out("Erro on look and feel");
+                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Util.out("Erro on look and feel");
+                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Util.out("Erro on look and feel");
+                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
         }
+        try {
+            UIManager.setLookAndFeel(new FlatSolarizedDarkIJTheme());
+        } catch (Exception e) {
+            Util.out(e.getLocalizedMessage());
+        }
+        UIManager.getDefaults().put("TabbedPane.contentBorderInsets", new Insets(0, 0, 0, 0));
+        UIManager.getDefaults().put("TabbedPane.tabsOverlapBorder", true);
+
         //</editor-fold>
+        //</editor-fold>
+    }
+
+    public static void main(String[] args) {
+
+        doLookAndFeel();
 
         /* Create and display the form */
         Util.out("OBI - Start...");
@@ -92,19 +134,12 @@ public class ImokaServiceTrayIcon {
 
         // Tray system
         final SystemTray tray = SystemTray.getSystemTray();
-        
+
         // Managing main thread
         TagCollectorThread tct = new TagCollectorThread(trayIcon);
 
-        
-     
-        
         // MainFrame
-        DockingUI.initialize();
-        MainFrame mf = new MainFrame(new File("multiframe_demo_layout_1.xml"));
-        mf.setLocation(100, 100);
-
-        MainWindow mw = new MainWindow();
+        MainWindow mw = new MainWindow(trayIcon, tct);
         mw.setLocation(100, 100);
 
         // 0 - Create a popup menu components
@@ -156,16 +191,11 @@ public class ImokaServiceTrayIcon {
         });
 
         // 0.3. Menu Base de donnée
-        MenuItem imokaServiceMenuItem = new MenuItem("Application");
-        imokaServiceMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                new CommandLine(mf).execute("--always-use-tabs", "--laf=light");
-            }
-        });
         MenuItem imokaAppMenuItem = new MenuItem("Imoka");
         imokaAppMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new CommandLine(mw).execute("--always-use-tabs", "--laf=light");
+
+                mw.setVisible(true);
             }
         });
 
@@ -226,7 +256,6 @@ public class ImokaServiceTrayIcon {
 
         // 1 - Add components to popup menu
         final PopupMenu popup = new PopupMenu();
-        popup.add(imokaServiceMenuItem);
         popup.add(imokaAppMenuItem);
         popup.addSeparator();
         popup.add(databaseMenu);
@@ -248,13 +277,8 @@ public class ImokaServiceTrayIcon {
             return null;
         }
 
-        
-
-      
-        
         return trayIcon;
     }
-
 
     //Obtain the image URL
     protected static Image createImage(String path, String description) {
