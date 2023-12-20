@@ -10,6 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.Format;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -277,15 +280,30 @@ public class Tags implements Serializable {
             } else if (c.matches("t_value_bool")) {
                 this.tValueBool = rs.getBoolean(c);
             } else if (c.matches("t_value_date")) {
-                this.tCreated = rs.getDate(c);
+                Timestamp timestamp = rs.getTimestamp(c);
+                if (timestamp != null) {
+                    this.tValueDate = new java.util.Date(timestamp.getTime());
+                } else {
+                    this.tValueDate = null;
+                }
             } else if (c.matches("t_comment")) {
                 this.tComment = rs.getString(c);
             } else if (c.matches("t_deleted")) {
                 this.tDeleted = rs.getBoolean(c);
             } else if (c.matches("t_created")) {
-                this.tCreated = rs.getDate(c);
+                Timestamp timestamp = rs.getTimestamp(c);
+                if (timestamp != null) {
+                    this.tCreated = new java.util.Date(timestamp.getTime());
+                } else {
+                    this.tCreated = null;
+                }
             } else if (c.matches("t_changed")) {
-                this.tChanged = rs.getDate(c);
+                Timestamp timestamp = rs.getTimestamp(c);
+                if (timestamp != null) {
+                    this.tChanged = new java.util.Date(timestamp.getTime());
+                } else {
+                    this.tChanged = null;
+                }
             } else {
                 Util.out("Tags >> update >> unknown column name " + c);
                 System.out.println("Tags >> update >> unknown column name " + c);
@@ -344,7 +362,6 @@ public class Tags implements Serializable {
         }
         return null;
     }
-    
 
     public static String queryUpdateOn(String column, Object value, Integer id) {
         if (column.matches("t_name")) {
@@ -368,11 +385,20 @@ public class Tags implements Serializable {
         } else if (column.matches("t_active")) {
             return "UPDATE dbo.tags set [t_active] = " + value + " WHERE t_id = " + id;
         } else if (column.matches("t_value_float")) {
-            return "UPDATE dbo.tags set [t_value_float] = " + value + " WHERE t_id = " + id;
+            Date date = new Date();
+            java.sql.Date timestamp = new java.sql.Date(date.getTime());
+            return "UPDATE dbo.tags set [t_value_float] = " + value 
+                    + ", t_value_date = " + timestamp + " WHERE t_id = " + id;
         } else if (column.matches("t_value_int")) {
-            return "UPDATE dbo.tags set [t_value_int] = " + value + " WHERE t_id = " + id;
+            Date date = new Date();
+            java.sql.Date timestamp = new java.sql.Date(date.getTime());
+            return "UPDATE dbo.tags set [t_value_int] = " + value 
+                    + ", t_value_date = " + timestamp + " WHERE t_id = " + id;
         } else if (column.matches("t_value_bool")) {
-            return "UPDATE dbo.tags set [t_value_bool] = " + value + " WHERE t_id = " + id;
+            Date date = new Date();
+            java.sql.Date timestamp = new java.sql.Date(date.getTime());
+            return "UPDATE dbo.tags set [t_value_bool] = " + value 
+                    + ", t_value_date = " + timestamp + " WHERE t_id = " + id;
         } else if (column.matches("t_value_date")) {
             return "UPDATE dbo.tags set [t_value_date] = " + value + " WHERE t_id = " + id;
         } else if (column.matches("t_comment")) {
@@ -391,27 +417,27 @@ public class Tags implements Serializable {
     }
 
     public String prepareStatementUpdateOn() {
-        String stmts = "" 
-            + "UPDATE [dbo].[tags] "
-            + "SET "
-            + "[t_name] = " + tName
-            + " ,[t_table] = " + tTable.getTtId()
-            + " ,[t_machine] = " + tMachine.getId()
-            + " ,[t_type] = " + tType.getTtId()
-            + " ,[t_memory] = " + tMemory.getTmId()
-            + " ,[t_db] = " + tDb
-            + " ,[t_byte] = " + tByte
-            + " ,[t_bit] = " + tBit
-            + " ,[t_cycle] = " + tCycle
-            + " ,[t_active] = " + (tActive?1:0)
-            + " ,[t_value_float] = " + tValueFloat
-            + " ,[t_value_int] = " + tValueInt
-            + " ,[t_value_bool] = " + tValueBool
-            + " ,[t_value_date] = " + tValueDate
-            + " ,[t_comment] = " + tComment
-            + " ,[t_deleted] = " + (tDeleted?1:0)
-            + "  WHERE t_id = " + tId;
-        
+        String stmts = ""
+                + "UPDATE [dbo].[tags] "
+                + "SET "
+                + "[t_name] = " + tName
+                + " ,[t_table] = " + tTable.getTtId()
+                + " ,[t_machine] = " + tMachine.getId()
+                + " ,[t_type] = " + tType.getTtId()
+                + " ,[t_memory] = " + tMemory.getTmId()
+                + " ,[t_db] = " + tDb
+                + " ,[t_byte] = " + tByte
+                + " ,[t_bit] = " + tBit
+                + " ,[t_cycle] = " + tCycle
+                + " ,[t_active] = " + (tActive ? 1 : 0)
+                + " ,[t_value_float] = " + tValueFloat
+                + " ,[t_value_int] = " + tValueInt
+                + " ,[t_value_bool] = " + tValueBool
+                + " ,[t_value_date] = " + tValueDate
+                + " ,[t_comment] = " + tComment
+                + " ,[t_deleted] = " + (tDeleted ? 1 : 0)
+                + "  WHERE t_id = " + tId;
+
         return stmts;
     }
 

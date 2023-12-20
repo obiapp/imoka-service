@@ -7,14 +7,15 @@ package org.imoka.service.sessions;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.text.html.parser.Entity;
+import org.imoka.service.entities.Tags;
+import org.imoka.util.Util;
 
 /**
  *
@@ -30,6 +31,44 @@ public abstract class AbstractFacade<T> {
     }
 
     protected abstract Connection getConnectionMannager();
+    
+//    protected abstract T getEntity();
+//    
+//    protected abstract void updateEntity(ResultSet rs);
+
+//    /**
+//     * General method to process a find process from an established query
+//     *
+//     * @param findQuery existing query in string format
+//     * @return list of result found
+//     */
+//    private List<T> find(String findQuery) {
+//        String Q_find = findQuery;
+//
+//        List<T> lst = new ArrayList<>();
+//        Statement stmt = null;
+//        try {
+//            stmt = getConnectionMannager().createStatement();
+//            ResultSet rs = stmt.executeQuery(Q_find);
+//            while (rs.next()) {
+//                entityClass.update(rs);
+//                m.update(rs);
+//                lst.add(m);
+//            }
+//        } catch (SQLException ex) {
+//            Util.out("TagsFacade >> find on getConnectionManager() : " + ex.getLocalizedMessage());
+//            Logger.getLogger(AbstractFacade.class.getName()).log(Level.SEVERE, null, ex);
+//            return null;
+//        } finally {
+//            try {
+//                stmt.close();
+//            } catch (SQLException ex) {
+//                Util.out("TagsFacade >> find on close statement : " + ex.getLocalizedMessage());
+//                Logger.getLogger(TagsFacade.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        return lst;
+//    }
 
 //    //protected abstract EntityManager getEntityManager();
 //
@@ -92,5 +131,4 @@ public abstract class AbstractFacade<T> {
 //        javax.persistence.Query q = getEntityManager().createQuery(cq);
 //        return ((Long) q.getSingleResult()).intValue();
 //    }
-
 }

@@ -7,6 +7,8 @@ package org.imoka.service.app;
 import org.imoka.service.listener.TagsCollectorThreadListener;
 import java.awt.TrayIcon;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -140,13 +142,28 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
                 // Set processus in run mode
                 running = true;
                 onceOnMain = true;
-
+                int requestEpochCnt = 0;
                 // Minimum One second between request
-                if (Instant.now().toEpochMilli() - requestEpoch >= 1000) {
+                long now = Instant.now().toEpochMilli();
+                long delay = (now - requestEpoch);
+                if(delay < 1000){
+                    long d = 1000 - delay;
+                    try {
+                        sleep(d);
+                    } catch (InterruptedException ex) {
+                        Util.out(methodName + " > Unable to sleep for minimum dealy time !" + ex.getLocalizedMessage());
+                        Logger.getLogger(TagCollectorThread.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                long now2 = Instant.now().toEpochMilli();
+                
+                // Process only if minimum time is respected
+                if ((now2-requestEpoch) >= 1000) {
                     onceOnStop = true;
 
                     // change epoch reference
                     requestEpoch = Instant.now().toEpochMilli();
+                    requestEpochCnt = 0;
 
                     // Refresh list of available machine
                     List<Machines> machines = machinesFacade.findAll();
@@ -169,7 +186,11 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
                                 if (mc.doConnect()) { // Check if connection is working
                                     tags.stream().forEach((tag) -> {
                                         // Collect only if cyle time is reached since last change
-                                        if (Instant.now().toEpochMilli() - tag.getTChanged().toInstant().toEpochMilli() > (tag.getTCycle() * 1000)) {
+                                        Date date = tag.getTValueDate();
+                                        long savedEpoch = date.toInstant().toEpochMilli();
+                                        long cycleTime = tag.getTCycle() * 1000; // sec
+                                        long now3 = Instant.now().toEpochMilli();
+                                        if ((now3 - savedEpoch) > cycleTime) {
                                             // Init. default value
                                             tag.setTValueBool(false);
                                             tag.setTValueFloat(0.0);
@@ -183,28 +204,34 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
                                                 tag.setTType(tagType);
                                                 mc.readValue(tag);
                                                 tagsFacade.updateOnValue(tag);
-
                                             } else {
-                                                System.out.println(methodName + " Unable to find type " + tag.getTType() + " for tag " + tag);
+                                                Util.out(methodName + " Unable to find type " + tag.getTType() + " for tag " + tag);
                                             }
                                         }
                                     });
                                 } else {
-                                    System.out.println(methodName + " Unable to connect to client S7 machine = " + machine);
+                                    Util.out(methodName + " Unable to connect to client S7 machine = " + machine);
                                 }
                                 mc.close();
                             } else {
-                                System.out.println(methodName + " empty list tag found for machine = " + machine);
+                                Util.out(methodName + " empty list tag found for machine = " + machine);
                             }
                         } else {
-                            System.out.println(methodName + " No tags found for machine = " + machine);
+                            Util.out(methodName + " No tags found for machine = " + machine);
                         }
                     });
                 } else {
-                    if (onceOnStop) {
-                        Util.out("Epoch not reached ! ");
-                        onceOnStop = false;
+                    requestEpochCnt++;
+                    if (requestEpochCnt >= 2) {
+                        Util.out(methodName + "Epoch not reach more than 2 times : " + requestEpochCnt
+                                + " time : " + now + " - " + requestEpoch + " = " + (now - requestEpoch));
+                    } else {
+                        Util.out(methodName + "Epoch not reached ! "
+                                + now + " - " + requestEpoch + " = " + (now - requestEpoch));
                     }
+                }
+                if (onceOnStop) {
+                    onceOnStop = false;
                 }
             }
             running = false; //!< indicate end of processus running

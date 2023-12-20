@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.imoka.service.Form.DatabaseFrame;
-import org.imoka.service.entities.Tags;
 import org.imoka.service.entities.TagsTypes;
 import org.imoka.service.model.DatabaseModel;
+import org.imoka.util.Util;
 
 /**
  *
@@ -23,69 +23,66 @@ public class TagsTypesFacade extends AbstractFacade<TagsTypes> {
         super(entityClass);
     }
 
+    Connection conn = null;
+
     @Override
     protected Connection getConnectionMannager() {
-        Connection conn = DatabaseFrame.toConnection(DatabaseModel.databaseModel());
+        if (conn == null) {
+            conn = DatabaseFrame.toConnection(DatabaseModel.databaseModel());
+        } else try {
+            if (conn.isClosed()) {
+                conn = DatabaseFrame.toConnection(DatabaseModel.databaseModel());
+            }
+        } catch (SQLException ex) {
+            Util.out("TagsTypesFacade >> getConnectionMannager on DatabaseFrame.toConnection : " + ex.getLocalizedMessage());
+            Logger.getLogger(TagsFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return conn;
     }
 
-    
-    public List<TagsTypes> findAll() {
-
-        String Q_findAll = "SELECT * FROM dbo.TagsTypes";
+    /**
+     * General method to process a find process from an established query
+     *
+     * @param findQuery existing query in string format
+     * @return list of result found
+     */
+    private List<TagsTypes> find(String findQuery) {
+        String Q_find = findQuery;
 
         List<TagsTypes> lst = new ArrayList<>();
         Statement stmt = null;
         try {
             stmt = getConnectionMannager().createStatement();
-            ResultSet rs = stmt.executeQuery(Q_findAll);            
+            ResultSet rs = stmt.executeQuery(Q_find);
             while (rs.next()) {
                 TagsTypes m = new TagsTypes();
                 m.update(rs);
                 lst.add(m);
             }
         } catch (SQLException ex) {
+            Util.out("TagsTypesFacade >> find on getConnectionManager() : " + ex.getLocalizedMessage());
             Logger.getLogger(AbstractFacade.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             try {
                 stmt.close();
             } catch (SQLException ex) {
-                Logger.getLogger(TagsTypesFacade.class.getName()).log(Level.SEVERE, null, ex);
+                Util.out("TagsTypesFacade >> find on close statement : " + ex.getLocalizedMessage());
+                Logger.getLogger(TagsFacade.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return lst;
-
     }
 
+    public List<TagsTypes> findAll() {
+        String Q_findAll = "SELECT * FROM dbo.TagsTypes";
+        return find(Q_findAll);
+    }
 
     public List<TagsTypes> findId(int id) {
 
-        String Q_finByMachine = "SELECT * FROM dbo.tags_types WHERE tt_id = " + id;
-
-        List<TagsTypes> lst = new ArrayList<>();
-        Statement stmt = null;
-        try {
-            stmt = getConnectionMannager().createStatement();
-            ResultSet rs = stmt.executeQuery(Q_finByMachine);            
-            while (rs.next()) {
-                TagsTypes m = new TagsTypes();
-                m.update(rs);
-                lst.add(m);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AbstractFacade.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        } finally {
-            try {
-                stmt.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TagsTypesFacade.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return lst;
-
+        String Q_findById = "SELECT * FROM dbo.tags_types WHERE tt_id = " + id;
+        return find(Q_findById);
     }
-
 
 }

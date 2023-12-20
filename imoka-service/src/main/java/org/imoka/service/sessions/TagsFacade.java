@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import org.imoka.service.Form.DatabaseFrame;
 import org.imoka.service.entities.Tags;
 import org.imoka.service.model.DatabaseModel;
+import org.imoka.util.Util;
 
 /**
  *
@@ -36,10 +37,45 @@ public class TagsFacade extends AbstractFacade<Tags> {
         super(entityClass);
     }
 
+    Connection conn = null;
+
     @Override
     protected Connection getConnectionMannager() {
-        Connection conn = DatabaseFrame.toConnection(DatabaseModel.databaseModel());
+        if (conn == null) {
+            conn = DatabaseFrame.toConnection(DatabaseModel.databaseModel());
+        } else try {
+            if (conn.isClosed()) {
+                conn = DatabaseFrame.toConnection(DatabaseModel.databaseModel());
+            }
+        } catch (SQLException ex) {
+            Util.out("TagsFacade >> getConnectionMannager on DatabaseFrame.toConnection : " + ex.getLocalizedMessage());
+            Logger.getLogger(TagsFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return conn;
+    }
+
+    private int updateOnValue(String updateQuery) {
+        String Q_Update = updateQuery;
+        try {
+            Connection conn = getConnectionMannager();
+            int updateCount = 0;
+            if (conn != null) {
+                PreparedStatement pstmt = conn.prepareStatement(Q_Update);
+                if (pstmt != null) {
+                    updateCount = pstmt.executeUpdate();
+                } else {
+                    Util.out("TagsFacade >> updateOnValue on getConnectionManager() >> null prepared statement !");
+                }
+//                conn.close();
+            } else {
+                Util.out("TagsFacade >> updateOnValue on getConnectionManager() >> conn is null !");
+            }
+            return updateCount;
+        } catch (SQLException ex) {
+            Util.out("TagsFacade >> updateOnValue on getConnectionManager() >> " + ex.getLocalizedMessage());
+            Logger.getLogger(AbstractFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
     }
 
     public int updateOnValueFloat(Tags tag) {
@@ -47,18 +83,7 @@ public class TagsFacade extends AbstractFacade<Tags> {
                 tag.getTValueFloat(),
                 tag.getTId()
         );
-        try {
-            Connection conn = getConnectionMannager();
-            PreparedStatement pstmt = conn.prepareStatement(Q_Update);
-
-            int updateCount = pstmt.executeUpdate();
-
-            return updateCount;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(AbstractFacade.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
-        }
+        return updateOnValue(Q_Update);
     }
 
     public int updateOnValueInt(Tags tag) {
@@ -66,18 +91,7 @@ public class TagsFacade extends AbstractFacade<Tags> {
                 tag.getTValueInt(),
                 tag.getTId()
         );
-        try {
-            Connection conn = getConnectionMannager();
-            PreparedStatement pstmt = conn.prepareStatement(Q_Update);
-
-            int updateCount = pstmt.executeUpdate();
-
-            return updateCount;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(AbstractFacade.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
-        }
+        return updateOnValue(Q_Update);
     }
 
     public int updateOnValueBool(Tags tag) {
@@ -85,23 +99,13 @@ public class TagsFacade extends AbstractFacade<Tags> {
                 tag.getTValueBool(),
                 tag.getTId()
         );
-        try {
-            Connection conn = getConnectionMannager();
-            PreparedStatement pstmt = conn.prepareStatement(Q_Update);
-
-            int updateCount = pstmt.executeUpdate();
-
-            return updateCount;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(AbstractFacade.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
-        }
+        return updateOnValue(Q_Update);
     }
 
     /**
-     * Use if type of tag is not defined ans want to specify which value to affected.
-     * 
+     * Use if type of tag is not defined ans want to specify which value to
+     * affected.
+     *
      * @param tag tag containing value not taking care of tag type.
      * @return 0 if unknow type or, error, otherwise return number of row
      * affected
@@ -138,88 +142,70 @@ public class TagsFacade extends AbstractFacade<Tags> {
         return 0;
     }
 
+    /**
+     * General method to process a find process from an established query
+     *
+     * @param findQuery existing query in string format
+     * @return list of result found
+     */
+    private List<Tags> find(String findQuery) {
+        String Q_find = findQuery;
+
+        List<Tags> lst = new ArrayList<>();
+        Statement stmt = null;
+        try {
+            stmt = getConnectionMannager().createStatement();
+            ResultSet rs = stmt.executeQuery(Q_find);
+            while (rs.next()) {
+                Tags m = new Tags();
+                m.update(rs);
+                lst.add(m);
+            }
+        } catch (SQLException ex) {
+            Util.out("TagsFacade >> find on getConnectionManager() : " + ex.getLocalizedMessage());
+            Logger.getLogger(AbstractFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException ex) {
+                Util.out("TagsFacade >> find on close statement : " + ex.getLocalizedMessage());
+                Logger.getLogger(TagsFacade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return lst;
+    }
+
+    /**
+     * Convenient method to find all content
+     *
+     * @return list of result find
+     */
     public List<Tags> findAll() {
-
         String Q_findAll = "SELECT * FROM dbo.tags";
-
-        List<Tags> lst = new ArrayList<>();
-        Statement stmt = null;
-        try {
-            stmt = getConnectionMannager().createStatement();
-            ResultSet rs = stmt.executeQuery(Q_findAll);
-            while (rs.next()) {
-                Tags m = new Tags();
-                m.update(rs);
-                lst.add(m);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AbstractFacade.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        } finally {
-            try {
-                stmt.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TagsFacade.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return lst;
-
+        return find(Q_findAll);
     }
 
+    /**
+     * Convenient method to find tags by specified machine
+     *
+     * @param machine specied code to reduce amound of data
+     * @return list of result find
+     */
     public List<Tags> findByMachine(int machine) {
-
         String Q_finByMachine = "SELECT * FROM dbo.tags WHERE t_machine = " + machine;
-
-        List<Tags> lst = new ArrayList<>();
-        Statement stmt = null;
-        try {
-            stmt = getConnectionMannager().createStatement();
-            ResultSet rs = stmt.executeQuery(Q_finByMachine);
-            while (rs.next()) {
-                Tags m = new Tags();
-                m.update(rs);
-                lst.add(m);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AbstractFacade.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        } finally {
-            try {
-                stmt.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TagsFacade.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return lst;
-
+        return find(Q_finByMachine);
     }
 
+    /**
+     * Convenient method to find tags only by activated machine
+     *
+     * @param machine specied code to reduce amound of data
+     * @return
+     */
     public List<Tags> findActiveByMachine(int machine) {
-
-        String Q_finByMachine = "SELECT * FROM dbo.tags WHERE t_active = 1 and t_machine = " + machine;
-
-        List<Tags> lst = new ArrayList<>();
-        Statement stmt = null;
-        try {
-            stmt = getConnectionMannager().createStatement();
-            ResultSet rs = stmt.executeQuery(Q_finByMachine);
-            while (rs.next()) {
-                Tags m = new Tags();
-                m.update(rs);
-                lst.add(m);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AbstractFacade.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        } finally {
-            try {
-                stmt.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TagsFacade.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return lst;
-
+        String Q_finBActiveyMachine = "SELECT * FROM dbo.tags WHERE t_active = 1 and t_machine = " + machine;
+        return find(Q_finBActiveyMachine);
     }
 
 }
