@@ -34,12 +34,13 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
 
     // Allow to display message on processing
     private TrayIcon trayIcon;
+    private final String APP_ICO = "/img/obi/obi-signet-dark.png";
 
     // Allow to stop process run
     private Boolean requestStop = false;
     private boolean requestKill = false;
     private boolean running = false;
-
+  
     /**
      * Array list which contain all the TagsCollectorThreadListener listeners
      * that should receive event from client class
@@ -59,7 +60,7 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
     /**
      * Allow to remove listener to the list of event listener
      *
-     * @param connectionListener a class which will listen to service event
+     * @param _tagsCollectorThreadListeners a class which will listen to service event
      */
     public void removeClientListener(TagsCollectorThreadListener _tagsCollectorThreadListeners) {
         this.tagsCollectorThreadListeners.remove(_tagsCollectorThreadListeners);
@@ -69,26 +70,16 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
      * Creates new form
      */
     public TagCollectorThread() {
-        trayIcon = new TrayIcon(Ico.i16("/img/obi/obi-signet-dark.png", this).getImage());
+        trayIcon = new TrayIcon(Ico.i16(APP_ICO, this).getImage());
+        
+        
     }
 
     public TagCollectorThread(TrayIcon trayIcon) {
         this.trayIcon = trayIcon;
     }
 
-    private DatabaseModel databaseModel() {
-        Object tmp = Settings.read(Settings.CONFIG, Settings.URL_OBI);
-        if (tmp == null) {
-            tmp = "jdbc:sqlserver:<hostname>\\<instance>:<port 1433>;databaseName=<dbName>?<user>?<password>";
-            trayIcon.displayMessage("OBI",
-                    "Connexion schema does not exist ! Please Configure database and save", TrayIcon.MessageType.ERROR);
-            return null;
-        }
-        String urlOBI = tmp.toString();//"jdbc:sqlserver:10.116.26.35\\SQLSERVER:1433;databaseName=optimaint?sa?Opt!M@!nt";
 
-        // Récupoère le modèle et valide que l'on peut se connecter
-        return DatabaseModel.parseFull(urlOBI);
-    }
 
     /**
      * request stop main loop
@@ -122,8 +113,9 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
         super.run(); //To change body of generated methods, choose Tools | Templates.
         String methodName = getClass().getSimpleName() + " : run() >> ";
 
+        // Récupération des facades de communication bdd
         MachinesFacade machinesFacade = new MachinesFacade(Machines.class);
-        TagsFacade tagsFacade = new TagsFacade(Tags.class);
+        TagsFacade tagsFacade = TagsFacade.getInstance();
         TagsTypesFacade tagsTypesFacade = new TagsTypesFacade(TagsTypes.class);
 
         // Int Main Loop 
@@ -131,7 +123,7 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
         boolean onceOnMain = false; // only display once
         boolean onceOnStop = false; // only display once
         while (!requestKill) {
-            long requestEpoch = 0; // allow firstime paly
+            long requestEpoch = 0; // allow firstime play
             // Main loop
             while (!requestStop) {
                 if (running == false) {

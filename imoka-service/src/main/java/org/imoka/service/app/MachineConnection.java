@@ -173,13 +173,16 @@ public class MachineConnection extends Thread implements ConnectionListener {
     public Boolean doConnect() {
         begin("doConnect...");
 
-        connected = false;
-        client.SetConnectionType(S7.OP);
-        errorCode = client.ConnectTo(machine.getAddress(),
-                machine.getRack(),
-                machine.getSlot());
+        if (client.Connected) {
+            return true;
+        } else { // try to connect
+            connected = false;
+            client.SetConnectionType(S7.OP);
+            errorCode = client.ConnectTo(machine.getAddress(),
+                    machine.getRack(),
+                    machine.getSlot());
 
-        if (errorCode == 0) {
+            if (errorCode == 0) {
 //            Util.out("MachineConnection : doConnect >> Connected to   : "
 //                    + machine.getAddress() + " (Rack="
 //                    + machine.getRack() + ", Slot="
@@ -187,21 +190,22 @@ public class MachineConnection extends Thread implements ConnectionListener {
 //            Util.out("MachineConnection : doConnect >> PDU negotiated : "
 //                    + client.PDULength() + " bytes");
 
-            PDULength = client.PDULength();
+                PDULength = client.PDULength();
 
-            connectionListeners.stream().forEach((connectionMachine) -> {
-                connectionMachine.onConnectionSucced(machine);
-                connectionMachine.onConnectionSucced((int) end(errorCode));
-                connectionMachine.onPDUUpdate(client.PDULength());
-            });
-            connected = true;
-        } else {
-            Util.out("MachineConnection : doConnect >> Error " + errorCode + " : "
-                    + getErrorText());
-            connectionListeners.stream().forEach((connectionMachine) -> {
-                connectionMachine.onConnectionError((int) end(errorCode));
-            });
-            return connected;
+                connectionListeners.stream().forEach((connectionMachine) -> {
+                    connectionMachine.onConnectionSucced(machine);
+                    connectionMachine.onConnectionSucced((int) end(errorCode));
+                    connectionMachine.onPDUUpdate(client.PDULength());
+                });
+                connected = true;
+            } else {
+                Util.out("MachineConnection : doConnect >> Error " + errorCode + " : "
+                        + getErrorText());
+                connectionListeners.stream().forEach((connectionMachine) -> {
+                    connectionMachine.onConnectionError((int) end(errorCode));
+                });
+                return connected;
+            }
         }
         return true;
     }
@@ -210,7 +214,6 @@ public class MachineConnection extends Thread implements ConnectionListener {
      * Connection initialize with connection type than try to connect over
      * machine.
      *
-     * @return true if connection has been processed
      */
     public void doConnectState() {
         begin("doConnectState...");

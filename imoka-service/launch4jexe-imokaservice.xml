@@ -14,6 +14,10 @@
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
   <icon>D:\APPLICATIONS\Java\imoka\project\imoka-service\src\main\resources\img\obi\ico\obi-signet-dark.ico</icon>
+  <singleInstance>
+    <mutexName>imoka-service</mutexName>
+    <windowTitle>OBI - IMOKA SERVICE</windowTitle>
+  </singleInstance>
   <jre>
     <path>%JAVA_HOME%;%PATH%</path>
     <requiresJdk>false</requiresJdk>

@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.Format;
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -385,19 +387,22 @@ public class Tags implements Serializable {
         } else if (column.matches("t_active")) {
             return "UPDATE dbo.tags set [t_active] = " + value + " WHERE t_id = " + id;
         } else if (column.matches("t_value_float")) {
-            Date date = new Date();
-            java.sql.Date timestamp = new java.sql.Date(date.getTime());
-            return "UPDATE dbo.tags set [t_value_float] = " + value 
-                    + ", t_value_date = " + timestamp + " WHERE t_id = " + id;
+            // Ajuste le nombre de détail en milliseconde
+            String timestampstr = Instant.now().toString();
+            if (timestampstr.contains(".")) {
+                timestampstr = timestampstr.substring(0, 19);
+            }
+            return "UPDATE dbo.tags set [t_value_float] = " + value
+                    + ", t_value_date = '" + timestampstr + "' WHERE t_id = " + id;
         } else if (column.matches("t_value_int")) {
             Date date = new Date();
             java.sql.Date timestamp = new java.sql.Date(date.getTime());
-            return "UPDATE dbo.tags set [t_value_int] = " + value 
+            return "UPDATE dbo.tags set [t_value_int] = " + value
                     + ", t_value_date = " + timestamp + " WHERE t_id = " + id;
         } else if (column.matches("t_value_bool")) {
             Date date = new Date();
             java.sql.Date timestamp = new java.sql.Date(date.getTime());
-            return "UPDATE dbo.tags set [t_value_bool] = " + value 
+            return "UPDATE dbo.tags set [t_value_bool] = " + value
                     + ", t_value_date = " + timestamp + " WHERE t_id = " + id;
         } else if (column.matches("t_value_date")) {
             return "UPDATE dbo.tags set [t_value_date] = " + value + " WHERE t_id = " + id;

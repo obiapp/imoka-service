@@ -29,6 +29,10 @@ public abstract class AbstractFacade<T> {
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
+    
+    public AbstractFacade(){
+        
+    }
 
     protected abstract Connection getConnectionMannager();
     

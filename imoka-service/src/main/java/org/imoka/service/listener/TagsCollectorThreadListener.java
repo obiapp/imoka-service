@@ -13,7 +13,7 @@ public interface TagsCollectorThreadListener {
     Boolean running = false;
 
     /**
-     * <h3>onProcessingThread</h3>
+     * onProcessingThread
      *
      * <p>
      * Main process is on going in the run loop
@@ -22,7 +22,7 @@ public interface TagsCollectorThreadListener {
     void onProcessingThread();
 
     /**
-     * <h3>onOldingThread</h3>
+     * onOldingThread
      *
      * <p>
      * On olding thread, main loop still processing waiting for restart. In this

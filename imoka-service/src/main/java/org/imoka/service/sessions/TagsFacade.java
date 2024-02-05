@@ -18,7 +18,7 @@ import org.imoka.util.Util;
  *
  * @author r.hendrick
  */
-public class TagsFacade extends AbstractFacade<Tags> {
+public final class TagsFacade {
 
     public enum ValueType {
         BOOL("Boolean"),
@@ -33,13 +33,20 @@ public class TagsFacade extends AbstractFacade<Tags> {
 
     }
 
-    public TagsFacade(Class<Tags> entityClass) {
-        super(entityClass);
+    private static TagsFacade INSTANCE;
+
+    public static TagsFacade getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new TagsFacade();
+        }
+        return INSTANCE;
+    }
+
+    public TagsFacade() {
     }
 
     Connection conn = null;
 
-    @Override
     protected Connection getConnectionMannager() {
         if (conn == null) {
             conn = DatabaseFrame.toConnection(DatabaseModel.databaseModel());
@@ -175,7 +182,7 @@ public class TagsFacade extends AbstractFacade<Tags> {
         }
         return lst;
     }
- 
+
     /**
      * Convenient method to find all content
      *
