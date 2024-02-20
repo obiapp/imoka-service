@@ -151,7 +151,7 @@ public class ManagerControllerThread extends Thread implements TagsCollectorThre
                 long now2 = Instant.now().toEpochMilli();
 
                 // Process only if minimum time is respected
-                if ((now2 - requestEpoch) >= 1000) {
+                if ((now2 - requestEpoch) >= 3000) {
                     onceOnStop = true;
 
                     // change epoch reference
@@ -194,8 +194,10 @@ public class ManagerControllerThread extends Thread implements TagsCollectorThre
                                 if (!t.isAlive()) {
                                     t.start();
                                 }
+                                t.addClientListener(this);
                                 // add the new collection to the tags collector manager
                                 tagsCollectorManaged.add(t);
+                                tagsCollectorThreadListeners.add(t);
                             }
                         });
                     }
@@ -246,6 +248,7 @@ public class ManagerControllerThread extends Thread implements TagsCollectorThre
         String methodName = getClass().getSimpleName() + " : onKillProcessThread(Machines m) >> ";
         Util.out(methodName + "Machine connection " + t.getMachine().getAddress() + " remove done !");
         tagsCollectorManaged.remove(t);
+        tagsCollectorThreadListeners.remove(t);
 
         // 1 ! Remove listener !!!!
         Util.out(methodName + " You didn't  remove listener !!!!!! ");

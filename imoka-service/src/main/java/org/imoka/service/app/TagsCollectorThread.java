@@ -126,6 +126,10 @@ public class TagsCollectorThread extends Thread implements TagsCollectorThreadLi
         while (!requestKill) {
             long requestEpoch = 0; // allow firstime play
             // Main loop
+
+            if (machine == null) {
+                this.doStop();
+            }
             while (!requestStop) {
                 if (running == false) {
                     tagsCollectorThreadListeners.stream().forEach((tagCollectorThreadListener) -> {
@@ -135,107 +139,102 @@ public class TagsCollectorThread extends Thread implements TagsCollectorThreadLi
                 // Set processus in run mode
                 running = true;
                 onceOnMain = true;
-                int requestEpochCnt = 0;
-                // Minimum One second between request
-                long now = Instant.now().toEpochMilli();
-                long delay = (now - requestEpoch);
-                if (delay < 1000) {
-                    long d = 1000 - delay;
-                    try {
-                        sleep(d);
-                    } catch (InterruptedException ex) {
-                        Util.out(methodName + " > Unable to sleep for minimum dealy time !" + ex.getLocalizedMessage());
-                        Logger.getLogger(TagsCollectorThread.class.getName()).log(Level.SEVERE, null, ex);
+
+                //2- create S7 connection to PLC
+                MachineConnection mc = new MachineConnection(machine);
+                while (mc.doConnect() & !requestStop & !requestKill) {
+
+                    int requestEpochCnt = 0;
+                    // Minimum One second between request
+                    long now = Instant.now().toEpochMilli();
+                    long delay = (now - requestEpoch);
+                    if (delay < 1000) {
+                        long d = 1000 - delay;
+                        try {
+                            sleep(d);
+                        } catch (InterruptedException ex) {
+                            Util.out(methodName + " > Unable to sleep for minimum dealy time !" + ex.getLocalizedMessage());
+                            Logger.getLogger(TagsCollectorThread.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
-                }
-                long now2 = Instant.now().toEpochMilli();
+                    long now2 = Instant.now().toEpochMilli();
 
-                // Process only if minimum time is respected
-                if ((now2 - requestEpoch) >= 1000) {
-                    onceOnStop = true;
+                    // Process only if minimum time is respected
+                    if ((now2 - requestEpoch) >= 1000) {
+                        onceOnStop = true;
 
-                    // change epoch reference
-                    requestEpoch = Instant.now().toEpochMilli();
-                    requestEpochCnt = 0;
+                        // change epoch reference
+                        requestEpoch = Instant.now().toEpochMilli();
+                        requestEpochCnt = 0;
 
-                    // Refresh list of available machine
-                    List<Machines> machines = machinesFacade.findAll();
-
-                    // For each machine 
-                    // 1- Check if available tag to collect on it by recovering the associate list
-                    // 2- If available data to collect, create s7 connection to PLC
-                    // 3- For each tag
-                    // 3.1- Detect type of data
-                    // 3.2- Read data to it
-                    // 3.3- Store data to corresponding line
-                    // 4- Close connection to PLC
-                    machines.stream().forEach((machine) -> {
+                        // check if connection exist, if not create !
                         List<Tags> tags = tagsFacade.findActiveByMachine(machine.getId());
 
                         if (tags != null) {
                             if (tags.size() != 0) {
-                                //2- create S7 connection to PLC
-                                MachineConnection mc = new MachineConnection(machine);
-                                if (mc.doConnect()) { // Check if connection is working
-                                    tags.stream().forEach((tag) -> {
-                                        // Collect only if cyle time is reached since last change
-                                        Date date = tag.getTValueDate();
-                                        long savedEpoch = date.toInstant().toEpochMilli();
-                                        long cycleTime = tag.getTCycle() * 1000; // sec
-                                        long now3 = Instant.now().toEpochMilli();
-                                        if ((now3 - savedEpoch) > cycleTime) {
-                                            // Init. default value
-                                            tag.setTValueBool(false);
-                                            tag.setTValueFloat(0.0);
-                                            tag.setTValueInt(0);
-                                            tag.setTValueDate(Date.from(Instant.now()));
 
-                                            List<TagsTypes> tagsTypes = tagsTypesFacade.findId(tag.getTType().getTtId());
+                                tags.stream().forEach((tag) -> {
+                                    // Collect only if cyle time is reached since last change
+                                    Date date = tag.getTValueDate();
+                                    long savedEpoch = date.toInstant().toEpochMilli();
+                                    long cycleTime = tag.getTCycle() * 1000; // sec
+                                    long now3 = Instant.now().toEpochMilli();
+                                    if ((now3 - savedEpoch) > cycleTime) {
+                                        // Init. default value
+                                        tag.setTValueBool(false);
+                                        tag.setTValueFloat(0.0);
+                                        tag.setTValueInt(0);
+                                        tag.setTValueDate(Date.from(Instant.now()));
 
-                                            if (tagsTypes != null) {
-                                                TagsTypes tagType = tagsTypes.get(0);
-                                                tag.setTType(tagType);
-                                                mc.readValue(tag);
-                                                tagsFacade.updateOnValue(tag);
-                                            } else {
-                                                Util.out(methodName + " Unable to find type " + tag.getTType() + " for tag " + tag);
-                                            }
+                                        List<TagsTypes> tagsTypes = tagsTypesFacade.findId(tag.getTType().getTtId());
+
+                                        if (tagsTypes != null) {
+                                            TagsTypes tagType = tagsTypes.get(0);
+                                            tag.setTType(tagType);
+                                            mc.readValue(tag);
+                                            tagsFacade.updateOnValue(tag);
+                                        } else {
+                                            Util.out(methodName + " Unable to find type " + tag.getTType() + " for tag " + tag);
                                         }
-                                    });
-                                } else {
-                                    Util.out(methodName + " Unable to connect to client S7 machine = " + machine);
-                                }
-                                mc.close();
+                                    }
+                                });
                             } else {
-                                Util.out(methodName + " empty list tag found for machine = " + machine);
+                                Util.out(methodName + " Unable to connect to client S7 machine = " + machine);
                             }
+                            mc.close();
                         } else {
-                            Util.out(methodName + " No tags found for machine = " + machine);
+                            Util.out(methodName + " empty list tag found for machine = " + machine);
                         }
-                    });
-                } else {
-                    requestEpochCnt++;
-                    if (requestEpochCnt >= 2) {
-                        Util.out(methodName + "Epoch not reach more than 2 times : " + requestEpochCnt
-                                + " time : " + now + " - " + requestEpoch + " = " + (now - requestEpoch));
+
                     } else {
-                        Util.out(methodName + "Epoch not reached ! "
-                                + now + " - " + requestEpoch + " = " + (now - requestEpoch));
+                        requestEpochCnt++;
+                        if (requestEpochCnt >= 2) {
+                            Util.out(methodName + "Epoch not reach more than 2 times : " + requestEpochCnt
+                                    + " time : " + now + " - " + requestEpoch + " = " + (now - requestEpoch));
+                        } else {
+                            Util.out(methodName + "Epoch not reached ! "
+                                    + now + " - " + requestEpoch + " = " + (now - requestEpoch));
+                        }
+                    }
+                    if (onceOnStop) {
+                        onceOnStop = false;
                     }
                 }
-                if (onceOnStop) {
-                    onceOnStop = false;
-                }
-            }
-            running = false; //!< indicate end of processus running
-            if (onceOnMain) {
-                Util.out("TagCollectorThread >> run >> back to mainLoop");
-                onceOnMain = false;
-                tagsCollectorThreadListeners.stream().forEach((tagCollectorThreadListener) -> {
-                    tagCollectorThreadListener.onOldingThread();
-                });
-            }
 
+                running = false; //!< indicate end of processus running
+                if (onceOnMain) {
+                    Util.out("TagCollectorThread >> run >> back to mainLoop");
+                    onceOnMain = false;
+                    tagsCollectorThreadListeners.stream().forEach((tagCollectorThreadListener) -> {
+                        tagCollectorThreadListener.onOldingThread();
+                    });
+                }
+                
+                if(requestKill){
+                    doStop();
+                }
+
+            }
             try {
                 sleep(500);
             } catch (InterruptedException ex) {
