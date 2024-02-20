@@ -18,6 +18,7 @@ import org.imoka.service.Form.MainWindow;
 import org.imoka.service.Form.SettingFrame;
 import org.imoka.service.Form.WorkspaceExample;
 import org.imoka.service.app.ConnexionForm;
+import org.imoka.service.app.ManagerControllerThread;
 import org.imoka.service.app.TagCollectorThread;
 import org.imoka.service.listener.DatabaseInfoActionListener;
 import org.imoka.util.Settings;
@@ -136,7 +137,7 @@ public class ImokaServiceTrayIcon {
         final SystemTray tray = SystemTray.getSystemTray();
 
         // Managing main thread
-        TagCollectorThread tct = new TagCollectorThread(trayIcon);
+        ManagerControllerThread tct = new ManagerControllerThread(trayIcon);
 
         // MainFrame
         MainWindow mw = new MainWindow(trayIcon, tct);

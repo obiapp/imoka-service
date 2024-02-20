@@ -4,6 +4,9 @@
  */
 package org.imoka.service.listener;
 
+import org.imoka.service.app.TagsCollectorThread;
+import org.imoka.service.entities.Machines;
+
 /**
  *
  * @author r.hendrick
@@ -30,4 +33,12 @@ public interface TagsCollectorThreadListener {
      * </p>
      */
     void onOldingThread();
+    
+    /**
+     * onKillProcessThread
+     * 
+     * <p>
+     * 
+     */
+    void onKillProcessThread(TagsCollectorThread m);
 }

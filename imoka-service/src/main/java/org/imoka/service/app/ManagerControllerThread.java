@@ -7,8 +7,6 @@ package org.imoka.service.app;
 import org.imoka.service.listener.TagsCollectorThreadListener;
 import java.awt.TrayIcon;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,20 +15,22 @@ import java.util.logging.Logger;
 import org.imoka.service.entities.Machines;
 import org.imoka.service.entities.Tags;
 import org.imoka.service.entities.TagsTypes;
-import org.imoka.service.listener.ConnectionListener;
-import org.imoka.service.model.DatabaseModel;
 import org.imoka.service.sessions.MachinesFacade;
 import org.imoka.service.sessions.TagsFacade;
 import org.imoka.service.sessions.TagsTypesFacade;
 import org.imoka.util.Ico;
-import org.imoka.util.Settings;
 import org.imoka.util.Util;
 
 /**
+ * Manage list of connection over an existing list ????? and the database actual
+ * defined machine. Then on the existing list it start by opening connection
+ * than let the tag collector to process collection of datas. Finaly one stop or
+ * finished request collection or connection dropped close communication to
+ * machine
  *
  * @author r.hendrick
  */
-public class TagCollectorThread extends Thread implements TagsCollectorThreadListener {
+public class ManagerControllerThread extends Thread implements TagsCollectorThreadListener {
 
     // Allow to display message on processing
     private TrayIcon trayIcon;
@@ -40,6 +40,9 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
     private Boolean requestStop = false;
     private boolean requestKill = false;
     private boolean running = false;
+
+    //!< List of machines already managed by Manager controller
+    List<TagsCollectorThread> tagsCollectorManaged = new ArrayList<>();
 
     /**
      * Array list which contain all the TagsCollectorThreadListener listeners
@@ -70,12 +73,12 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
     /**
      * Creates new form
      */
-    public TagCollectorThread() {
+    public ManagerControllerThread() {
         trayIcon = new TrayIcon(Ico.i16(APP_ICO, this).getImage());
 
     }
 
-    public TagCollectorThread(TrayIcon trayIcon) {
+    public ManagerControllerThread(TrayIcon trayIcon) {
         this.trayIcon = trayIcon;
     }
 
@@ -142,7 +145,7 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
                         sleep(d);
                     } catch (InterruptedException ex) {
                         Util.out(methodName + " > Unable to sleep for minimum dealy time !" + ex.getLocalizedMessage());
-                        Logger.getLogger(TagCollectorThread.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ManagerControllerThread.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 long now2 = Instant.now().toEpochMilli();
@@ -158,58 +161,45 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
                     // Refresh list of available machine
                     List<Machines> machines = machinesFacade.findAll();
 
-                    // For each machine 
-                    // 1- Check if available tag to collect on it by recovering the associate list
-                    // 2- If available data to collect, create s7 connection to PLC
-                    // 3- For each tag
-                    // 3.1- Detect type of data
-                    // 3.2- Read data to it
-                    // 3.3- Store data to corresponding line
-                    // 4- Close connection to PLC
-                    machines.stream().forEach((machine) -> {
-                        List<Tags> tags = tagsFacade.findActiveByMachine(machine.getId());
+                    // Actualize machine managed list
+                    // 1. Remove deleted connection from managed list
+                    // 2. Check for une connection to be initiated
+                    if (!machines.isEmpty() || !tagsCollectorManaged.isEmpty()) {
 
-                        if (tags != null) {
-                            if (tags.size() != 0) {
-                                //2- create S7 connection to PLC
-                                MachineConnection mc = new MachineConnection(machine);
-                                if (mc.doConnect()) { // Check if connection is working
-                                    tags.stream().forEach((tag) -> {
-                                        // Collect only if cyle time is reached since last change
-                                        Date date = tag.getTValueDate();
-                                        long savedEpoch = date.toInstant().toEpochMilli();
-                                        long cycleTime = tag.getTCycle() * 1000; // sec
-                                        long now3 = Instant.now().toEpochMilli();
-                                        if ((now3 - savedEpoch) > cycleTime) {
-                                            // Init. default value
-                                            tag.setTValueBool(false);
-                                            tag.setTValueFloat(0.0);
-                                            tag.setTValueInt(0);
-                                            tag.setTValueDate(Date.from(Instant.now()));
-
-                                            List<TagsTypes> tagsTypes = tagsTypesFacade.findId(tag.getTType().getTtId());
-
-                                            if (tagsTypes != null) {
-                                                TagsTypes tagType = tagsTypes.get(0);
-                                                tag.setTType(tagType);
-                                                mc.readValue(tag);
-                                                tagsFacade.updateOnValue(tag);
-                                            } else {
-                                                Util.out(methodName + " Unable to find type " + tag.getTType() + " for tag " + tag);
-                                            }
-                                        }
-                                    });
-                                } else {
-                                    Util.out(methodName + " Unable to connect to client S7 machine = " + machine);
-                                }
-                                mc.close();
-                            } else {
-                                Util.out(methodName + " empty list tag found for machine = " + machine);
+                        // 1. REMOVE DELETED CONNECTION IN DATABASE FROM MANAGED LIST
+                        // 1.1. Recover machine to remove
+                        tagsCollectorManaged.stream().forEach((tagsCollector) -> {
+                            // > Check in database if still existing : if true do not remove otherwise remove
+                            if (!machines.contains(tagsCollector.getMachine())) {
+                                // 1.2. Request to kill this thread collector 
+                                // @see void onKillProcessThread(Machines m)
+                                tagsCollector.kill();
                             }
-                        } else {
-                            Util.out(methodName + " No tags found for machine = " + machine);
-                        }
-                    });
+                        });
+
+                        // 2 CHECK FOR NEW CONNECTION TO BE INITIATED
+                        // 2.1. Recreate list of existing machine
+                        List<Machines> machinesManaged = new ArrayList<>();
+                        tagsCollectorManaged.stream().forEach((tagsCollector) -> {
+                            machinesManaged.add(tagsCollector.getMachine());
+                        });
+
+                        // 2.2. Create new machine
+                        machines.stream().forEach((machine) -> {
+                            // Create not existing connection and start them
+                            if (!machinesManaged.contains(machine)) {
+                                // Create a new machine connection and start execution
+                                TagsCollectorThread t = new TagsCollectorThread(machine);
+                                t.doRelease();
+                                if (!t.isAlive()) {
+                                    t.start();
+                                }
+                                // add the new collection to the tags collector manager
+                                tagsCollectorManaged.add(t);
+                            }
+                        });
+                    }
+
                 } else {
                     requestEpochCnt++;
                     if (requestEpochCnt >= 2) {
@@ -236,7 +226,7 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
             try {
                 sleep(500);
             } catch (InterruptedException ex) {
-                Logger.getLogger(TagCollectorThread.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ManagerControllerThread.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -252,11 +242,14 @@ public class TagCollectorThread extends Thread implements TagsCollectorThreadLis
     }
 
     @Override
-    public void onKillProcessThread(TagsCollectorThread m) {
-        Util.out("TagsCollectorThread >> Not defined !!!");
-        ///throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void onKillProcessThread(TagsCollectorThread t) {
+        String methodName = getClass().getSimpleName() + " : onKillProcessThread(Machines m) >> ";
+        Util.out(methodName + "Machine connection " + t.getMachine().getAddress() + " remove done !");
+        tagsCollectorManaged.remove(t);
+
+        // 1 ! Remove listener !!!!
+        Util.out(methodName + " You didn't  remove listener !!!!!! ");
+
     }
-
-
 
 }

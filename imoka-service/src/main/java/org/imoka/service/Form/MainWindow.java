@@ -11,7 +11,6 @@ import com.formdev.flatlaf.intellijthemes.FlatSolarizedDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme;
-import java.awt.Frame;
 import java.awt.Insets;
 import java.awt.TrayIcon;
 import java.beans.PropertyVetoException;
@@ -23,7 +22,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.SwingUtilities;
@@ -34,11 +32,10 @@ import javax.swing.event.InternalFrameListener;
 import org.imoka.service.Form.output.CapturePane;
 import org.imoka.service.Form.output.StreamCapturer;
 import org.imoka.service.ImokaServiceTrayIcon;
-import org.imoka.service.app.TagCollectorThread;
+import org.imoka.service.app.ManagerControllerThread;
+import org.imoka.service.app.TagsCollectorThread;
 import org.imoka.service.listener.TagsCollectorThreadListener;
 import org.imoka.service.model.DatabaseModel;
-import org.imoka.service.services.CustomOutputStream;
-import org.imoka.util.Settings;
 import org.imoka.util.Util;
 
 /**
@@ -58,12 +55,12 @@ public class MainWindow extends javax.swing.JFrame implements
     }
 
     TrayIcon trayIcon;
-    TagCollectorThread tct;
+    ManagerControllerThread tct;
 
     /**
      * Creates new form MainWindow
      */
-    public MainWindow(TrayIcon trayIcon, TagCollectorThread tct) {
+    public MainWindow(TrayIcon trayIcon, ManagerControllerThread tct) {
         initComponents();
         this.trayIcon = trayIcon;
         this.tct = tct;
@@ -851,6 +848,11 @@ public class MainWindow extends javax.swing.JFrame implements
         trayIcon.displayMessage("OBI",
                 "Tags collector est arrêté !",
                 TrayIcon.MessageType.INFO);
+    }
+
+    @Override
+    public void onKillProcessThread(TagsCollectorThread m) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

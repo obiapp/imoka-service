@@ -22,6 +22,9 @@ import org.imoka.util.Ico;
 import org.imoka.util.Util;
 
 /**
+ * Tags collector thread, has the main purpose to get tags value over a machine.
+ * First, connection need to be open with a machine, Than, tags can be
+ * collected, At the en connection need to be close with a machine.
  *
  * @author r.hendrick
  */
@@ -31,13 +34,13 @@ public class TagsCollectorThread extends Thread implements TagsCollectorThreadLi
     private TrayIcon trayIcon;
     private final String APP_ICO = "/img/obi/obi-signet-dark.png";
 
-    // Machine
-    private Machines machine = null; //!< <p> refer to selected machine in usted</p>
-
     // Allow to stop process run
     private Boolean requestStop = false;
     private boolean requestKill = false;
     private boolean running = false;
+
+    //!< Machine on which we collecting data
+    private Machines machine;
 
     /**
      * Array list which contain all the TagsCollectorThreadListener listeners
@@ -58,113 +61,24 @@ public class TagsCollectorThread extends Thread implements TagsCollectorThreadLi
     /**
      * Allow to remove listener to the list of event listener
      *
-     * @param _tagsCollectorThreadListeners listener to be removed
+     * @param _tagsCollectorThreadListeners a class which will listen to service
+     * event
      */
     public void removeClientListener(TagsCollectorThreadListener _tagsCollectorThreadListeners) {
         this.tagsCollectorThreadListeners.remove(_tagsCollectorThreadListeners);
     }
 
     /**
-     * Tags Collector Thread process data collecting from one machine with
-     * default parameters
-     * <p>
-     * Tags collector is a thread. This thread process data collecting from only
-     * one machine at a time. This mean only on machine can be processed.
-     *
-     * This is default constructor that will create default trayIcon parameter
-     * if this was not defined. In this case, selected machine remain with null
-     * value
-     *
-     * @see TagsCollectorThread#TagsCollectorThread()
-     * @see
-     * TagsCollectorThread#TagsCollectorThread(org.imoka.service.entities.Machines)
-     * @see TagsCollectorThread#TagsCollectorThread(java.awt.TrayIcon)
-     * @see
-     * TagsCollectorThread#TagsCollectorThread(org.imoka.service.entities.Machines,
-     * java.awt.TrayIcon) )
-     *
-     */
-    public TagsCollectorThread() {
-        trayIcon = new TrayIcon(Ico.i16(APP_ICO, this).getImage());
-    }
-
-    /**
-     * Tags Collector Thread with trayIcon
-     * <p>
-     * Tags collector is a thread. This thread process data collecting from only
-     * one machine at a time. This mean only on machine can be processed.
-     *
-     * This is constructor that will use trayIcon existing parameter.
-     *
-     *
-     *
-     * @param trayIcon specify trayIcon that should be used to communicate to
-     * application
-     *
-     * @see TagsCollectorThread#TagsCollectorThread()
-     * @see
-     * TagsCollectorThread#TagsCollectorThread(org.imoka.service.entities.Machines)
-     * @see TagsCollectorThread#TagsCollectorThread(java.awt.TrayIcon)
-     * @see
-     * TagsCollectorThread#TagsCollectorThread(org.imoka.service.entities.Machines,
-     * java.awt.TrayIcon) )
-     */
-    public TagsCollectorThread(TrayIcon trayIcon) {
-        this.trayIcon = trayIcon;
-    }
-
-    /**
-     * Tags Collector Thread with machine and trayIcon
-     * <p>
-     * Tags collector is a thread. This thread process data collecting from only
-     * one machine at a time. This mean only on machine can be processed.
-     *
-     * This is constructor that will use trayIcon existing parameter.
-     *
-     *
-     *
-     * @param machine the selected machine to use.
-     * @param trayIcon specify trayIcon that should be used to communicate to
-     * application
-     *
-     * @see TagsCollectorThread#TagsCollectorThread()
-     * @see
-     * TagsCollectorThread#TagsCollectorThread(org.imoka.service.entities.Machines)
-     * @see TagsCollectorThread#TagsCollectorThread(java.awt.TrayIcon)
-     * @see
-     * TagsCollectorThread#TagsCollectorThread(org.imoka.service.entities.Machines,
-     * java.awt.TrayIcon) )
-     *
-     */
-    public TagsCollectorThread(Machines machine, TrayIcon trayIcon) {
-        this.trayIcon = trayIcon;
-        this.machine = machine;
-    }
-
-    /**
-     * Tags Collector Thread with machine
-     * <p>
-     * Tags collector is a thread. This thread process data collecting from only
-     * one machine at a time. This mean only on machine can be processed.
-     *
-     * This is constructor that will use trayIcon existing parameter.
-     *
-     *
-     * @param machine the selected machine to use.
-     *
-     *
-     *
-     * @see TagsCollectorThread#TagsCollectorThread()
-     * @see
-     * TagsCollectorThread#TagsCollectorThread(org.imoka.service.entities.Machines)
-     * @see TagsCollectorThread#TagsCollectorThread(java.awt.TrayIcon)
-     * @see
-     * TagsCollectorThread#TagsCollectorThread(org.imoka.service.entities.Machines,
-     * java.awt.TrayIcon) )
+     * Creates new form
      */
     public TagsCollectorThread(Machines machine) {
-        trayIcon = new TrayIcon(Ico.i16(APP_ICO,
-                this).getImage());
+        trayIcon = new TrayIcon(Ico.i16(APP_ICO, this).getImage());
+        this.machine = machine;
+
+    }
+
+    public TagsCollectorThread(Machines machine, TrayIcon trayIcon) {
+        this.trayIcon = trayIcon;
         this.machine = machine;
     }
 
@@ -193,39 +107,29 @@ public class TagsCollectorThread extends Thread implements TagsCollectorThreadLi
     }
 
     /**
-     * run
-     *
-     * <p>
-     * Tags collector main loop process. This loop initiate connection to facade
-     * machines, tags, tagsTypes. main process loop will start until it is
-     * killed by calling @see kiill
-     *
-     *
+     * Main loop of the thread data collector
      */
     @Override
     public void run() {
-        // Base process
-        super.run();
-        String methodName = getClass().getSimpleName() + " : run() < ";
+        super.run(); //To change body of generated methods, choose Tools | Templates.
+        String methodName = getClass().getSimpleName() + " : run() >> ";
 
-        // Link once to facade
+        // Récupération des facades de communication bdd
         MachinesFacade machinesFacade = new MachinesFacade(Machines.class);
         TagsFacade tagsFacade = TagsFacade.getInstance();
         TagsTypesFacade tagsTypesFacade = new TagsTypesFacade(TagsTypes.class);
-        //2- create S7 connection to PLC
-        MachineConnection mc = new MachineConnection(machine);
 
         // Int Main Loop 
         Integer mainLoop = 0;
         boolean onceOnMain = false; // only display once
         boolean onceOnStop = false; // only display once
         while (!requestKill) {
-            long requestEpoch = 0; // allow firstime paly
+            long requestEpoch = 0; // allow firstime play
             // Main loop
             while (!requestStop) {
                 if (running == false) {
-                    tagsCollectorThreadListeners.stream().forEach((tagsCollectorThreadListener) -> {
-                        tagsCollectorThreadListener.onProcessingThread();
+                    tagsCollectorThreadListeners.stream().forEach((tagCollectorThreadListener) -> {
+                        tagCollectorThreadListener.onProcessingThread();
                     });
                 }
                 // Set processus in run mode
@@ -254,57 +158,61 @@ public class TagsCollectorThread extends Thread implements TagsCollectorThreadLi
                     requestEpoch = Instant.now().toEpochMilli();
                     requestEpochCnt = 0;
 
-                    // For selected machine
+                    // Refresh list of available machine
+                    List<Machines> machines = machinesFacade.findAll();
+
+                    // For each machine 
                     // 1- Check if available tag to collect on it by recovering the associate list
                     // 2- If available data to collect, create s7 connection to PLC
-                    // 3- Now LOOP OVER EXISTING TAGS
-                    // 4- For each tag
-                    // 4.1- Detect type of data
-                    // 4.2- Read data to it
-                    // 4.3- Store data to corresponding line
-                    // 5- Close connection to PLC
-                    List<Tags> tags = tagsFacade.findActiveByMachine(machine.getId());
+                    // 3- For each tag
+                    // 3.1- Detect type of data
+                    // 3.2- Read data to it
+                    // 3.3- Store data to corresponding line
+                    // 4- Close connection to PLC
+                    machines.stream().forEach((machine) -> {
+                        List<Tags> tags = tagsFacade.findActiveByMachine(machine.getId());
 
-                    if (tags != null) {
-                        if (!tags.isEmpty()) {
-                            if (mc.doConnect()) { // Check if connection is working
-                                tags.stream().forEach((tag) -> {
-                                    // Collect only if cyle time is reached since last change
-                                    Date date = tag.getTValueDate();
-                                    long savedEpoch = date.toInstant().toEpochMilli();
-                                    long cycleTime = tag.getTCycle() * 1000; // sec
-                                    long now3 = Instant.now().toEpochMilli();
-                                    if ((now3 - savedEpoch) > cycleTime) {
-                                        // Init. default value
-                                        tag.setTValueBool(false);
-                                        tag.setTValueFloat(0.0);
-                                        tag.setTValueInt(0);
-                                        tag.setTValueDate(Date.from(Instant.now()));
+                        if (tags != null) {
+                            if (tags.size() != 0) {
+                                //2- create S7 connection to PLC
+                                MachineConnection mc = new MachineConnection(machine);
+                                if (mc.doConnect()) { // Check if connection is working
+                                    tags.stream().forEach((tag) -> {
+                                        // Collect only if cyle time is reached since last change
+                                        Date date = tag.getTValueDate();
+                                        long savedEpoch = date.toInstant().toEpochMilli();
+                                        long cycleTime = tag.getTCycle() * 1000; // sec
+                                        long now3 = Instant.now().toEpochMilli();
+                                        if ((now3 - savedEpoch) > cycleTime) {
+                                            // Init. default value
+                                            tag.setTValueBool(false);
+                                            tag.setTValueFloat(0.0);
+                                            tag.setTValueInt(0);
+                                            tag.setTValueDate(Date.from(Instant.now()));
 
-                                        List<TagsTypes> tagsTypes = tagsTypesFacade.findId(tag.getTType().getTtId());
+                                            List<TagsTypes> tagsTypes = tagsTypesFacade.findId(tag.getTType().getTtId());
 
-                                        if (tagsTypes != null) {
-                                            TagsTypes tagType = tagsTypes.get(0);
-                                            tag.setTType(tagType);
-                                            mc.readValue(tag);
-                                            tagsFacade.updateOnValue(tag);
-                                        } else {
-                                            Util.out(methodName + " Unable to find type " + tag.getTType() + " for tag " + tag);
+                                            if (tagsTypes != null) {
+                                                TagsTypes tagType = tagsTypes.get(0);
+                                                tag.setTType(tagType);
+                                                mc.readValue(tag);
+                                                tagsFacade.updateOnValue(tag);
+                                            } else {
+                                                Util.out(methodName + " Unable to find type " + tag.getTType() + " for tag " + tag);
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                                } else {
+                                    Util.out(methodName + " Unable to connect to client S7 machine = " + machine);
+                                }
+                                mc.close();
                             } else {
-                                Util.out(methodName + " Unable to connect to client S7 machine = " + machine);
+                                Util.out(methodName + " empty list tag found for machine = " + machine);
                             }
-
-                            mc.close();
                         } else {
-                            Util.out(methodName + " empty list tag found for machine = " + machine);
+                            Util.out(methodName + " No tags found for machine = " + machine);
                         }
-                    } else {
-                        Util.out(methodName + " No tags found for machine = " + machine);
-                    }
-
+                    });
                 } else {
                     requestEpochCnt++;
                     if (requestEpochCnt >= 2) {
@@ -334,6 +242,19 @@ public class TagsCollectorThread extends Thread implements TagsCollectorThreadLi
                 Logger.getLogger(TagsCollectorThread.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+        // Inform all manager that connection can be dropped
+        tagsCollectorThreadListeners.stream().forEach((tagCollectorThreadListener) -> {
+            tagCollectorThreadListener.onKillProcessThread(this);
+        });
+    }
+
+    public Machines getMachine() {
+        return machine;
+    }
+
+    public void setMachine(Machines machine) {
+        this.machine = machine;
     }
 
     @Override
@@ -344,6 +265,10 @@ public class TagsCollectorThread extends Thread implements TagsCollectorThreadLi
     @Override
     public void onOldingThread() {
 
+    }
+
+    @Override
+    public void onKillProcessThread(TagsCollectorThread t) {
     }
 
 }
